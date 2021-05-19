@@ -1,0 +1,1058 @@
+[
+  {
+    "countryCode": "ABW",
+    "population": 106314
+  },
+  {
+    "countryCode": "AFG",
+    "population": 38041754
+  },
+  {
+    "countryCode": "AGO",
+    "population": 31825295
+  },
+  {
+    "countryCode": "ALB",
+    "population": 2854191
+  },
+  {
+    "countryCode": "AND",
+    "population": 77142
+  },
+  {
+    "countryCode": "ARB",
+    "population": 427870270
+  },
+  {
+    "countryCode": "ARE",
+    "population": 9770529
+  },
+  {
+    "countryCode": "ARG",
+    "population": 44938712
+  },
+  {
+    "countryCode": "ARM",
+    "population": 2957731
+  },
+  {
+    "countryCode": "ASM",
+    "population": 55312
+  },
+  {
+    "countryCode": "ATG",
+    "population": 97118
+  },
+  {
+    "countryCode": "AUS",
+    "population": 25364307
+  },
+  {
+    "countryCode": "AUT",
+    "population": 8877067
+  },
+  {
+    "countryCode": "AZE",
+    "population": 10023318
+  },
+  {
+    "countryCode": "BDI",
+    "population": 11530580
+  },
+  {
+    "countryCode": "BEL",
+    "population": 11484055
+  },
+  {
+    "countryCode": "BEN",
+    "population": 11801151
+  },
+  {
+    "countryCode": "BFA",
+    "population": 20321378
+  },
+  {
+    "countryCode": "BGD",
+    "population": 163046161
+  },
+  {
+    "countryCode": "BGR",
+    "population": 6975761
+  },
+  {
+    "countryCode": "BHR",
+    "population": 1641172
+  },
+  {
+    "countryCode": "BHS",
+    "population": 389482
+  },
+  {
+    "countryCode": "BIH",
+    "population": 3301000
+  },
+  {
+    "countryCode": "BLR",
+    "population": 9466856
+  },
+  {
+    "countryCode": "BLZ",
+    "population": 390353
+  },
+  {
+    "countryCode": "BMU",
+    "population": 63918
+  },
+  {
+    "countryCode": "BOL",
+    "population": 11513100
+  },
+  {
+    "countryCode": "BRA",
+    "population": 211049527
+  },
+  {
+    "countryCode": "BRB",
+    "population": 287025
+  },
+  {
+    "countryCode": "BRN",
+    "population": 433285
+  },
+  {
+    "countryCode": "BTN",
+    "population": 763092
+  },
+  {
+    "countryCode": "BWA",
+    "population": 2303697
+  },
+  {
+    "countryCode": "CAF",
+    "population": 4745185
+  },
+  {
+    "countryCode": "CAN",
+    "population": 37589262
+  },
+  {
+    "countryCode": "CEB",
+    "population": 102378579
+  },
+  {
+    "countryCode": "CHE",
+    "population": 8574832
+  },
+  {
+    "countryCode": "CHI",
+    "population": 172259
+  },
+  {
+    "countryCode": "CHL",
+    "population": 18952038
+  },
+  {
+    "countryCode": "CHN",
+    "population": 1397715000
+  },
+  {
+    "countryCode": "CIV",
+    "population": 25716544
+  },
+  {
+    "countryCode": "CMR",
+    "population": 25876380
+  },
+  {
+    "countryCode": "COD",
+    "population": 86790567
+  },
+  {
+    "countryCode": "COG",
+    "population": 5380508
+  },
+  {
+    "countryCode": "COL",
+    "population": 50339443
+  },
+  {
+    "countryCode": "COM",
+    "population": 850886
+  },
+  {
+    "countryCode": "CPV",
+    "population": 549935
+  },
+  {
+    "countryCode": "CRI",
+    "population": 5047561
+  },
+  {
+    "countryCode": "CSS",
+    "population": 7401383
+  },
+  {
+    "countryCode": "CUB",
+    "population": 11333483
+  },
+  {
+    "countryCode": "CUW",
+    "population": 157538
+  },
+  {
+    "countryCode": "CYM",
+    "population": 64948
+  },
+  {
+    "countryCode": "CYP",
+    "population": 1198575
+  },
+  {
+    "countryCode": "CZE",
+    "population": 10669709
+  },
+  {
+    "countryCode": "DEU",
+    "population": 83132799
+  },
+  {
+    "countryCode": "DJI",
+    "population": 973560
+  },
+  {
+    "countryCode": "DMA",
+    "population": 71808
+  },
+  {
+    "countryCode": "DNK",
+    "population": 5818553
+  },
+  {
+    "countryCode": "DOM",
+    "population": 10738958
+  },
+  {
+    "countryCode": "DZA",
+    "population": 43053054
+  },
+  {
+    "countryCode": "EAP",
+    "population": 2093675040
+  },
+  {
+    "countryCode": "EAR",
+    "population": 3290290613
+  },
+  {
+    "countryCode": "EAS",
+    "population": 2340628292
+  },
+  {
+    "countryCode": "ECA",
+    "population": 399404587
+  },
+  {
+    "countryCode": "ECS",
+    "population": 921140092
+  },
+  {
+    "countryCode": "ECU",
+    "population": 17373662
+  },
+  {
+    "countryCode": "EGY",
+    "population": 100388073
+  },
+  {
+    "countryCode": "EMU",
+    "population": 342597698
+  },
+  {
+    "countryCode": "ERI",
+    "population": 3213972
+  },
+  {
+    "countryCode": "ESP",
+    "population": 47076781
+  },
+  {
+    "countryCode": "EST",
+    "population": 1326590
+  },
+  {
+    "countryCode": "ETH",
+    "population": 112078730
+  },
+  {
+    "countryCode": "EUU",
+    "population": 447512041
+  },
+  {
+    "countryCode": "FCS",
+    "population": 798138587
+  },
+  {
+    "countryCode": "FIN",
+    "population": 5520314
+  },
+  {
+    "countryCode": "FJI",
+    "population": 889953
+  },
+  {
+    "countryCode": "FRA",
+    "population": 67059887
+  },
+  {
+    "countryCode": "FRO",
+    "population": 48678
+  },
+  {
+    "countryCode": "FSM",
+    "population": 113815
+  },
+  {
+    "countryCode": "GAB",
+    "population": 2172579
+  },
+  {
+    "countryCode": "GBR",
+    "population": 66834405
+  },
+  {
+    "countryCode": "GEO",
+    "population": 3720382
+  },
+  {
+    "countryCode": "GHA",
+    "population": 30417856
+  },
+  {
+    "countryCode": "GIB",
+    "population": 33701
+  },
+  {
+    "countryCode": "GIN",
+    "population": 12771246
+  },
+  {
+    "countryCode": "GMB",
+    "population": 2347706
+  },
+  {
+    "countryCode": "GNB",
+    "population": 1920922
+  },
+  {
+    "countryCode": "GNQ",
+    "population": 1355986
+  },
+  {
+    "countryCode": "GRC",
+    "population": 10716322
+  },
+  {
+    "countryCode": "GRD",
+    "population": 112003
+  },
+  {
+    "countryCode": "GRL",
+    "population": 56225
+  },
+  {
+    "countryCode": "GTM",
+    "population": 16604026
+  },
+  {
+    "countryCode": "GUM",
+    "population": 167294
+  },
+  {
+    "countryCode": "GUY",
+    "population": 782766
+  },
+  {
+    "countryCode": "HIC",
+    "population": 1235852838
+  },
+  {
+    "countryCode": "HKG",
+    "population": 7507400
+  },
+  {
+    "countryCode": "HND",
+    "population": 9746117
+  },
+  {
+    "countryCode": "HPC",
+    "population": 801708035
+  },
+  {
+    "countryCode": "HRV",
+    "population": 4067500
+  },
+  {
+    "countryCode": "HTI",
+    "population": 11263077
+  },
+  {
+    "countryCode": "HUN",
+    "population": 9769949
+  },
+  {
+    "countryCode": "IBD",
+    "population": 4816235953
+  },
+  {
+    "countryCode": "IBT",
+    "population": 6486934853
+  },
+  {
+    "countryCode": "IDA",
+    "population": 1670698900
+  },
+  {
+    "countryCode": "IDB",
+    "population": 561572202
+  },
+  {
+    "countryCode": "IDN",
+    "population": 270625568
+  },
+  {
+    "countryCode": "IDX",
+    "population": 1109126698
+  },
+  {
+    "countryCode": "IMN",
+    "population": 84584
+  },
+  {
+    "countryCode": "IND",
+    "population": 1366417754
+  },
+  {
+    "countryCode": "INX",
+    "population": "INX"
+  },
+  {
+    "countryCode": "IRL",
+    "population": 4941444
+  },
+  {
+    "countryCode": "IRN",
+    "population": 82913906
+  },
+  {
+    "countryCode": "IRQ",
+    "population": 39309783
+  },
+  {
+    "countryCode": "ISL",
+    "population": 361313
+  },
+  {
+    "countryCode": "ISR",
+    "population": 9053300
+  },
+  {
+    "countryCode": "ITA",
+    "population": 60297396
+  },
+  {
+    "countryCode": "JAM",
+    "population": 2948279
+  },
+  {
+    "countryCode": "JOR",
+    "population": 10101694
+  },
+  {
+    "countryCode": "JPN",
+    "population": 126264931
+  },
+  {
+    "countryCode": "KAZ",
+    "population": 18513930
+  },
+  {
+    "countryCode": "KEN",
+    "population": 52573973
+  },
+  {
+    "countryCode": "KGZ",
+    "population": 6456900
+  },
+  {
+    "countryCode": "KHM",
+    "population": 16486542
+  },
+  {
+    "countryCode": "KIR",
+    "population": 117606
+  },
+  {
+    "countryCode": "KNA",
+    "population": 52834
+  },
+  {
+    "countryCode": "KOR",
+    "population": 51709098
+  },
+  {
+    "countryCode": "KWT",
+    "population": 4207083
+  },
+  {
+    "countryCode": "LAC",
+    "population": 613773119
+  },
+  {
+    "countryCode": "LAO",
+    "population": 7169455
+  },
+  {
+    "countryCode": "LBN",
+    "population": 6855713
+  },
+  {
+    "countryCode": "LBR",
+    "population": 4937374
+  },
+  {
+    "countryCode": "LBY",
+    "population": 6777452
+  },
+  {
+    "countryCode": "LCA",
+    "population": 182790
+  },
+  {
+    "countryCode": "LCN",
+    "population": 646430843
+  },
+  {
+    "countryCode": "LDC",
+    "population": 1033388876
+  },
+  {
+    "countryCode": "LIC",
+    "population": 668454965
+  },
+  {
+    "countryCode": "LIE",
+    "population": 38019
+  },
+  {
+    "countryCode": "LKA",
+    "population": 21803000
+  },
+  {
+    "countryCode": "LMC",
+    "population": 2913363391
+  },
+  {
+    "countryCode": "LMY",
+    "population": 6437681136
+  },
+  {
+    "countryCode": "LSO",
+    "population": 2125268
+  },
+  {
+    "countryCode": "LTE",
+    "population": 2298470832
+  },
+  {
+    "countryCode": "LTU",
+    "population": 2786844
+  },
+  {
+    "countryCode": "LUX",
+    "population": 619896
+  },
+  {
+    "countryCode": "LVA",
+    "population": 1912789
+  },
+  {
+    "countryCode": "MAC",
+    "population": 640445
+  },
+  {
+    "countryCode": "MAF",
+    "population": 38002
+  },
+  {
+    "countryCode": "MAR",
+    "population": 36471769
+  },
+  {
+    "countryCode": "MCO",
+    "population": 38964
+  },
+  {
+    "countryCode": "MDA",
+    "population": 2657637
+  },
+  {
+    "countryCode": "MDG",
+    "population": 26969307
+  },
+  {
+    "countryCode": "MDV",
+    "population": 530953
+  },
+  {
+    "countryCode": "MEA",
+    "population": 456707404
+  },
+  {
+    "countryCode": "MEX",
+    "population": 127575529
+  },
+  {
+    "countryCode": "MHL",
+    "population": 58791
+  },
+  {
+    "countryCode": "MIC",
+    "population": 5769226171
+  },
+  {
+    "countryCode": "MKD",
+    "population": 2083459
+  },
+  {
+    "countryCode": "MLI",
+    "population": 19658031
+  },
+  {
+    "countryCode": "MLT",
+    "population": 502653
+  },
+  {
+    "countryCode": "MMR",
+    "population": 54045420
+  },
+  {
+    "countryCode": "MNA",
+    "population": 389457086
+  },
+  {
+    "countryCode": "MNE",
+    "population": 622137
+  },
+  {
+    "countryCode": "MNG",
+    "population": 3225167
+  },
+  {
+    "countryCode": "MNP",
+    "population": 57216
+  },
+  {
+    "countryCode": "MOZ",
+    "population": 30366036
+  },
+  {
+    "countryCode": "MRT",
+    "population": 4525696
+  },
+  {
+    "countryCode": "MUS",
+    "population": 1265711
+  },
+  {
+    "countryCode": "MWI",
+    "population": 18628747
+  },
+  {
+    "countryCode": "MYS",
+    "population": 31949777
+  },
+  {
+    "countryCode": "NAC",
+    "population": 365892703
+  },
+  {
+    "countryCode": "NAM",
+    "population": 2494530
+  },
+  {
+    "countryCode": "NCL",
+    "population": 287800
+  },
+  {
+    "countryCode": "NER",
+    "population": 23310715
+  },
+  {
+    "countryCode": "NGA",
+    "population": 200963599
+  },
+  {
+    "countryCode": "NIC",
+    "population": 6545502
+  },
+  {
+    "countryCode": "NLD",
+    "population": 17332850
+  },
+  {
+    "countryCode": "NOR",
+    "population": 5347896
+  },
+  {
+    "countryCode": "NPL",
+    "population": 28608710
+  },
+  {
+    "countryCode": "NRU",
+    "population": 12581
+  },
+  {
+    "countryCode": "NZL",
+    "population": 4917000
+  },
+  {
+    "countryCode": "OED",
+    "population": 1359963500
+  },
+  {
+    "countryCode": "OMN",
+    "population": 4974986
+  },
+  {
+    "countryCode": "OSS",
+    "population": 31360407
+  },
+  {
+    "countryCode": "PAK",
+    "population": 216565318
+  },
+  {
+    "countryCode": "PAN",
+    "population": 4246439
+  },
+  {
+    "countryCode": "PER",
+    "population": 32510453
+  },
+  {
+    "countryCode": "PHL",
+    "population": 108116615
+  },
+  {
+    "countryCode": "PLW",
+    "population": 18008
+  },
+  {
+    "countryCode": "PNG",
+    "population": 8776109
+  },
+  {
+    "countryCode": "POL",
+    "population": 37970874
+  },
+  {
+    "countryCode": "PRE",
+    "population": 944902749
+  },
+  {
+    "countryCode": "PRI",
+    "population": 3193694
+  },
+  {
+    "countryCode": "PRK",
+    "population": 25666161
+  },
+  {
+    "countryCode": "PRT",
+    "population": 10269417
+  },
+  {
+    "countryCode": "PRY",
+    "population": 7044636
+  },
+  {
+    "countryCode": "PSE",
+    "population": 4685306
+  },
+  {
+    "countryCode": "PSS",
+    "population": 2493696
+  },
+  {
+    "countryCode": "PST",
+    "population": 1112914457
+  },
+  {
+    "countryCode": "PYF",
+    "population": 279287
+  },
+  {
+    "countryCode": "QAT",
+    "population": 2832067
+  },
+  {
+    "countryCode": "ROU",
+    "population": 19356544
+  },
+  {
+    "countryCode": "RUS",
+    "population": 144373535
+  },
+  {
+    "countryCode": "RWA",
+    "population": 12626950
+  },
+  {
+    "countryCode": "SAS",
+    "population": 1835776742
+  },
+  {
+    "countryCode": "SAU",
+    "population": 34268528
+  },
+  {
+    "countryCode": "SDN",
+    "population": 42813238
+  },
+  {
+    "countryCode": "SEN",
+    "population": 16296364
+  },
+  {
+    "countryCode": "SGP",
+    "population": 5703569
+  },
+  {
+    "countryCode": "SLB",
+    "population": 669823
+  },
+  {
+    "countryCode": "SLE",
+    "population": 7813215
+  },
+  {
+    "countryCode": "SLV",
+    "population": 6453553
+  },
+  {
+    "countryCode": "SMR",
+    "population": 33860
+  },
+  {
+    "countryCode": "SOM",
+    "population": 15442905
+  },
+  {
+    "countryCode": "SRB",
+    "population": 6944975
+  },
+  {
+    "countryCode": "SSA",
+    "population": 1105594562
+  },
+  {
+    "countryCode": "SSD",
+    "population": 11062113
+  },
+  {
+    "countryCode": "SSF",
+    "population": 1106957898
+  },
+  {
+    "countryCode": "SST",
+    "population": 41255486
+  },
+  {
+    "countryCode": "STP",
+    "population": 215056
+  },
+  {
+    "countryCode": "SUR",
+    "population": 581363
+  },
+  {
+    "countryCode": "SVK",
+    "population": 5454073
+  },
+  {
+    "countryCode": "SVN",
+    "population": 2087946
+  },
+  {
+    "countryCode": "SWE",
+    "population": 10285453
+  },
+  {
+    "countryCode": "SWZ",
+    "population": 1148130
+  },
+  {
+    "countryCode": "SXM",
+    "population": 40733
+  },
+  {
+    "countryCode": "SYC",
+    "population": 97625
+  },
+  {
+    "countryCode": "SYR",
+    "population": 17070135
+  },
+  {
+    "countryCode": "TCA",
+    "population": 38191
+  },
+  {
+    "countryCode": "TCD",
+    "population": 15946876
+  },
+  {
+    "countryCode": "TEA",
+    "population": 2067984156
+  },
+  {
+    "countryCode": "TEC",
+    "population": 460799505
+  },
+  {
+    "countryCode": "TGO",
+    "population": 8082366
+  },
+  {
+    "countryCode": "THA",
+    "population": 69625582
+  },
+  {
+    "countryCode": "TJK",
+    "population": 9321018
+  },
+  {
+    "countryCode": "TKM",
+    "population": 5942089
+  },
+  {
+    "countryCode": "TLA",
+    "population": 630644772
+  },
+  {
+    "countryCode": "TLS",
+    "population": 1293119
+  },
+  {
+    "countryCode": "TMN",
+    "population": 384771780
+  },
+  {
+    "countryCode": "TON",
+    "population": 104494
+  },
+  {
+    "countryCode": "TSA",
+    "population": 1835776742
+  },
+  {
+    "countryCode": "TSS",
+    "population": 1106957898
+  },
+  {
+    "countryCode": "TTO",
+    "population": 1394973
+  },
+  {
+    "countryCode": "TUN",
+    "population": 11694719
+  },
+  {
+    "countryCode": "TUR",
+    "population": 83429615
+  },
+  {
+    "countryCode": "TUV",
+    "population": 11646
+  },
+  {
+    "countryCode": "TZA",
+    "population": 58005463
+  },
+  {
+    "countryCode": "UGA",
+    "population": 44269594
+  },
+  {
+    "countryCode": "UKR",
+    "population": 44385155
+  },
+  {
+    "countryCode": "UMC",
+    "population": 2855862780
+  },
+  {
+    "countryCode": "URY",
+    "population": 3461734
+  },
+  {
+    "countryCode": "USA",
+    "population": 328239523
+  },
+  {
+    "countryCode": "UZB",
+    "population": 33580650
+  },
+  {
+    "countryCode": "VCT",
+    "population": 110589
+  },
+  {
+    "countryCode": "VEN",
+    "population": 28515829
+  },
+  {
+    "countryCode": "VGB",
+    "population": 30030
+  },
+  {
+    "countryCode": "VIR",
+    "population": 106631
+  },
+  {
+    "countryCode": "VNM",
+    "population": 96462106
+  },
+  {
+    "countryCode": "VUT",
+    "population": 299882
+  },
+  {
+    "countryCode": "WLD",
+    "population": 7673533974
+  },
+  {
+    "countryCode": "WSM",
+    "population": 197097
+  },
+  {
+    "countryCode": "XKX",
+    "population": 1794248
+  },
+  {
+    "countryCode": "YEM",
+    "population": 29161922
+  },
+  {
+    "countryCode": "ZAF",
+    "population": 58558270
+  },
+  {
+    "countryCode": "ZMB",
+    "population": 17861030
+  },
+  {
+    "countryCode": "ZWE",
+    "population": 14645468
+  }
+]
