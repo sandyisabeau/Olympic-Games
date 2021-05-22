@@ -12,7 +12,8 @@ $(function() {
 });
 
 function prepareData() {
-    let filteredGames = gmynd.deleteIncompleteData(gameData, "medals");
+    let filteredGames = gmynd.deleteIncompleteData(gameData, "medal");
+    console.log(filteredGames);
     // data = gmynd.mergeData(positionData, populationData, "alpha3Code");
     // data = gmynd.mergeData(data, continentalData, "alpha3Code", "iso3");
     // gmynd.deletePropsInData(data, ["iso2", "number", "country"]);
