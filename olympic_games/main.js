@@ -12,9 +12,7 @@ $(function() {
 });
 
 function prepareData() {
-    let filteredGame = gmynd.filterPropType(gameData, "medal", "String");
-    console.log(filteredGame);
-    let download = gmynd.saveData(filteredGame, filename = 'filteredGameData.json', pretty = true);
+    console.log(gameData);
 
     // data = gmynd.mergeData(positionData, populationData, "alpha3Code");
     // data = gmynd.mergeData(data, continentalData, "alpha3Code", "iso3");
