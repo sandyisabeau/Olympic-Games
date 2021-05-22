@@ -1,5 +1,4 @@
-[
-  {
+let continentalData = [{
     "continent": "Asia",
     "code": "AS",
     "country": "Afghanistan, Islamic Republic of",
@@ -2095,4 +2094,4 @@
     "iso3": "",
     "number": ""
   }
-]
+];
