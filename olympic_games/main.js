@@ -1,168 +1,109 @@
 let stageHeight, stageWidth;
-let data, groupedData, cumulatedCountries;
+let data, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames;
 let stage;
-let showingChart;
+// let showingChart;
 $(function() {
-    // stage = $('#stage');
-    // stageHeight = stage.height();
-    // stageWidth = stage.width();
+    stage = $('#stage');
+    stageHeight = stage.height();
+    stageWidth = stage.width();
     prepareData();
     // createDots()
-    // drawBarChart();
+    drawHistoryCircle();
 });
 
 function prepareData() {
-    console.log(gameData);
+    //Filter to remove incomplete Data
+    let filteredGameData = gmynd.filterPropType(gameData, "Weight", "Number");
+    let finalGameData = gmynd.filterPropType(filteredGameData, "Height", "Number");
 
-    // data = gmynd.mergeData(positionData, populationData, "alpha3Code");
-    // data = gmynd.mergeData(data, continentalData, "alpha3Code", "iso3");
-    // gmynd.deletePropsInData(data, ["iso2", "number", "country"]);
-    // const africanCountries = gmynd.findAllByValue(data, "continent", "Africa");
+    //Functions to separate Winter and Summer Games (for further calculations)
+    summerGames = gmynd.findAllByValue(gameData, "Season", "Summer");
+    winterGames = gmynd.findAllByValue(gameData, "Season", "Winter");
 
-    // const calculations = [
-    //     {
-    //         value: 'population',
-    //         method: 'Average',
-    //     },
-    //     {
-    //         value: 'population',
-    //         method: 'Median',
-    //     },
-    //     {
-    //         value: 'longitude',
-    //         method: 'Min',
-    //         title: 'westEnd'
-    //     },
-    //     {
-    //         value: 'longitude',
-    //         method: 'Max',
-    //         title: 'eastEnd'
-    //     },
-    //     {
-    //         value: 'population',
-    //         method: 'Sum',
-    //     },
-    //     {
-    //         value: 'population',
-    //         method: 'Percentile',
-    //         p: .75
-    //     },];
-    // cumulatedCountries = gmynd.cumulateData(data, "continent", calculations);
-    // console.log(cumulatedCountries);
+    // Functions to calculate Winter and Summer Games
+    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year"]);
+    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year"]);
 
-    // groupedData = gmynd.groupData(data, "continent");
+    const calculations = [{
+        value: 'Year',
+        method: 'Min',
+    }];
 
-    // console.log(groupedData);
-    // gmynd.saveData(groupedData);
+    cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
+    console.log(cumulatedGames);
+
+    //Grouping both seasons
+    groupedData = gmynd.groupData(gameData, "Season");
 }
 
+function drawHistoryCircle() {
+    console.log(cumulatedSummerGames);
+    console.log(cumulatedWinterGames);
 
-// function createDots() {
-//     const keys = Object.keys(groupedData);
-//     const keyCount = keys.length;
-//     const maxCountriesPerContinent = gmynd.dataMax(cumulatedCountries, "count");
-//     const populationMax = gmynd.dataMax(data, "population");
-//     console.log(maxCountriesPerContinent);
+    // const allGames = cumulatedSummerGames.length + 3;
 
-//     const countryWidth = stageWidth / (keyCount * 2 - 1);
-//     let i = 0;
-//     for (let key in groupedData) {
-//         const continentCountries = groupedData[key];
-//         const xPos = i * countryWidth * 2;
-//         continentCountries.forEach((country, j) => {
-//             const dot = $('<div></div>');
-//             dot.addClass("country");
-//             const _height = stageHeight / maxCountriesPerContinent;
-//             const yPos = stageHeight - _height * j - _height;
+    const startX = stageWidth / 2;
+    const startY = stageHeight / 2;
 
-//             const area = gmynd.map(country.population, 0, populationMax, 25, 200);
-//             const r = gmynd.circleRadius(area);
-//             const x = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - r;
-//             const y = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - r;
+    const keys = Object.keys(cumulatedSummerGames);
+    const keyCount = keys.length;
+    const minAthleteCountSummer = gmynd.dataMin(cumulatedSummerGames, "count");
+    const maxAthleteCountSummer = gmynd.dataMax(cumulatedSummerGames, "count");
 
-//          dot.data({
-//                 barWidth: countryWidth,
-//                 barHeight: _height,
-//                 barLeft: xPos,
-//                 barTop: yPos,
+    let i = 0;
+    for (let key in groupedData) {
+        const continentCountries = groupedData[key];
+        continentCountries.forEach((Year, j) => {
+            const dot = $('<div></div>');
+            dot.addClass("Year");
 
-//                 mapHeight: r * 2,
-//                 mapWidth: r * 2,
-//                 mapLeft: x,
-//                 mapTop: y,
-//             });
+            let angle = 360 / cumulatedSummerGames.length * i;
 
-//             stage.append(dot);
-//         });
-//         i++;
-//     }
-// }
+            angle = gmynd.radians(angle);
+            let area = gmynd.map(keyCount, minAthleteCountSummer, maxAthleteCountSummer, 100, 200);
+            let r = gmynd.circleRadius(area);
 
+            for (let j = 0; j < 1; j++) {
+                let x = startX + (Math.cos(angle) * r * 20 * (j + 1)); // cosinus vom winkel
+                let y = startY + (Math.sin(angle) * r * 20 * (j + 1)); // sinus vom winkel
 
-// function drawBarChart() {
-//     showingChart = true;
+                dot.gameData({
+                    'height': r,
+                    'width': r,
+                    'background-color': 'white',
+                    'position': 'absolute',
+                    'left': x,
+                    'top': y,
+                    'border-radius': '100%'
+                });
+            }
+            stage.append(dot);
+        });
+        i++;
+    }
 
-//     $('.country').each(function () {
-//         const dotData = $(this).data();
-//         $(this).animate({
-//             'width': dotData.barWidth,
-//             'height': dotData.barHeight,
-//             'left': dotData.barLeft,
-//             'top': dotData.barTop,
-//             'border-radius': 0,
-//         }, 500);
-//     });
-// }
+    // for (let i = 8; i < cumulatedSummerGames.length; i++) {
+    //     let angle = 360 / cumulatedSummerGames.length * i;
 
+    //     angle = gmynd.radians(angle);
+    //     let area = gmynd.map(cumulatedWinterGames.count, 0, maxAthleteCountWinter, 0, 20);
+    //     let r = gmynd.circleRadius(area);
 
-// function toggleView() {
-//     console.log("togglewoggle");
+    //     for (let j = 0; j < 1; j++) {
+    //         let x = startX + (Math.cos(angle) * r * 30 * (j + 1)); // cosinus vom winkel
+    //         let y = startY + (Math.sin(angle) * r * 30 * (j + 1)); // sinus vom winkel
 
-//     // stage.empty();
-//     if (showingChart) {
-//         drawMap();
-//     }
-//     else {
-//         drawBarChart();
-//     }
-// }
-
-
-// function drawMap() {
-//     showingChart = false;
-
-//     $('.country').each(function () {
-//         const dotData = $(this).data();
-//         $(this).css({
-
-//         });
-//         $(this).animate({
-//             'background-color': 'rgb(255, 0, 0)',
-//             'width': dotData.mapWidth,
-//             'height': dotData.mapHeight,
-//             'left': dotData.mapLeft,
-//             'top': dotData.mapTop,
-//             'border-radius': '100%',
-//         }, 1500);
-//     });
-// }
-/* 
-dot.data(country);
-
-dot.click(() => {
-    $(".clicked").removeClass("clicked");
-    dot.addClass("clicked");
-    $('#clickLabel').text(dot.data().countryName);
-});
-
-dot.mouseover(() => {
-    dot.addClass("hover");
-    $('#hoverLabel').text(country.countryName);
-
-});
-
-dot.mouseout(() => {
-    dot.removeClass("hover");
-    $('#hoverLabel').text("");
-
-}); */
+    //         const dot = $('<div></div>');
+    //         dot.css({
+    //             'height': r,
+    //             'width': r,
+    //             'background-color': 'white',
+    //             'position': 'absolute',
+    //             'left': x,
+    //             'top': y,
+    //             'border-radius': '100%'
+    //         });
+    //         $('#stage').append(dot);
+    //     }
+    // }
+}

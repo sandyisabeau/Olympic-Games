@@ -2,6 +2,9 @@ let stageHeight, stageWidth;
 let data, groupedData, cumulatedCountries;
 let stage;
 let showingChart;
+
+let getColor = chroma.scale(['cornflowerblue', 'pink', 'cornflowerblue']).domain([-90, 90]).mode('lrgb');
+
 $(function() {
     stage = $('#stage');
     stageHeight = stage.height();
@@ -79,7 +82,11 @@ function createDots() {
             const x = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - r;
             const y = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - r;
 
+            let color = getColor(country.latitude);
+
             dot.data({
+                color: color,
+
                 barWidth: countryWidth,
                 barHeight: _height,
                 barLeft: xPos,
@@ -103,6 +110,12 @@ function drawBarChart() {
 
     $('.country').each(function() {
         const dotData = $(this).data();
+
+        if (showingChart == true) {
+            $(this).css({
+                'background-color': 'rgb(255, 255, 255)',
+            });
+        }
         $(this).animate({
             'width': dotData.barWidth,
             'height': dotData.barHeight,
@@ -131,9 +144,21 @@ function drawMap() {
 
     $('.country').each(function() {
         const dotData = $(this).data();
-        $(this).css({
+        if (showingChart == false) {
+            $(this).css({
+                'background-color': dotData.color,
+            });
+        }
+
+        $(this).click(() => {
+            $(".clicked").removeClass("clicked");
+            $(this).addClass("clicked");
+            $(this).css({
+                'background-color': 'rgb(255, 0, 0)',
+            });
 
         });
+
         $(this).animate({
             'background-color': 'rgb(255, 0, 0)',
             'width': dotData.mapWidth,
@@ -143,6 +168,8 @@ function drawMap() {
             'border-radius': '100%',
         }, 1500);
     });
+
+
 }
 /* 
 dot.data(country);
