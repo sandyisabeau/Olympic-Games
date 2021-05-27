@@ -8,7 +8,7 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     // createDots()
-    drawHistoryCircle();
+    drawSpirale();
 });
 
 function prepareData() {
@@ -49,7 +49,6 @@ function prepareData() {
     let athleteTeamCount = gmynd.cumulateData(gameData, ["NOC"]);
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
 
-    console.log(athleteTeamCount);
     //Functions to separate Winter and Summer Games (for further calculations)
     summerGames = gmynd.findAllByValue(gameData, "Season", "Summer");
     winterGames = gmynd.findAllByValue(gameData, "Season", "Winter");
@@ -57,90 +56,83 @@ function prepareData() {
     // Functions to calculate Winter and Summer Games
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year"]);
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year"]);
+    console.log(cumulatedWinterGames);
 
+
+    // Some calculations
     const calculations = [{
         value: 'Year',
         method: 'Min',
     }];
-
     cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
     // console.log(cumulatedGames);
+
 
     //Grouping both seasons
     groupedData = gmynd.groupData(gameData, "Season");
 
 }
 
-function drawHistoryCircle() {
+function drawSpirale() {
     // console.log(cumulatedSummerGames);
     // console.log(cumulatedWinterGames);
-
-
 
     // const allGames = cumulatedSummerGames.length + 3;
 
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
 
-    const keys = Object.keys(cumulatedSummerGames);
-    const keyCount = keys.length;
-    const minAthleteCountSummer = gmynd.dataMin(cumulatedSummerGames, "count");
-    const maxAthleteCountSummer = gmynd.dataMax(cumulatedSummerGames, "count");
+    for (let i = 0; i < cumulatedSummerGames.length; i++) {
+        const summerYears = cumulatedSummerGames[i];
 
-    let i = 0;
-    for (let key in groupedData) {
-        const continentCountries = groupedData[key];
-        continentCountries.forEach((Year, j) => {
-            const dot = $('<div></div>');
-            dot.addClass("Year");
+        const dot = $('<div></div>');
+        dot.addClass("Year");
 
-            let angle = 360 / cumulatedSummerGames.length * i;
+        let angle = (summerYears.Year - 1896) * 2.9;
 
-            angle = gmynd.radians(angle);
-            let area = gmynd.map(keyCount, minAthleteCountSummer, maxAthleteCountSummer, 100, 200);
-            let r = gmynd.circleRadius(area);
+        angle = gmynd.radians(angle);
+        let area = gmynd.map(summerYears.count, 1, 2048, 1, 600);
+        let r = gmynd.circleRadius(area);
 
-            for (let j = 0; j < 1; j++) {
-                let x = startX + (Math.cos(angle) * r * 20 * (j + 1)); // cosinus vom winkel
-                let y = startY + (Math.sin(angle) * r * 20 * (j + 1)); // sinus vom winkel
+        let x = startX + (Math.cos(angle) * 15 * 10); // cosinus vom winkel
+        let y = startY + (Math.sin(angle) * 15 * 10); // sinus vom winkel
 
-                dot.gameData({
-                    'height': r,
-                    'width': r,
-                    'background-color': 'white',
-                    'position': 'absolute',
-                    'left': x,
-                    'top': y,
-                    'border-radius': '100%'
-                });
-            }
-            stage.append(dot);
+        dot.css({
+            'height': r,
+            'width': r,
+            'background-color': 'white',
+            'position': 'absolute',
+            'left': x,
+            'top': y,
+            'border-radius': '100%'
         });
-        i++;
+        stage.append(dot);
     }
 
-    // for (let i = 8; i < cumulatedSummerGames.length; i++) {
-    //     let angle = 360 / cumulatedSummerGames.length * i;
+    for (let i = 0; i < cumulatedWinterGames.length; i++) {
+        const winterYears = cumulatedWinterGames[i];
 
-    //     angle = gmynd.radians(angle);
-    //     let area = gmynd.map(cumulatedWinterGames.count, 0, maxAthleteCountWinter, 0, 20);
-    //     let r = gmynd.circleRadius(area);
+        const dot = $('<div></div>');
+        dot.addClass("Year");
 
-    //     for (let j = 0; j < 1; j++) {
-    //         let x = startX + (Math.cos(angle) * r * 30 * (j + 1)); // cosinus vom winkel
-    //         let y = startY + (Math.sin(angle) * r * 30 * (j + 1)); // sinus vom winkel
+        let angle = (winterYears.Year - 1896) * 2.9;
 
-    //         const dot = $('<div></div>');
-    //         dot.css({
-    //             'height': r,
-    //             'width': r,
-    //             'background-color': 'white',
-    //             'position': 'absolute',
-    //             'left': x,
-    //             'top': y,
-    //             'border-radius': '100%'
-    //         });
-    //         $('#stage').append(dot);
-    //     }
-    // }
+        angle = gmynd.radians(angle);
+        let area = gmynd.map(winterYears.count, 1, 2048, 1, 600);
+        let r = gmynd.circleRadius(area);
+
+        let x = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
+        let y = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
+
+        dot.css({
+            'height': r,
+            'width': r,
+            'background-color': 'white',
+            'position': 'absolute',
+            'left': x,
+            'top': y,
+            'border-radius': '100%'
+        });
+        stage.append(dot);
+    }
 }
