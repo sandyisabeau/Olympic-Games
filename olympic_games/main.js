@@ -13,9 +13,43 @@ $(function() {
 
 function prepareData() {
     //Filter to remove incomplete Data
-    let filteredGameData = gmynd.filterPropType(gameData, "Weight", "Number");
-    let finalGameData = gmynd.filterPropType(filteredGameData, "Height", "Number");
+    let filteredWeight = gmynd.filterPropType(gameData, "Weight", "Number");
+    let filteredHeight = gmynd.filterPropType(filteredWeight, "Height", "Number");
+    let filteredAge = gmynd.filterPropType(filteredHeight, "Age", "Number");
 
+
+    // Function to see the Min and Max of the athletes characteristics
+    // let extremesHeight = gmynd.dataExtremes(filteredAge, "Height");
+    // let extremesWeight = gmynd.dataExtremes(filteredAge, "Weight");
+    let extremesAge = gmynd.dataExtremes(filteredAge, "Age");
+    // console.log(extremesHeight);
+    // console.log(extremesWeight);
+    // console.log(extremesAge);
+
+
+    // Function to see the Min and Max in relation to the gender
+    let femaleAthletes = gmynd.findAllByValue(filteredAge, "Sex", "F");
+    let maleAthletes = gmynd.findAllByValue(filteredAge, "Sex", "M");
+
+    let extremesHeightFemale = gmynd.dataExtremes(femaleAthletes, "Height");
+    let extremesWeightFemale = gmynd.dataExtremes(femaleAthletes, "Weight");
+    let extremesAgeFemale = gmynd.dataExtremes(femaleAthletes, "Age");
+    // console.log(extremesHeightFemale);
+    // console.log(extremesWeightFemale);
+    // console.log(extremesAgeFemale);
+
+    let extremesHeightMale = gmynd.dataExtremes(maleAthletes, "Height");
+    let extremesWeightMale = gmynd.dataExtremes(maleAthletes, "Weight");
+    let extremesAgeMale = gmynd.dataExtremes(maleAthletes, "Age");
+    console.log(extremesHeightMale);
+    console.log(extremesWeightMale);
+    console.log(extremesAgeMale);
+
+    // Function to see number of female and male athletes
+    let athleteTeamCount = gmynd.cumulateData(gameData, ["NOC"]);
+    // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
+
+    console.log(athleteTeamCount);
     //Functions to separate Winter and Summer Games (for further calculations)
     summerGames = gmynd.findAllByValue(gameData, "Season", "Summer");
     winterGames = gmynd.findAllByValue(gameData, "Season", "Winter");
@@ -30,15 +64,18 @@ function prepareData() {
     }];
 
     cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
-    console.log(cumulatedGames);
+    // console.log(cumulatedGames);
 
     //Grouping both seasons
     groupedData = gmynd.groupData(gameData, "Season");
+
 }
 
 function drawHistoryCircle() {
-    console.log(cumulatedSummerGames);
-    console.log(cumulatedWinterGames);
+    // console.log(cumulatedSummerGames);
+    // console.log(cumulatedWinterGames);
+
+
 
     // const allGames = cumulatedSummerGames.length + 3;
 
