@@ -9,6 +9,8 @@ $(function() {
     prepareData();
     // createDots()
     drawSpirale();
+    // drawMap();
+    // drawDiagram();
 });
 
 function prepareData() {
@@ -94,8 +96,8 @@ function drawSpirale() {
         let area = gmynd.map(summerYears.count, 1, 2048, 1, 600);
         let r = gmynd.circleRadius(area);
 
-        let x = startX + (Math.cos(angle) * 15 * 10); // cosinus vom winkel
-        let y = startY + (Math.sin(angle) * 15 * 10); // sinus vom winkel
+        let x = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
+        let y = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
 
         dot.css({
             'height': r,
@@ -136,3 +138,9 @@ function drawSpirale() {
         stage.append(dot);
     }
 }
+
+
+//Wie male ich eine Spirale?
+//Wie gehe ich als nächstest vor? Meine Punkte stellen in jedem Screen unterschiedliche Daten dar.
+//Soll ich createDots und drawSpirale voneinander trennen?
+//Longitude + Latitude
