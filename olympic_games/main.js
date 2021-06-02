@@ -24,9 +24,7 @@ function prepareData() {
     // let extremesHeight = gmynd.dataExtremes(filteredAge, "Height");
     // let extremesWeight = gmynd.dataExtremes(filteredAge, "Weight");
     let extremesAge = gmynd.dataExtremes(filteredAge, "Age");
-    // console.log(extremesHeight);
-    // console.log(extremesWeight);
-    // console.log(extremesAge);
+
 
 
     // Function to see the Min and Max in relation to the gender
@@ -36,16 +34,11 @@ function prepareData() {
     let extremesHeightFemale = gmynd.dataExtremes(femaleAthletes, "Height");
     let extremesWeightFemale = gmynd.dataExtremes(femaleAthletes, "Weight");
     let extremesAgeFemale = gmynd.dataExtremes(femaleAthletes, "Age");
-    // console.log(extremesHeightFemale);
-    // console.log(extremesWeightFemale);
-    // console.log(extremesAgeFemale);
+
 
     let extremesHeightMale = gmynd.dataExtremes(maleAthletes, "Height");
     let extremesWeightMale = gmynd.dataExtremes(maleAthletes, "Weight");
     let extremesAgeMale = gmynd.dataExtremes(maleAthletes, "Age");
-    console.log(extremesHeightMale);
-    console.log(extremesWeightMale);
-    console.log(extremesAgeMale);
 
     // Function to see number of female and male athletes
     let athleteTeamCount = gmynd.cumulateData(gameData, ["NOC"]);
@@ -60,6 +53,9 @@ function prepareData() {
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year"]);
     console.log(cumulatedWinterGames);
 
+    //Functions to calculate athletes based on the team
+    let cumulatedTeams = gmynd.cumulateData(filteredAge, ["NOC"])
+    console.log(cumulatedTeams)
 
     // Some calculations
     const calculations = [{
@@ -139,8 +135,27 @@ function drawSpirale() {
     }
 }
 
+// function drawMap() {
+//     // console.log(data.length);
+//     const populationMax = gmynd.dataMax(data, "population");
+//     //console.log("max: " + populationMax);
+//     data.forEach(country => {
 
+//             const area = gmynd.map(country.population, 0, populationMax, 25, 200);
+//             // const r = Math.sqrt(area / Math.PI);
+//             const r = gmynd.circleRadius(area);
+//             const x = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - r;
+//             const y = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - r;
+//             let dot = $('<div></div>');
+//             dot.addClass("country");
+//             dot.css({
+//                 'height': r * 2,
+//                 'width': r * 2,
+//                 'left': x,
+//                 'top': y,
+//             });
+//         };
+//     };
 //Wie male ich eine Spirale?
 //Wie gehe ich als nächstest vor? Meine Punkte stellen in jedem Screen unterschiedliche Daten dar.
 //Soll ich createDots und drawSpirale voneinander trennen?
-//Longitude + Latitude
