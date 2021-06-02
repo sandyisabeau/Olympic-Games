@@ -8,7 +8,8 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     // createDots()
-    drawSpirale();
+    drawTimespiral();
+    // drawSpirale();
     // drawMap();
     // drawDiagram();
 });
@@ -77,11 +78,6 @@ function prepareData() {
 }
 
 function drawSpirale() {
-    // console.log(cumulatedSummerGames);
-    // console.log(cumulatedWinterGames);
-
-    // const allGames = cumulatedSummerGames.length + 3;
-
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
 
@@ -140,28 +136,126 @@ function drawSpirale() {
     }
 }
 
-// function drawMap() {
-//     // console.log(data.length);
-//     const populationMax = gmynd.dataMax(data, "population");
-//     //console.log("max: " + populationMax);
-//     data.forEach(country => {
+function getTimeSpiral(settings, parent = null) {
+    settings = gmynd.parentOverride(settings, parent);
+    const sortedByTime = settings.array.sort(function(a, b) {
+        return Date.parse(a[settings.property]) > Date.parse(b[settings.property]);
+    });
+    if (!settings.start) settings.start = sortedByTime[0][settings.property];
+    if (!settings.end) {
+        for (let i = sortedByTime.length - 1; i >= 0; i--) {
+            if (sortedByTime[i].hasOwnProperty(settings.time.property)) {
+                if (sortedByTime[i][settings.property] > 0) { // TODO: this is not ideal
+                    settings.end = sortedByTime[0][settings.property];
+                }
+            }
+        }
+    }
+    settings.start = Date.parse(settings.start);
+    settings.end = Date.parse(settings.end);
+    const timeRange = settings.end - settings.start;
 
-//             const area = gmynd.map(country.population, 0, populationMax, 25, 200);
-//             // const r = Math.sqrt(area / Math.PI);
-//             const r = gmynd.circleRadius(area);
-//             const x = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - r;
-//             const y = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - r;
-//             let dot = $('<div></div>');
-//             dot.addClass("country");
-//             dot.css({
-//                 'height': r * 2,
-//                 'width': r * 2,
-//                 'left': x,
-//                 'top': y,
-//             });
-//         };
-//     };
-//Wie male ich eine Spirale?
-//Wie gehe ich als nächstest vor? Meine Punkte stellen in jedem Screen unterschiedliche Daten dar.
-//Soll ich createDots und drawSpirale voneinander trennen?
-//Wie füge ich die Kontinenten hinzu?
+    if (!settings.revolutions) {
+        if (settings.msForRevolution) {
+            settings.revolutions = timeRange / settings.msForRevolution;
+        } else {
+            settings.revolutions = 4;
+        } // just some arbitrarily chosen value
+    }
+    settings.msForRevolution = timeRange / settings.revolutions;
+    const center = { x: settings.width / 2, y: settings.height / 2 };
+    const maxRadius = Math.min(center.x, center.y);
+    const revolutionWidth = maxRadius / settings.revolutions;
+    const spiralArea = gmynd.getAreaByRadius(maxRadius);
+    const baseElSize = settings.size.sizeFactor * (settings.size.rounded ?
+        gmynd.getRadiusByArea(spiralArea / settings.array.length) :
+        Math.sqrt(spiralArea / settings.array.length));
+    let container = $('<div class="time-spiral"></div>');
+
+    settings.array.forEach(obj => {
+        if (obj.hasOwnProperty(settings.property)) {
+            if (!isNaN(obj[settings.property])) {
+                const passedTime = Math.max(0, Date.parse(obj.independenceDate) - settings.start);
+                const revolutionNumber = Math.floor(passedTime / settings.msForRevolution);
+                const angle = (passedTime % settings.msForRevolution) / settings.msForRevolution * Math.PI * 2;
+                const radius = (revolutionNumber + (passedTime % settings.msForRevolution) / settings.msForRevolution) * revolutionWidth;
+                const xPos = Math.sin(angle) * radius + center.x + settings.position.x;
+                const yPos = Math.cos(angle) * radius + center.y + settings.position.y;
+                // TODO: implement size adjustments
+                let element = $('<div class="timespiral-element"></div>');
+                element.css({
+                    "position": "absolute",
+                    "background-color": settings.color,
+                    "width": baseElSize,
+                    "height": baseElSize,
+                    "left": xPos,
+                    "top": yPos,
+                    "border-radius": settings.size.rounded ? "50%" : 0
+                });
+                gmynd.connectData(element, obj);
+                if (settings.label.active) gmynd.activateLabel(element, settings);
+
+                container.append(element);
+            }
+        }
+    });
+
+    function drawTimespiral() {
+        let settings = {
+            array: countryData,
+            width: 1000, // ignored if parent is passed
+            height: 500, // ignored if parent is passed
+            position: { // ignored if parent is passed
+                x: 0,
+                y: 0
+            },
+            property: "independenceDate",
+            revolutions: null, // when this is not null, msForRevolution are ignored
+            msForRevolution: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+            start: new Date(1900, 0, 1),
+            end: new Date(2000, 0, 1),
+            label: {
+                active: true,
+                property: "countryName",
+            },
+            size: {
+                property: null,
+                min: null,
+                max: null,
+                sizeFactor: .75,
+                sizeRange: 1,
+                rounded: true
+            },
+            color: colors.main
+        };
+        let container = $("#timespiral");
+        let fermatSpiral = getTimeSpiral(settings, container);
+        container.append(fermatSpiral);
+    }
+
+    // function drawMap() {
+    //     // console.log(data.length);
+    //     const populationMax = gmynd.dataMax(data, "population");
+    //     //console.log("max: " + populationMax);
+    //     data.forEach(country => {
+
+    //             const area = gmynd.map(country.population, 0, populationMax, 25, 200);
+    //             // const r = Math.sqrt(area / Math.PI);
+    //             const r = gmynd.circleRadius(area);
+    //             const x = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - r;
+    //             const y = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - r;
+    //             let dot = $('<div></div>');
+    //             dot.addClass("country");
+    //             dot.css({
+    //                 'height': r * 2,
+    //                 'width': r * 2,
+    //                 'left': x,
+    //                 'top': y,
+    //             });
+    //         };
+    //     };
+
+    //Wie male ich eine Spirale?
+    //Wie gehe ich als nächstest vor? Meine Punkte stellen in jedem Screen unterschiedliche Daten dar.
+    //Soll ich createDots und drawSpirale voneinander trennen?
+    //Wie füge ich die Kontinenten hinzu?
