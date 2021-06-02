@@ -14,8 +14,13 @@ $(function() {
 });
 
 function prepareData() {
+
+    data = gmynd.mergeData(gameData, positionData, "NOC", "alpha3Code");
+    gmynd.deletePropsInData(data, ["alpha2Code", "numericCode", "countryName"]);
+    console.log(data);
+
     //Filter to remove incomplete Data
-    let filteredWeight = gmynd.filterPropType(gameData, "Weight", "Number");
+    let filteredWeight = gmynd.filterPropType(data, "Weight", "Height", "Age", "Number");
     let filteredHeight = gmynd.filterPropType(filteredWeight, "Height", "Number");
     let filteredAge = gmynd.filterPropType(filteredHeight, "Age", "Number");
 
@@ -159,3 +164,4 @@ function drawSpirale() {
 //Wie male ich eine Spirale?
 //Wie gehe ich als nächstest vor? Meine Punkte stellen in jedem Screen unterschiedliche Daten dar.
 //Soll ich createDots und drawSpirale voneinander trennen?
+//Wie füge ich die Kontinenten hinzu?
