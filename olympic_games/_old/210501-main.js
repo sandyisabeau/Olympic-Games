@@ -1,6 +1,6 @@
 let stageHeight, stageWidth;
 let data;
-$(function () {
+$(function() {
     stageHeight = $('#stage').innerHeight();
     stageWidth = $('#stage').innerWidth();
     prepareData();
@@ -14,8 +14,7 @@ function prepareData() {
     gmynd.deletePropsInData(data, ["iso2", "number", "country"]);
     const africanCountries = gmynd.findAllByValue(data, "continent", "Africa");
 
-    const calculations = [
-        {
+    const calculations = [{
             value: 'population',
             method: 'Average',
         },
@@ -41,7 +40,8 @@ function prepareData() {
             value: 'population',
             method: 'Percentile',
             p: .75
-        },];
+        },
+    ];
     const cumulatedCountries = gmynd.cumulateData(data, "continent", calculations);
 
 

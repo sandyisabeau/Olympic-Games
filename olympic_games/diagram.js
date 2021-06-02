@@ -1,4 +1,4 @@
-function getTimeSpiral(settings, parent = null) {
+function getTimeSpiral(stage, parent = null) {
     settings = gmynd.parentOverride(settings, parent);
     const sortedByTime = settings.array.sort(function(a, b) {
         return Date.parse(a[settings.property]) > Date.parse(b[settings.property]);
