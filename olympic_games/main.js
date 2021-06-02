@@ -180,24 +180,24 @@ function drawMap() {
 
         dot.data(athleteTeams);
 
-        dot.click(() => {
-            $(".clicked").removeClass("clicked");
-            dot.addClass("clicked");
-            // $('#clickLabel').text(country.countryName);
-            $('#clickLabel').text(dot.data().Team);
-        });
+        // dot.click(() => {
+        //     $(".clicked").removeClass("clicked");
+        //     dot.addClass("clicked");
+        //     // $('#clickLabel').text(country.countryName);
+        //     $('#clickLabel').text(dot.data().Team);
+        // });
 
-        dot.mouseover(() => {
-            dot.addClass("hover");
-            $('#hoverLabel').text(country.Team);
+        // dot.mouseover(() => {
+        //     dot.addClass("hover");
+        //     $('#hoverLabel').text(country.Team);
 
-        });
+        // });
 
-        dot.mouseout(() => {
-            dot.removeClass("hover");
-            $('#hoverLabel').text("");
+        // dot.mouseout(() => {
+        //     dot.removeClass("hover");
+        //     $('#hoverLabel').text("");
 
-        })
+        // })
         $('#stage').append(dot);
 
         console.log(cumulatedTeams)
