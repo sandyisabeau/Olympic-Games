@@ -47,10 +47,20 @@ function prepareData() {
     // let extremesAgeMale = gmynd.dataExtremes(maleAthletes, "Age");
 
     // Function to see number of female and male athletes
-    const cumulatedTeams = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
-    const groupedTeams = gmynd.groupData(data, "NOC");
+    const calculations = [{
+            value: 'longitude',
+            method: 'Min',
+            title: 'westEnd'
+        },
+        {
+            value: 'longitude',
+            method: 'Max',
+            title: 'eastEnd'
+        }
+    ];
+    cumulatedTeams = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"], calculations);
+    // const groupedTeams = gmynd.groupData(data, "NOC");
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
-    console.log(cumulatedTeams);
 
     //Functions to separate Winter and Summer Games (for further calculations)
     summerGames = gmynd.findAllByValue(gameData, "Season", "Summer");
@@ -61,11 +71,11 @@ function prepareData() {
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year"]);
 
     // Some calculations
-    const calculations = [{
-        value: 'Year',
-        method: 'Min',
-    }];
-    cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
+    // const calculations = [{
+    //     value: 'Year',
+    //     method: 'Min',
+    // }];
+    // cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
     // console.log(cumulatedGames);
 
 
@@ -159,37 +169,85 @@ function prepareData() {
 //     // container.append(fermatSpiral);
 // }
 
+// function drawMap() {
+//     for (let i = 0; i < cumulatedTeams.length; i++) {
+
+//         const athleteTeams = cumulatedTeams[i];
+//         // const maxAthletesPerTeam = gmynd.dataMax(data, "count");
+
+//         const area = gmynd.map(athleteTeams.count, 1, 5637, 25, 600);
+//         const r = gmynd.circleRadius(area);
+//         const x = gmynd.map(athleteTeams.longitude, -180, 180, 0, stageWidth) - r;
+//         const y = gmynd.map(athleteTeams.latitude, -90, 90, stageHeight, 0) - r;
+//         let dot = $('<div></div>');
+//         dot.addClass("Team");
+//         dot.css({
+//             'height': r * 2,
+//             'width': r * 2,
+//             'left': x,
+//             'top': y,
+//         });
+
+//         dot.data(athleteTeams);
+
+//         // dot.click(() => {
+//         //     $(".clicked").removeClass("clicked");
+//         //     dot.addClass("clicked");
+//         //     // $('#clickLabel').text(country.countryName);
+//         //     $('#clickLabel').text(dot.data().Team);
+//         // });
+
+//         // dot.mouseover(() => {
+//         //     dot.addClass("hover");
+//         //     $('#hoverLabel').text(country.Team);
+
+//         // });
+
+//         // dot.mouseout(() => {
+//         //     dot.removeClass("hover");
+//         //     $('#hoverLabel').text("");
+
+//         // })
+//         $('#stage').append(dot);
+
+//         console.log(cumulatedTeams)
+//     }
+// }
+
 function drawMap() {
-    for (let i = 0; i < cumulatedTeams.length; i++) {
+    const athleteTeams = cumulatedTeams;
+    console.log(athleteTeams);
 
-        const athleteTeams = cumulatedTeams[i];
-        // const maxAthletesPerTeam = gmynd.dataMax(data, "count");
-
+    // const maxAthletesPerTeam = gmynd.dataMax(data, "count");
+    data.forEach(country => {
         const area = gmynd.map(athleteTeams.count, 1, 5637, 25, 600);
         const r = gmynd.circleRadius(area);
-        const x = gmynd.map(athleteTeams.longitude, -180, 180, 0, stageWidth) - r;
-        const y = gmynd.map(athleteTeams.latitude, -90, 90, stageHeight, 0) - r;
+        const x = gmynd.map(athleteTeams.longitude, -102, 133, 0, stageWidth) - r;
+        const y = gmynd.map(athleteTeams.latitude, -41, 64, stageHeight, 0) - r;
         let dot = $('<div></div>');
-        dot.addClass("team");
+        dot.addClass("country");
         dot.css({
             'height': r * 2,
             'width': r * 2,
             'left': x,
             'top': y,
+            'background-color': 'white',
+            'position': 'absolute',
+            'border-radius': '100%',
         });
 
-        dot.data(athleteTeams);
+        dot.data(country);
 
         // dot.click(() => {
         //     $(".clicked").removeClass("clicked");
         //     dot.addClass("clicked");
         //     // $('#clickLabel').text(country.countryName);
-        //     $('#clickLabel').text(dot.data().Team);
+        //     $('#clickLabel').text(dot.data().countryName);
         // });
 
         // dot.mouseover(() => {
         //     dot.addClass("hover");
-        //     $('#hoverLabel').text(country.Team);
+        //     $('#hoverLabel').text(country.countryName);
 
         // });
 
@@ -198,8 +256,7 @@ function drawMap() {
         //     $('#hoverLabel').text("");
 
         // })
-        $('#stage').append(dot);
 
-        console.log(cumulatedTeams)
-    }
+        $('#stage').append(dot);
+    })
 }
