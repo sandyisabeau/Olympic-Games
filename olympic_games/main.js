@@ -9,9 +9,9 @@ $(function() {
     prepareData();
     // createDots()
     // drawTimespiral();
-    drawSpiral();
+    // drawSpiral();
     // drawMap();
-    // drawDiagram();
+    drawDiagram();
 });
 
 function prepareData() {
@@ -152,103 +152,7 @@ function drawSpiral() {
             $('#hoverLabel').text("");
         });
     });
-    // for (let i = 0; i < cumulatedSummerGames.length; i++) {
-    //     const summerYears = cumulatedSummerGames[i];
-
-    //     const dot = $('<div></div>');
-    //     dot.addClass("SummerGame");
-
-    //     let angle = (summerYears.Year - 1896) * 2.9;
-
-    //     angle = gmynd.radians(angle);
-    //     let area = gmynd.map(summerYears.count, 143, 2048, 25, 600);
-    //     let rSpiral = gmynd.circleRadius(area);
-
-    //     let xSpiral = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
-    //     let ySpiral = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
-
-    //     dot.css({
-    //         'height': rSpiral,
-    //         'width': rSpiral,
-    //         'background-color': 'white',
-    //         'position': 'absolute',
-    //         'left': xSpiral,
-    //         'top': ySpiral,
-    //         'border-radius': '50%'
-    //     });
-    //     stage.append(dot);
-    //     dot.mouseover(() => {
-    //         dot.addClass("hover");
-    //         $('#hoverLabel').text('Year : ' + summerYears.Year + ', ' + 'City: ' + summerYears.City + ', ' + 'Continent : ' + summerYears.continent + ', ' + 'Athletes: ' + summerYears.count);
-    //     });
-    //     dot.mouseout(() => {
-    //         dot.removeClass("hover");
-    //         $('#hoverLabel').text("");
-    //     });
-    // }
-
-    // for (let i = 0; i < cumulatedWinterGames.length; i++) {
-    //     const winterYears = cumulatedWinterGames[i];
-
-    //     const dot = $('<div></div>');
-    //     dot.addClass("winterGame");
-
-    //     let angle = (winterYears.Year - 1896) * 2.9;
-
-    //     angle = gmynd.radians(angle);
-    //     let area = gmynd.map(winterYears.count, 143, 2048, 100, 1000);
-    //     let rSpiral = gmynd.circleRadius(area);
-
-    //     let xSpiral = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
-    //     let ySpiral = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
-    //     let dot = $('<div></div>');
-    //     dot.addClass("summerGame");
-    //     dot.css({
-    //         'height': rSpiral,
-    //         'width': rSpiral,
-    //         'background-color': 'white',
-    //         'position': 'absolute',
-    //         'left': xSpiral,
-    //         'top': ySpiral,
-    //         'border-radius': '100%'
-    //     });
-    //     stage.append(dot);
-    //     dot.mouseover(() => {
-    //         dot.addClass("hover");
-    //         $('#hoverLabel').text('Year : ' + winterYears.Year + ', ' + 'City: ' + winterYears.City + ', ' + 'Continent : ' + winterYears.continent + ', ' + 'Athletes: ' + winterYears.count);
-    //     });
-    //     dot.mouseout(() => {
-    //         dot.removeClass("hover");
-    //         $('#hoverLabel').text("");
-    //     });
-    // }
 }
-
-// function drawTimespiral() {
-//     stage = {
-//         array: data,
-//         },
-//         property: "Year",
-//         start: new Date(1896, 0, 1),
-//         end: new Date(2014, 0, 1),
-//         label: {
-//             active: true,
-//             property: "Year",
-//         },
-//         size: {
-//             property: null,
-//             min: null,
-//             max: null,
-//             sizeFactor: .75,
-//             sizeRange: 1,
-//             rounded: true
-//         },
-//         color: colors.main
-//     };
-//     let container = $("#timespiral");
-//     // let fermatSpiral = getTimeSpiral(settings, container);
-//     // container.append(fermatSpiral);
-// }
 
 function drawMap() {
     const athletesPerTeam = gmynd.dataExtremes(cumulatedCountries, "count");
@@ -285,4 +189,12 @@ function drawMap() {
             $('#hoverLabel').text("");
         });
     });
+}
+
+function drawDiagram() {
+    größe
+    gewicht
+    alter
+    if abfrage, was geklickt wurde
+    x udn y abstände berechnen
 }
