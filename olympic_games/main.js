@@ -1,5 +1,5 @@
 let stageHeight, stageWidth;
-let data, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, cumulatedCountries;
+let data, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, cumulatedCountries, cumulatedContinents;
 let stage;
 // let showingChart;
 $(function() {
@@ -9,16 +9,18 @@ $(function() {
     prepareData();
     // createDots()
     // drawTimespiral();
-    // drawSpirale();
-    drawMap();
+    drawSpiral();
+    // drawMap();
     // drawDiagram();
 });
 
 function prepareData() {
 
     data = gmynd.mergeData(gameData, positionData, "NOC", "alpha3Code");
+    data = gmynd.mergeData(data, continentalData, "NOC", "iso3");
+
     gmynd.deletePropsInData(data, ["alpha2Code", "numericCode", "countryName"]);
-    // console.log(data);
+    console.log(data);
 
     //Filter to remove incomplete Data
     // let filteredWeight = gmynd.filterPropType(data, "Weight", "Number");
@@ -48,19 +50,20 @@ function prepareData() {
 
     // Function to see number of athletes
 
-    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
+    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "Team", "longitude", "latitude"]);
+
     // groupedCountries = gmynd.groupData(data, ['NOC']);
 
     // const groupedTeams = gmynd.groupData(data, "NOC");
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
 
     //Functions to separate Winter and Summer Games (for further calculations)
-    summerGames = gmynd.findAllByValue(gameData, "Season", "Summer");
-    winterGames = gmynd.findAllByValue(gameData, "Season", "Winter");
+    summerGames = gmynd.findAllByValue(data, "Season", "Summer");
+    winterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     // Functions to calculate Winter and Summer Games
-    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year"]);
-    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year"]);
+    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
+    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
 
     // Some calculations
     // const calculations = [{
@@ -72,68 +75,88 @@ function prepareData() {
 
 
     //Grouping both seasons
-    groupedData = gmynd.groupData(gameData, "Season");
+    groupedData = gmynd.groupData(data, "Season");
 
 }
 
-// function drawSpirale() {
-//     const startX = stageWidth / 2;
-//     const startY = stageHeight / 2;
+function drawSpiral() {
+    const startX = stageWidth / 2;
+    const startY = stageHeight / 2;
+    const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
+    const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
+    console.log(athletesPerWinterGame);
 
-//     for (let i = 0; i < cumulatedSummerGames.length; i++) {
-//         const summerYears = cumulatedSummerGames[i];
 
-//         const dot = $('<div></div>');
-//         dot.addClass("Year");
+    for (let i = 0; i < cumulatedSummerGames.length; i++) {
+        const summerYears = cumulatedSummerGames[i];
 
-//         let angle = (summerYears.Year - 1896) * 2.9;
+        const dot = $('<div></div>');
+        dot.addClass("SummerGame");
 
-//         angle = gmynd.radians(angle);
-//         let area = gmynd.map(summerYears.count, 1, 2048, 1, 600);
-//         let r = gmynd.circleRadius(area);
+        let angle = (summerYears.Year - 1896) * 2.9;
 
-//         let x = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
-//         let y = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
+        angle = gmynd.radians(angle);
+        let area = gmynd.map(summerYears.count, 143, 2048, 25, 600);
+        let rSpiral = gmynd.circleRadius(area);
 
-//         dot.css({
-//             'height': r,
-//             'width': r,
-//             'background-color': 'white',
-//             'position': 'absolute',
-//             'left': x,
-//             'top': y,
-//             'border-radius': '50%'
-//         });
-//         stage.append(dot);
-//     }
+        let xSpiral = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
+        let ySpiral = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
 
-//     for (let i = 0; i < cumulatedWinterGames.length; i++) {
-//         const winterYears = cumulatedWinterGames[i];
+        dot.css({
+            'height': rSpiral,
+            'width': rSpiral,
+            'background-color': 'white',
+            'position': 'absolute',
+            'left': xSpiral,
+            'top': ySpiral,
+            'border-radius': '50%'
+        });
+        stage.append(dot);
+        dot.mouseover(() => {
+            dot.addClass("hover");
+            $('#hoverLabel').text('Year : ' + summerYears.Year + ', ' + 'City: ' + summerYears.City + ', ' + 'Continent : ' + summerYears.continent + ', ' + 'Athletes: ' + summerYears.count);
+        });
+        dot.mouseout(() => {
+            dot.removeClass("hover");
+            $('#hoverLabel').text("");
+        });
+    }
 
-//         const dot = $('<div></div>');
-//         dot.addClass("Year");
+    for (let i = 0; i < cumulatedWinterGames.length; i++) {
+        const winterYears = cumulatedWinterGames[i];
 
-//         let angle = (winterYears.Year - 1896) * 2.9;
+        const dot = $('<div></div>');
+        dot.addClass("winterGame");
 
-//         angle = gmynd.radians(angle);
-//         let area = gmynd.map(winterYears.count, 1, 2048, 1, 600);
-//         let r = gmynd.circleRadius(area);
+        let angle = (winterYears.Year - 1896) * 2.9;
 
-//         let x = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
-//         let y = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
+        angle = gmynd.radians(angle);
+        let area = gmynd.map(winterYears.count, 143, 2048, 100, 1000);
+        let rSpiral = gmynd.circleRadius(area);
 
-//         dot.css({
-//             'height': r,
-//             'width': r,
-//             'background-color': 'white',
-//             'position': 'absolute',
-//             'left': x,
-//             'top': y,
-//             'border-radius': '100%'
-//         });
-//         stage.append(dot);
-//     }
-// }
+        let xSpiral = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
+        let ySpiral = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
+
+        dot.css({
+            'height': rSpiral,
+            'width': rSpiral,
+            'background-color': 'white',
+            'position': 'absolute',
+            'left': xSpiral,
+            'top': ySpiral,
+            'border-radius': '100%'
+        });
+        stage.append(dot);
+        dot.mouseover(() => {
+            dot.addClass("hover");
+            $('#hoverLabel').text('Year : ' + winterYears.Year + ', ' + 'City: ' + winterYears.City + ', ' + 'Continent : ' + winterYears.continent + ', ' + 'Athletes: ' + winterYears.count);
+        });
+        dot.mouseout(() => {
+            dot.removeClass("hover");
+            $('#hoverLabel').text("");
+        });
+    }
+}
 
 // function drawTimespiral() {
 //     stage = {
@@ -163,18 +186,18 @@ function prepareData() {
 
 function drawMap() {
     const athletesPerTeam = gmynd.dataExtremes(cumulatedCountries, "count");
-    const longitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "longitude");
-    const latitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "latitude");
+    // const longitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "longitude");
+    // const latitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "latitude");
 
 
-    console.log(cumulatedCountries);
+    // console.log(latitudeExtremes);
 
     // console.log(countryExtremes);
     cumulatedCountries.forEach(country => {
         const area = gmynd.map(country.count, athletesPerTeam.min, athletesPerTeam.max, 25, 500);
         const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, longitudeExtremes.min, longitudeExtremes.max, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, latitudeExtremes.min, latitudeExtremes.max, stageHeight, 0) - rMap;
+        const xMap = gmynd.map(country.longitude, -102, 174, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -41, 65, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
         dot.addClass("country");
         dot.css({
@@ -187,13 +210,13 @@ function drawMap() {
         });
         dot.data(country);
         stage.append(dot);
-        // dot.mouseover(() => {
-        //     dot.addClass("hover");
-        //     $('#hoverLabel').text('State : ' + state.city + ' , ' + 'Attendees : ' + state.count);
-        // });
-        // dot.mouseout(() => {
-        //     dot.removeClass("hover");
-        //     $('#hoverLabel').text("");
-        // });
+        dot.mouseover(() => {
+            dot.addClass("hover");
+            $('#hoverLabel').text('Country : ' + country.Team + ', ' + 'Athletes : ' + country.count);
+        });
+        dot.mouseout(() => {
+            dot.removeClass("hover");
+            $('#hoverLabel').text("");
+        });
     });
 }
