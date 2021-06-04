@@ -62,8 +62,8 @@ function prepareData() {
     winterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     // Functions to calculate Winter and Summer Games
-    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
-    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
+    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City"]);
+    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City"]);
 
     // Some calculations
     // const calculations = [{
@@ -84,78 +84,144 @@ function drawSpiral() {
     const startY = stageHeight / 2;
     const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
     const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
-    console.log(athletesPerWinterGame);
+    console.log(cumulatedSummerGames);
 
-
-    for (let i = 0; i < cumulatedSummerGames.length; i++) {
-        const summerYears = cumulatedSummerGames[i];
-
-        const dot = $('<div></div>');
-        dot.addClass("SummerGame");
-
-        let angle = (summerYears.Year - 1896) * 2.9;
-
+    // console.log(countryExtremes);
+    cumulatedSummerGames.forEach(summerGame => {
+        let angle = (summerGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle);
-        let area = gmynd.map(summerYears.count, 143, 2048, 25, 600);
-        let rSpiral = gmynd.circleRadius(area);
+        const area = gmynd.map(summerGame.count, 20, 1771, 10, 500);
+        const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
-        let ySpiral = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle - 1.5)) * 15 * 10) - rSpiral; // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle - 1.5)) * 15 * 10) - rSpiral; // sinus vom winkel
 
+        let dot = $('<div></div>');
+        dot.addClass("summerGame");
         dot.css({
-            'height': rSpiral,
-            'width': rSpiral,
-            'background-color': 'white',
-            'position': 'absolute',
+            'height': rSpiral * 2,
+            'width': rSpiral * 2,
             'left': xSpiral,
             'top': ySpiral,
-            'border-radius': '50%'
+            'position': 'absolute',
+            'border-radius': '100%',
+            'background-color': 'white',
         });
+        dot.data(summerGame);
         stage.append(dot);
         dot.mouseover(() => {
             dot.addClass("hover");
-            $('#hoverLabel').text('Year : ' + summerYears.Year + ', ' + 'City: ' + summerYears.City + ', ' + 'Continent : ' + summerYears.continent + ', ' + 'Athletes: ' + summerYears.count);
+            $('#hoverLabel').text('Season: Summer' + ',' + ' Year : ' + summerGame.Year + ', ' + 'City: ' + summerGame.City + ', ' + 'Athletes: ' + summerGame.count);
         });
         dot.mouseout(() => {
             dot.removeClass("hover");
             $('#hoverLabel').text("");
         });
-    }
+    });
+    console.log(cumulatedSummerGames);
 
-    for (let i = 0; i < cumulatedWinterGames.length; i++) {
-        const winterYears = cumulatedWinterGames[i];
+    // console.log(countryExtremes);
+    cumulatedWinterGames.forEach(winterGame => {
+        let angle = (winterGame.Year - 1896) * 2.9;
+        angle = gmynd.radians(angle);
+        const area = gmynd.map(winterGame.count, 20, 1771, 10, 500);
+        const rSpiral = gmynd.circleRadius(area);
 
-        const dot = $('<div></div>');
+        let xSpiral = (startX + (Math.cos(angle - 1.5)) * 20 * 10) - rSpiral; // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle - 1.5)) * 20 * 10) - rSpiral; // sinus vom winkel
+
+        let dot = $('<div></div>');
         dot.addClass("winterGame");
-
-        let angle = (winterYears.Year - 1896) * 2.9;
-
-        angle = gmynd.radians(angle);
-        let area = gmynd.map(winterYears.count, 143, 2048, 100, 1000);
-        let rSpiral = gmynd.circleRadius(area);
-
-        let xSpiral = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
-        let ySpiral = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
-
         dot.css({
-            'height': rSpiral,
-            'width': rSpiral,
-            'background-color': 'white',
-            'position': 'absolute',
+            'height': rSpiral * 2,
+            'width': rSpiral * 2,
             'left': xSpiral,
             'top': ySpiral,
-            'border-radius': '100%'
+            'position': 'absolute',
+            'border-radius': '100%',
+            'background-color': 'white',
         });
+        dot.data(winterGame);
         stage.append(dot);
         dot.mouseover(() => {
             dot.addClass("hover");
-            $('#hoverLabel').text('Year : ' + winterYears.Year + ', ' + 'City: ' + winterYears.City + ', ' + 'Continent : ' + winterYears.continent + ', ' + 'Athletes: ' + winterYears.count);
+            $('#hoverLabel').text('Season: Winter' + ',' + ' Year : ' + winterGame.Year + ', ' + 'City: ' + winterGame.City + ', ' + 'Athletes: ' + winterGame.count);
         });
         dot.mouseout(() => {
             dot.removeClass("hover");
             $('#hoverLabel').text("");
         });
-    }
+    });
+    // for (let i = 0; i < cumulatedSummerGames.length; i++) {
+    //     const summerYears = cumulatedSummerGames[i];
+
+    //     const dot = $('<div></div>');
+    //     dot.addClass("SummerGame");
+
+    //     let angle = (summerYears.Year - 1896) * 2.9;
+
+    //     angle = gmynd.radians(angle);
+    //     let area = gmynd.map(summerYears.count, 143, 2048, 25, 600);
+    //     let rSpiral = gmynd.circleRadius(area);
+
+    //     let xSpiral = startX + (Math.cos(angle)) * 15 * 10; // cosinus vom winkel
+    //     let ySpiral = startY + (Math.sin(angle)) * 15 * 10; // sinus vom winkel
+
+    //     dot.css({
+    //         'height': rSpiral,
+    //         'width': rSpiral,
+    //         'background-color': 'white',
+    //         'position': 'absolute',
+    //         'left': xSpiral,
+    //         'top': ySpiral,
+    //         'border-radius': '50%'
+    //     });
+    //     stage.append(dot);
+    //     dot.mouseover(() => {
+    //         dot.addClass("hover");
+    //         $('#hoverLabel').text('Year : ' + summerYears.Year + ', ' + 'City: ' + summerYears.City + ', ' + 'Continent : ' + summerYears.continent + ', ' + 'Athletes: ' + summerYears.count);
+    //     });
+    //     dot.mouseout(() => {
+    //         dot.removeClass("hover");
+    //         $('#hoverLabel').text("");
+    //     });
+    // }
+
+    // for (let i = 0; i < cumulatedWinterGames.length; i++) {
+    //     const winterYears = cumulatedWinterGames[i];
+
+    //     const dot = $('<div></div>');
+    //     dot.addClass("winterGame");
+
+    //     let angle = (winterYears.Year - 1896) * 2.9;
+
+    //     angle = gmynd.radians(angle);
+    //     let area = gmynd.map(winterYears.count, 143, 2048, 100, 1000);
+    //     let rSpiral = gmynd.circleRadius(area);
+
+    //     let xSpiral = startX + (Math.cos(angle) * 20 * 10); // cosinus vom winkel
+    //     let ySpiral = startY + (Math.sin(angle) * 20 * 10); // sinus vom winkel
+    //     let dot = $('<div></div>');
+    //     dot.addClass("summerGame");
+    //     dot.css({
+    //         'height': rSpiral,
+    //         'width': rSpiral,
+    //         'background-color': 'white',
+    //         'position': 'absolute',
+    //         'left': xSpiral,
+    //         'top': ySpiral,
+    //         'border-radius': '100%'
+    //     });
+    //     stage.append(dot);
+    //     dot.mouseover(() => {
+    //         dot.addClass("hover");
+    //         $('#hoverLabel').text('Year : ' + winterYears.Year + ', ' + 'City: ' + winterYears.City + ', ' + 'Continent : ' + winterYears.continent + ', ' + 'Athletes: ' + winterYears.count);
+    //     });
+    //     dot.mouseout(() => {
+    //         dot.removeClass("hover");
+    //         $('#hoverLabel').text("");
+    //     });
+    // }
 }
 
 // function drawTimespiral() {
