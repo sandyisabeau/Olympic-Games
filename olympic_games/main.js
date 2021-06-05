@@ -10,8 +10,8 @@ $(function() {
     // createDots()
     // drawTimespiral();
     // drawSpiral();
-    drawMap();
-    // drawDiagram();
+    // drawMap();
+    drawDiagram();
 });
 
 function prepareData() {
@@ -31,33 +31,6 @@ function prepareData() {
     //Filter to delete incomplete Data
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "country", "number"]);
 
-
-    // Function to see the Min and Max of the athletes characteristics
-    // let extremesHeight = gmynd.dataExtremes(data, "Height");
-    // let extremesWeight = gmynd.dataExtremes(data, "Weight");
-    // let extremesAge = gmynd.dataExtremes(data, "Age");
-
-
-
-    // Function to see the Min and Max in relation to the gender
-    let groupedGender = gmynd.groupData(data, "Sex");
-
-    let femaleAthletes = gmynd.findAllByValue(data, "Sex", "F");
-    let maleAthletes = gmynd.findAllByValue(data, "Sex", "M");
-
-    // let extremesHeightFemale = gmynd.dataExtremes(femaleAthletes, "Height");
-    // let extremesWeightFemale = gmynd.dataExtremes(femaleAthletes, "Weight");
-    // let extremesAgeFemale = gmynd.dataExtremes(femaleAthletes, "Age");
-
-
-    // let extremesHeightMale = gmynd.dataExtremes(maleAthletes, "Height");
-    // let extremesWeightMale = gmynd.dataExtremes(maleAthletes, "Weight");
-    // let extremesAgeMale = gmynd.dataExtremes(maleAthletes, "Age");
-
-
-    // const groupedTeams = gmynd.groupData(data, "NOC");
-    // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
-
     //Functions to separate Winter and Summer Games (for Spiral)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
@@ -66,15 +39,19 @@ function prepareData() {
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
 
-
     //Functions to separate Winter and Summer Games (for Map)
     countriesAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     countriesAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     //Functions to separate Gold, Silver and Bronze (F&M)
-    goldMedals = gmynd.findAllByValue(data, "Medal", "Gold");
-    silverMedals = gmynd.findAllByValue(data, "Medal", "Silver");
-    bronzeMedals = gmynd.findAllByValue(data, "Medal", "Bronze");
+    let femaleMedalists = gmynd.findAllByValue(data, "Sex", "F");
+    let maleMedalists = gmynd.findAllByValue(data, "Sex", "M");
+
+    femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
+    maleMedalists = gmynd.groupData(maleMedalists, "Medal");
+    console.log(femaleMedalists);
+    console.log(maleMedalists);
+
 
     //Functions to separate Gold, Silver and Bronze (F)
     allMedalsFemale = gmynd.findAllByValue(femaleAthletes, "Medal");
@@ -95,18 +72,6 @@ function prepareData() {
     winnerSilverMedals = gmynd.cumulateData(silverMedals, ["NOC", "longitude", "latitude", "countryName", "Medal"]);
     winnerBronzeMedals = gmynd.cumulateData(bronzeMedals, ["NOC", "longitude", "latitude", "countryName", "Medal"]);
     console.log(winnerAllMedals);
-    // Some calculations
-    // const calculations = [{
-    //     value: 'Year',
-    //     method: 'Min',
-    // }];
-    // cumulatedGames = gmynd.cumulateData(gameData, "Season", calculations);
-    // console.log(cumulatedGames);
-
-
-    //Grouping both seasons
-    groupedData = gmynd.groupData(data, "Season");
-
 }
 
 function continentColor() {
@@ -311,10 +276,6 @@ function drawMap() {
     // });
 }
 
-// function drawDiagram() {
-//     größe
-//     gewicht
-//     alter
-//     if abfrage, was geklickt wurde
-//     x udn y abstände berechnen
-// }
+function drawDiagram() {
+
+}
