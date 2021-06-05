@@ -1,5 +1,5 @@
 let stageHeight, stageWidth;
-let data, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, cumulatedCountries, cumulatedContinents;
+let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, cumulatedCountries, cumulatedContinents;
 let stage;
 // let showingChart;
 $(function() {
@@ -18,7 +18,7 @@ function prepareData() {
 
     data = gmynd.mergeData(gameData, positionData, "NOC", "alpha3Code");
     data = gmynd.mergeData(data, continentalData, "NOC", "iso3");
-
+    cityContinents = gmynd.mergeData(gameData, cityData, "City");
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
 
 
@@ -51,19 +51,19 @@ function prepareData() {
 
     // Function to see number of athletes
 
-    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "Team", "longitude", "latitude"]);
+    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
     // groupedCountries = gmynd.groupData(data, ['NOC']);
 
     // const groupedTeams = gmynd.groupData(data, "NOC");
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
 
     //Functions to separate Winter and Summer Games (for further calculations)
-    summerGames = gmynd.findAllByValue(data, "Season", "Summer");
-    winterGames = gmynd.findAllByValue(data, "Season", "Winter");
+    summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
+    winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
 
     // Functions to calculate Winter and Summer Games
-    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City"]);
-    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City"]);
+    cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
+    cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
 
     // Some calculations
     // const calculations = [{
@@ -77,6 +77,34 @@ function prepareData() {
     //Grouping both seasons
     groupedData = gmynd.groupData(data, "Season");
 
+}
+
+function continentColor() {
+    if (continent == "Europe") {
+        dot.css({
+            'background-color': '#2796EA',
+        });
+    }
+    if (continent == "Asia") {
+        dot.css({
+            'background-color': '#FF9839',
+        });
+    }
+    if (continent == "Oceania") {
+        dot.css({
+            'background-color': '#22AE70',
+        });
+    }
+    if (continent == "North America") {
+        dot.css({
+            'background-color': '#DF366E',
+        });
+    }
+    if (continent == "South America") {
+        dot.css({
+            'background-color': '#DF366E',
+        });
+    }
 }
 
 function drawSpiral() {
@@ -96,9 +124,10 @@ function drawSpiral() {
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 15 * 10) - rSpiral; // cosinus vom winkel
         let ySpiral = (startY + (Math.sin(angle - 1.5)) * 15 * 10) - rSpiral; // sinus vom winkel
 
-        let dot = $('<div></div>');
-        dot.addClass("summerGame");
-        dot.css({
+        let spiralDot = $('<div></div>');
+        spiralDot.addClass("summerGame");
+        spiralDot.addClass("summerGame.coverage");
+        spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
             'left': xSpiral,
@@ -107,18 +136,18 @@ function drawSpiral() {
             'border-radius': '100%',
             'background-color': 'white',
         });
-        dot.data(summerGame);
-        stage.append(dot);
-        dot.mouseover(() => {
-            dot.addClass("hover");
-            $('#hoverLabel').text('Season: Summer' + ',' + ' Year : ' + summerGame.Year + ', ' + 'City: ' + summerGame.City + ', ' + 'Athletes: ' + summerGame.count);
+        spiralDot.data(summerGame);
+        stage.append(spiralDot);
+        spiralDot.mouseover(() => {
+            spiralDot.addClass("hover");
+            $('#hoverLabel').text('Season: Summer' + ',' + ' Year : ' + summerGame.Year + ', ' + 'City: ' + summerGame.City + ', ' + 'Continent: ' + summerGame.continent + ', ' + 'Athletes: ' + summerGame.count);
         });
-        dot.mouseout(() => {
-            dot.removeClass("hover");
+        spiralDot.mouseout(() => {
+            spiralDot.removeClass("hover");
             $('#hoverLabel').text("");
         });
     });
-    console.log(cumulatedWinterGames);
+    console.log(spiralDot);
 
     // console.log(countryExtremes);
     cumulatedWinterGames.forEach(winterGame => {
@@ -130,9 +159,9 @@ function drawSpiral() {
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 20 * 10) - rSpiral; // cosinus vom winkel
         let ySpiral = (startY + (Math.sin(angle - 1.5)) * 20 * 10) - rSpiral; // sinus vom winkel
 
-        let dot = $('<div></div>');
-        dot.addClass("winterGame");
-        dot.css({
+        let spiralDot = $('<div></div>');
+        spiralDot.addClass("winterGame");
+        spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
             'left': xSpiral,
@@ -141,14 +170,14 @@ function drawSpiral() {
             'border-radius': '100%',
             'background-color': 'white',
         });
-        dot.data(winterGame);
-        stage.append(dot);
-        dot.mouseover(() => {
-            dot.addClass("hover");
-            $('#hoverLabel').text('Season: Winter' + ',' + ' Year : ' + winterGame.Year + ', ' + 'City: ' + winterGame.City + ', ' + 'Athletes: ' + winterGame.count);
+        spiralDot.data(winterGame);
+        stage.append(spiralDot);
+        spiralDot.mouseover(() => {
+            spiralDot.addClass("hover");
+            $('#hoverLabel').text('Season: Winter' + ',' + ' Year : ' + winterGame.Year + ', ' + 'City: ' + winterGame.City + ', ' + 'Continent: ' + winterGame.continent + ', ' + 'Athletes: ' + winterGame.count);
         });
-        dot.mouseout(() => {
-            dot.removeClass("hover");
+        spiralDot.mouseout(() => {
+            spiralDot.removeClass("hover");
             $('#hoverLabel').text("");
         });
     });
