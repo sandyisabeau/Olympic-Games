@@ -1,0 +1,211 @@
+[{
+        "City": "Paris",
+        "continent": "Europe",
+        "iso3": "FRA",
+    },
+    {
+        "City": "Antwerpen",
+        "continent": "Europe",
+        "iso3": "BEL",
+    },
+    {
+        "City": "London",
+        "continent": "Europe",
+        "iso3": "GBR",
+    },
+    {
+        "City": "Helsinki",
+        "continent": "Europe",
+        "iso3": "FIN",
+    },
+    {
+        "City": "Beijing",
+        "continent": "Asia",
+        "iso3": "CHN",
+    },
+    {
+        "City": "Seoul",
+        "continent": "Asia",
+        "iso3": "PRK",
+    },
+    {
+        "City": "Atlanta",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Stockholm",
+        "continent": "Europe",
+        "iso3": "SWE",
+    },
+    {
+        "City": "Melbourne",
+        "continent": "Oceania",
+        "iso3": "AUS",
+    },
+    {
+        "City": "Rio de Janeiro",
+        "continent": "South America",
+        "iso3": "BRA",
+    },
+    {
+        "City": "Sydney",
+        "continent": "Oceania",
+        "iso3": "AUS",
+    },
+    {
+        "City": "Athina",
+        "continent": "Europe",
+        "iso3": "GRC",
+    },
+    {
+        "City": "Moskva",
+        "continent": "Europe",
+        "iso3": "RUS",
+    },
+    {
+        "City": "Los Angeles",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Barcelona",
+        "continent": "Europe",
+        "iso3": "ESP",
+    },
+    {
+        "City": "Berlin",
+        "continent": "Europe",
+        "iso3": "DEU",
+    },
+    {
+        "City": "Roma",
+        "continent": "Europe",
+        "iso3": "ITA",
+    },
+    {
+        "City": "Tokyo",
+        "continent": "Asia",
+        "iso3": "JPN",
+    },
+    {
+        "City": "Munich",
+        "continent": "Europe",
+        "iso3": "DEU",
+    },
+    {
+        "City": "St. Louis",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Montreal",
+        "continent": "North America",
+        "iso3": "CAN",
+    },
+    {
+        "City": "Amsterdam",
+        "continent": "Europe",
+        "iso3": "NLD",
+    },
+    {
+        "City": "Mexico City",
+        "continent": "North America",
+        "iso3": "MEX",
+    },
+    {
+        "City": "Sochi",
+        "continent": "Europe",
+        "iso3": "RUS",
+    },
+    {
+        "City": "Albertville",
+        "continent": "Europe",
+        "iso3": "FRA",
+    },
+    {
+        "City": "Lillehammer",
+        "continent": "Europe",
+        "iso3": "NOR",
+    },
+    {
+        "City": "Salt Lake City",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Torino",
+        "continent": "Europe",
+        "iso3": "ITA",
+    },
+    {
+        "City": "Oslo",
+        "continent": "Europe",
+        "iso3": "NOR",
+    },
+    {
+        "City": "Squaw Valley",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Chamonix",
+        "continent": "Europe",
+        "iso3": "FRA",
+    },
+    {
+        "City": "Sankt Moritz",
+        "continent": "Europe",
+        "iso3": "CHE",
+    },
+    {
+        "City": "Calgary",
+        "continent": "North America",
+        "iso3": "CAN",
+    },
+    {
+        "City": "Vancouver",
+        "continent": "North America",
+        "iso3": "CAN",
+    },
+    {
+        "City": "Sapporo",
+        "continent": "Asis",
+        "iso3": "JPN",
+    },
+    {
+        "City": "Lake Placid",
+        "continent": "North America",
+        "iso3": "USA",
+    },
+    {
+        "City": "Sarajevo",
+        "continent": "Europe",
+        "iso3": "BIH",
+    },
+    {
+        "City": "Garmisch-Partenkirchen",
+        "continent": "Europe",
+        "iso3": "DEU",
+    },
+    {
+        "City": "Nagano",
+        "continent": "Asia",
+        "iso3": "JPN",
+    },
+    {
+        "City": "Cortina d'Ampezzo",
+        "continent": "Europe",
+        "iso3": "ITA",
+    },
+    {
+        "City": "Innsbruck",
+        "continent": "Europe",
+        "iso3": "AUT",
+    },
+    {
+        "City": "Grenoble",
+        "continent": "Europe",
+        "iso3": "FRA",
+    },
+]

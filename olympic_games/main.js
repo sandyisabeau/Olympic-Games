@@ -9,9 +9,9 @@ $(function() {
     prepareData();
     // createDots()
     // drawTimespiral();
-    // drawSpiral();
+    drawSpiral();
     // drawMap();
-    drawDiagram();
+    // drawDiagram();
 });
 
 function prepareData() {
@@ -20,11 +20,6 @@ function prepareData() {
     data = gmynd.mergeData(data, continentalData, "NOC", "iso3");
 
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
-    let NOCgameData = gmynd.cumulateData(gameData, ["NOC"]);
-    console.log(NOCgameData);
-    let alpha3CodeData = gmynd.cumulateData(positionData, "alpha3Code");
-    console.log(alpha3CodeData);
-
 
 
 
@@ -123,7 +118,7 @@ function drawSpiral() {
             $('#hoverLabel').text("");
         });
     });
-    console.log(cumulatedSummerGames);
+    console.log(cumulatedWinterGames);
 
     // console.log(countryExtremes);
     cumulatedWinterGames.forEach(winterGame => {
