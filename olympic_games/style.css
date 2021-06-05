@@ -13,11 +13,11 @@ body {
 #hoverLabel,
 #clickLabel {
     background-color: rgba(255, 255, 255, 0.05);
-    width: 900px;
+    width: 100vw;
 }
 
 #stage {
-    height: 600px;
+    height: 100vh;
 }
 
 #hoverLabel,
@@ -38,4 +38,12 @@ body {
 
 .clicked {
     background-color: red;
+}
+
+.continents {
+    position: absolute;
+    left: 5vw;
+    top: 75vh;
+    font-size: 14pt;
+    line-height: 20pt;
 }

@@ -16,17 +16,20 @@ $(function() {
 
 function prepareData() {
 
+    //Functions to merge all datasets
     data = gmynd.mergeData(gameData, positionData, "NOC", "alpha3Code");
     data = gmynd.mergeData(data, continentalData, "NOC", "iso3");
-    cityContinents = gmynd.mergeData(gameData, cityData, "City");
-    gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
-
-
 
     //Filter to remove incomplete Data
-    // let filteredWeight = gmynd.filterPropType(data, "Weight", "Number");
-    // let filteredHeight = gmynd.filterPropType(filteredWeight, "Height", "Number");
-    // let filteredAge = gmynd.filterPropType(filteredHeight, "Age", "Number");
+    data = gmynd.filterPropType(data, "Weight", "Number");
+    data = gmynd.filterPropType(data, "Height", "Number");
+    data = gmynd.filterPropType(data, "Age", "Number");
+
+    //Function to merge the continents of the city in which the games took place    
+    cityContinents = gmynd.mergeData(data, cityData, "City");
+
+    //Filter to delete incomplete Data
+    gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
 
 
     // Function to see the Min and Max of the athletes characteristics
@@ -49,10 +52,6 @@ function prepareData() {
     // let extremesWeightMale = gmynd.dataExtremes(maleAthletes, "Weight");
     // let extremesAgeMale = gmynd.dataExtremes(maleAthletes, "Age");
 
-    // Function to see number of athletes
-
-    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
-    // groupedCountries = gmynd.groupData(data, ['NOC']);
 
     // const groupedTeams = gmynd.groupData(data, "NOC");
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
@@ -60,6 +59,9 @@ function prepareData() {
     //Functions to separate Winter and Summer Games (for further calculations)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
+    console.log(summerGames);
+    // Function to see number of athletes
+    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
 
     // Functions to calculate Winter and Summer Games
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
@@ -118,7 +120,7 @@ function drawSpiral() {
     cumulatedSummerGames.forEach(summerGame => {
         let angle = (summerGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle);
-        const area = gmynd.map(summerGame.count, 20, 1771, 10, 500);
+        const area = gmynd.map(summerGame.count, 20, 1771, 20, 500);
         const rSpiral = gmynd.circleRadius(area);
 
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 15 * 10) - rSpiral; // cosinus vom winkel
@@ -126,7 +128,6 @@ function drawSpiral() {
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("summerGame");
-        spiralDot.addClass("summerGame.coverage");
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -147,13 +148,12 @@ function drawSpiral() {
             $('#hoverLabel').text("");
         });
     });
-    console.log(spiralDot);
 
     // console.log(countryExtremes);
     cumulatedWinterGames.forEach(winterGame => {
         let angle = (winterGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle);
-        const area = gmynd.map(winterGame.count, 20, 1771, 10, 500);
+        const area = gmynd.map(winterGame.count, 20, 1771, 20, 500);
         const rSpiral = gmynd.circleRadius(area);
 
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 20 * 10) - rSpiral; // cosinus vom winkel
