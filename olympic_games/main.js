@@ -9,8 +9,8 @@ $(function() {
     prepareData();
     // createDots()
     // drawTimespiral();
-    drawSpiral();
-    // drawMap();
+    // drawSpiral();
+    drawMap();
     // drawDiagram();
 });
 
@@ -33,15 +33,15 @@ function prepareData() {
 
 
     // Function to see the Min and Max of the athletes characteristics
-    // let extremesHeight = gmynd.dataExtremes(filteredAge, "Height");
-    // let extremesWeight = gmynd.dataExtremes(filteredAge, "Weight");
-    // let extremesAge = gmynd.dataExtremes(filteredAge, "Age");
+    // let extremesHeight = gmynd.dataExtremes(data, "Height");
+    // let extremesWeight = gmynd.dataExtremes(data, "Weight");
+    // let extremesAge = gmynd.dataExtremes(data, "Age");
 
 
 
     // Function to see the Min and Max in relation to the gender
-    // let femaleAthletes = gmynd.findAllByValue(filteredAge, "Sex", "F");
-    // let maleAthletes = gmynd.findAllByValue(filteredAge, "Sex", "M");
+    // let femaleAthletes = gmynd.findAllByValue(data, "Sex", "F");
+    // let maleAthletes = gmynd.findAllByValue(data, "Sex", "M");
 
     // let extremesHeightFemale = gmynd.dataExtremes(femaleAthletes, "Height");
     // let extremesWeightFemale = gmynd.dataExtremes(femaleAthletes, "Weight");
@@ -59,9 +59,14 @@ function prepareData() {
     //Functions to separate Winter and Summer Games (for further calculations)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
-    console.log(summerGames);
+    console.log(data);
+
     // Function to see number of athletes
-    cumulatedCountries = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
+    countriesAtBothGames = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
+    countriesAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
+    countriesAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
+    console.log(countriesAtSummerGames);
+    console.log(countriesAtWinterGames);
 
     // Functions to calculate Winter and Summer Games
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
@@ -114,13 +119,14 @@ function drawSpiral() {
     const startY = stageHeight / 2;
     const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
     const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
-    console.log(cumulatedSummerGames);
+    // console.log(athletesPerSummerGame);
+    // console.log(athletesPerWinterGame);
 
     // console.log(countryExtremes);
     cumulatedSummerGames.forEach(summerGame => {
         let angle = (summerGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle);
-        const area = gmynd.map(summerGame.count, 20, 1771, 20, 500);
+        const area = gmynd.map(summerGame.count, 19, 2031, 20, 500);
         const rSpiral = gmynd.circleRadius(area);
 
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 15 * 10) - rSpiral; // cosinus vom winkel
@@ -153,7 +159,7 @@ function drawSpiral() {
     cumulatedWinterGames.forEach(winterGame => {
         let angle = (winterGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle);
-        const area = gmynd.map(winterGame.count, 20, 1771, 20, 500);
+        const area = gmynd.map(winterGame.count, 19, 2031, 20, 500);
         const rSpiral = gmynd.circleRadius(area);
 
         let xSpiral = (startX + (Math.cos(angle - 1.5)) * 20 * 10) - rSpiral; // cosinus vom winkel
@@ -184,7 +190,7 @@ function drawSpiral() {
 }
 
 function drawMap() {
-    const athletesPerTeam = gmynd.dataExtremes(cumulatedCountries, "count");
+    const athletesPerTeam = gmynd.dataExtremes(countriesAtBothGames, "count");
     // const longitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "longitude");
     // const latitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "latitude");
 
@@ -192,7 +198,7 @@ function drawMap() {
     // console.log(latitudeExtremes);
 
     // console.log(countryExtremes);
-    cumulatedCountries.forEach(country => {
+    countriesAtBothGames.forEach(country => {
         const area = gmynd.map(country.count, athletesPerTeam.min, athletesPerTeam.max, 25, 500);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -102, 174, 0, stageWidth) - rMap;
@@ -211,7 +217,7 @@ function drawMap() {
         stage.append(dot);
         dot.mouseover(() => {
             dot.addClass("hover");
-            $('#hoverLabel').text('Country : ' + country.Team + ', ' + 'Athletes : ' + country.count);
+            $('#hoverLabel').text('Country : ' + country.country + ', ' + 'Athletes : ' + country.count);
         });
         dot.mouseout(() => {
             dot.removeClass("hover");
