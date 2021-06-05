@@ -19,8 +19,14 @@ function prepareData() {
     data = gmynd.mergeData(gameData, positionData, "NOC", "alpha3Code");
     data = gmynd.mergeData(data, continentalData, "NOC", "iso3");
 
-    gmynd.deletePropsInData(data, ["alpha2Code", "numericCode", "countryName"]);
-    console.log(data);
+    gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
+    let NOCgameData = gmynd.cumulateData(gameData, ["NOC"]);
+    console.log(NOCgameData);
+    let alpha3CodeData = gmynd.cumulateData(positionData, "alpha3Code");
+    console.log(alpha3CodeData);
+
+
+
 
     //Filter to remove incomplete Data
     // let filteredWeight = gmynd.filterPropType(data, "Weight", "Number");
@@ -51,7 +57,6 @@ function prepareData() {
     // Function to see number of athletes
 
     cumulatedCountries = gmynd.cumulateData(data, ["NOC", "Team", "longitude", "latitude"]);
-
     // groupedCountries = gmynd.groupData(data, ['NOC']);
 
     // const groupedTeams = gmynd.groupData(data, "NOC");
@@ -191,10 +196,10 @@ function drawMap() {
     });
 }
 
-function drawDiagram() {
-    größe
-    gewicht
-    alter
-    if abfrage, was geklickt wurde
-    x udn y abstände berechnen
-}
+// function drawDiagram() {
+//     größe
+//     gewicht
+//     alter
+//     if abfrage, was geklickt wurde
+//     x udn y abstände berechnen
+// }
