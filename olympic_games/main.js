@@ -1,5 +1,5 @@
 let stageHeight, stageWidth;
-let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, cumulatedCountries, cumulatedContinents;
+let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, countriesAtBothGames, countriesAtSummerGames, countriesAtWinterGames, winnerAllMedals, allMedals;
 let stage;
 // let showingChart;
 $(function() {
@@ -29,7 +29,7 @@ function prepareData() {
     cityContinents = gmynd.mergeData(data, cityData, "City");
 
     //Filter to delete incomplete Data
-    gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "countryName", "number"]);
+    gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "country", "number"]);
 
 
     // Function to see the Min and Max of the athletes characteristics
@@ -40,8 +40,10 @@ function prepareData() {
 
 
     // Function to see the Min and Max in relation to the gender
-    // let femaleAthletes = gmynd.findAllByValue(data, "Sex", "F");
-    // let maleAthletes = gmynd.findAllByValue(data, "Sex", "M");
+    let groupedGender = gmynd.groupData(data, "Sex");
+
+    let femaleAthletes = gmynd.findAllByValue(data, "Sex", "F");
+    let maleAthletes = gmynd.findAllByValue(data, "Sex", "M");
 
     // let extremesHeightFemale = gmynd.dataExtremes(femaleAthletes, "Height");
     // let extremesWeightFemale = gmynd.dataExtremes(femaleAthletes, "Weight");
@@ -56,22 +58,43 @@ function prepareData() {
     // const groupedTeams = gmynd.groupData(data, "NOC");
     // let femaleAthletes = gmynd.findAllByValue(athlete, "Sex", "F");
 
-    //Functions to separate Winter and Summer Games (for further calculations)
+    //Functions to separate Winter and Summer Games (for Spiral)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
-    console.log(data);
 
-    // Function to see number of athletes
-    countriesAtBothGames = gmynd.cumulateData(data, ["NOC", "longitude", "latitude"]);
-    countriesAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
-    countriesAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
-    console.log(countriesAtSummerGames);
-    console.log(countriesAtWinterGames);
-
-    // Functions to calculate Winter and Summer Games
+    // Functions to calculate Winter and Summer Games (for Spiral)
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
 
+
+    //Functions to separate Winter and Summer Games (for Map)
+    countriesAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
+    countriesAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
+
+    //Functions to separate Gold, Silver and Bronze (F&M)
+    goldMedals = gmynd.findAllByValue(data, "Medal", "Gold");
+    silverMedals = gmynd.findAllByValue(data, "Medal", "Silver");
+    bronzeMedals = gmynd.findAllByValue(data, "Medal", "Bronze");
+
+    //Functions to separate Gold, Silver and Bronze (F)
+    allMedalsFemale = gmynd.findAllByValue(femaleAthletes, "Medal");
+    goldMedalsFemale = gmynd.findAllByValue(femaleAthletes, "Medal", "Gold");
+    silverMedalsFemale = gmynd.findAllByValue(femaleAthletes, "Medal", "Silver");
+    bronzeMedalsFemale = gmynd.findAllByValue(femaleAthletes, "Medal", "Bronze");
+
+    //Functions to separate Gold, Silver and Bronze (M)
+    allMedalsMale = gmynd.findAllByValue(data, "Medal");
+    goldMedalsMale = gmynd.findAllByValue(data, "Medal", "Gold");
+    silverMedalsMale = gmynd.findAllByValue(data, "Medal", "Silver");
+    bronzeMedalsMale = gmynd.findAllByValue(data, "Medal", "Bronze");
+
+
+    // Function to see number of medalists
+    winnerAllMedals = gmynd.cumulateData(data, ["NOC", "longitude", "latitude", "countryName"]);
+    winnerGoldMedals = gmynd.cumulateData(goldMedals, ["NOC", "longitude", "latitude", "countryName", "Medal"]);
+    winnerSilverMedals = gmynd.cumulateData(silverMedals, ["NOC", "longitude", "latitude", "countryName", "Medal"]);
+    winnerBronzeMedals = gmynd.cumulateData(bronzeMedals, ["NOC", "longitude", "latitude", "countryName", "Medal"]);
+    console.log(winnerAllMedals);
     // Some calculations
     // const calculations = [{
     //     value: 'Year',
@@ -190,19 +213,27 @@ function drawSpiral() {
 }
 
 function drawMap() {
-    const athletesPerTeam = gmynd.dataExtremes(countriesAtBothGames, "count");
-    // const longitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "longitude");
-    // const latitudeExtremes = gmynd.dataExtremes(cumulatedCountries, "latitude");
+    // const athletesPerTeam = gmynd.dataExtremes(countriesAtBothGames, "count");
+    // const longitudeExtremes = gmynd.dataExtremes(countriesAtBothGames, "longitude");
+    // const latitudeExtremes = gmynd.dataExtremes(countriesAtBothGames, "latitude");
 
+    // const athletesPerTeam = gmynd.dataExtremes(countriesAtSummerGames, "count");
+    // const longitudeExtremes = gmynd.dataExtremes(countriesAtSummerGames, "longitude");
+    // const latitudeExtremes = gmynd.dataExtremes(countriesAtSummerGames, "latitude");
 
+    // const athletesPerTeam = gmynd.dataExtremes(countriesAtWinterGames, "count");
+    // const longitudeExtremes = gmynd.dataExtremes(countriesAtWinterGames, "longitude");
+    // const latitudeExtremes = gmynd.dataExtremes(countriesAtWinterGames, "latitude");
+
+    // console.log(athletesPerTeam);
+    // console.log(longitudeExtremes);
     // console.log(latitudeExtremes);
 
-    // console.log(countryExtremes);
-    countriesAtBothGames.forEach(country => {
-        const area = gmynd.map(country.count, athletesPerTeam.min, athletesPerTeam.max, 25, 500);
+    winnerAllMedals.forEach(country => {
+        const area = gmynd.map(country.count, 1, 4383, 30, 700);
         const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -102, 174, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -41, 65, stageHeight, 0) - rMap;
+        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
         dot.addClass("country");
         dot.css({
@@ -217,13 +248,67 @@ function drawMap() {
         stage.append(dot);
         dot.mouseover(() => {
             dot.addClass("hover");
-            $('#hoverLabel').text('Country : ' + country.country + ', ' + 'Athletes : ' + country.count);
+            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
         });
         dot.mouseout(() => {
             dot.removeClass("hover");
             $('#hoverLabel').text("");
         });
     });
+
+    // countriesAtSummerGames.forEach(country => {
+    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
+    //     const rMap = gmynd.circleRadius(area);
+    //     const xMap = gmynd.map(country.longitude, -175, 175, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -41, 65, stageHeight, 0) - rMap;
+    //     let dot = $('<div></div>');
+    //     dot.addClass("country");
+    //     dot.css({
+    //         'height': rMap * 2,
+    //         'width': rMap * 2,
+    //         'left': xMap,
+    //         'top': yMap,
+    //         'border-radius': '100%',
+    //         'background-color': 'white',
+    //     });
+    //     dot.data(country);
+    //     stage.append(dot);
+    //     dot.mouseover(() => {
+    //         dot.addClass("hover");
+    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+    //     });
+    //     dot.mouseout(() => {
+    //         dot.removeClass("hover");
+    //         $('#hoverLabel').text("");
+    //     });
+    // });
+
+    // countriesAtWinterGames.forEach(country => {
+    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
+    //     const rMap = gmynd.circleRadius(area);
+    //     const xMap = gmynd.map(country.longitude, -97, 174, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -41, 64, stageHeight, 0) - rMap;
+    //     let dot = $('<div></div>');
+    //     dot.addClass("country");
+    //     dot.css({
+    //         'height': rMap * 2,
+    //         'width': rMap * 2,
+    //         'left': xMap,
+    //         'top': yMap,
+    //         'border-radius': '100%',
+    //         'background-color': 'white',
+    //     });
+    //     dot.data(country);
+    //     stage.append(dot);
+    //     dot.mouseover(() => {
+    //         dot.addClass("hover");
+    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+    //     });
+    //     dot.mouseout(() => {
+    //         dot.removeClass("hover");
+    //         $('#hoverLabel').text("");
+    //     });
+    // });
 }
 
 // function drawDiagram() {
