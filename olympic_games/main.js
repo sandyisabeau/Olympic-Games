@@ -1,5 +1,5 @@
 let stageHeight, stageWidth;
-let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, countriesAtBothGames, countriesAtSummerGames, countriesAtWinterGames, winnerAllMedals, allMedals;
+let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
 let stage;
 // let showingChart;
 $(function() {
@@ -40,8 +40,8 @@ function prepareData() {
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
 
     //Functions to separate Winter and Summer Games (for Map)
-    countriesAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
-    countriesAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
+    medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
+    medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     //Functions to separate male and female medalists
     let femaleMedalists = gmynd.findAllByValue(data, "Sex", "F");
@@ -55,6 +55,9 @@ function prepareData() {
 
     // Function to see number of medalists
     allMedalists = gmynd.cumulateData(data, ["NOC", "longitude", "latitude", "countryName"]);
+    medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["NOC", "longitude", "latitude", "countryName"]);
+    medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["NOC", "longitude", "latitude", "countryName"]);
+
     // console.log(allMedalists);
 }
 
@@ -162,38 +165,11 @@ function drawSpiral() {
 }
 
 function drawMap() {
-    allMedalists.forEach(country => {
-        const area = gmynd.map(country.count, 1, 4383, 30, 700);
-        const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
-        let dot = $('<div></div>');
-        dot.addClass("country");
-        dot.css({
-            'height': rMap * 2,
-            'width': rMap * 2,
-            'left': xMap,
-            'top': yMap,
-            'border-radius': '100%',
-            'background-color': 'white',
-        });
-        dot.data(country);
-        stage.append(dot);
-        dot.mouseover(() => {
-            dot.addClass("hover");
-            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
-        });
-        dot.mouseout(() => {
-            dot.removeClass("hover");
-            $('#hoverLabel').text("");
-        });
-    });
-
-    // countriesAtSummerGames.forEach(country => {
-    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
+    // allMedalists.forEach(country => {
+    //     const area = gmynd.map(country.count, 1, 4383, 30, 700);
     //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -175, 175, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -41, 65, stageHeight, 0) - rMap;
+    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
     //     let dot = $('<div></div>');
     //     dot.addClass("country");
     //     dot.css({
@@ -216,11 +192,38 @@ function drawMap() {
     //     });
     // });
 
-    // countriesAtWinterGames.forEach(country => {
+    medalistsAtSummerGames.forEach(country => {
+        const area = gmynd.map(country.count, 1, 4383, 25, 500);
+        const rMap = gmynd.circleRadius(area);
+        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
+        let dot = $('<div></div>');
+        dot.addClass("country");
+        dot.css({
+            'height': rMap * 2,
+            'width': rMap * 2,
+            'left': xMap,
+            'top': yMap,
+            'border-radius': '100%',
+            'background-color': '#FF7A00',
+        });
+        dot.data(country);
+        stage.append(dot);
+        dot.mouseover(() => {
+            dot.addClass("hover");
+            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+        });
+        dot.mouseout(() => {
+            dot.removeClass("hover");
+            $('#hoverLabel').text("");
+        });
+    });
+
+    // medalistsAtWinterGames.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
     //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -97, 174, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -41, 64, stageHeight, 0) - rMap;
+    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
     //     let dot = $('<div></div>');
     //     dot.addClass("country");
     //     dot.css({
@@ -229,7 +232,7 @@ function drawMap() {
     //         'left': xMap,
     //         'top': yMap,
     //         'border-radius': '100%',
-    //         'background-color': 'white',
+    //         'background-color': '#00C2FF',
     //     });
     //     dot.data(country);
     //     stage.append(dot);
@@ -247,3 +250,7 @@ function drawMap() {
 function drawDiagram() {
 
 }
+
+// Wie lege ich Größen etc an, sodass sie responsiv bleiben (auch beim Text etc).?
+// Wie kann ich eine Karte als Ganzes skalieren, ohne dass sich Radius etc verändern?
+// Warum sind manche Kreise nicht rund (auf der Karte)?
