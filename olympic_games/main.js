@@ -1,16 +1,18 @@
 let stageHeight, stageWidth;
 let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
 let stage;
-// let showingChart;
+let dot
+    // let showingChart;
 $(function() {
     stage = $('#stage');
     stageHeight = stage.height();
     stageWidth = stage.width();
     prepareData();
-    // createDots()
-    // drawTimespiral();
-    // drawSpiral();
-    drawMap();
+    continentColor()
+        // createDots()
+        // drawTimespiral();
+    drawSpiral();
+    // drawMap();
     // drawDiagram();
 });
 
@@ -62,28 +64,28 @@ function prepareData() {
 }
 
 function continentColor() {
-    if (continent == "Europe") {
-        dot.css({
+    if (summerGame.continent == "Europe") {
+        spiralDot.css({
             'background-color': '#2796EA',
         });
     }
-    if (continent == "Asia") {
-        dot.css({
+    if (summerGame.continent == "Asia") {
+        spiralDot.css({
             'background-color': '#FF9839',
         });
     }
-    if (continent == "Oceania") {
-        dot.css({
+    if (summerGame.continent == "Oceania") {
+        spiralDot.css({
             'background-color': '#22AE70',
         });
     }
-    if (continent == "North America") {
-        dot.css({
+    if (summerGame.continent == "North America") {
+        spiralDot.css({
             'background-color': '#DF366E',
         });
     }
-    if (continent == "South America") {
-        dot.css({
+    if (summerGame.continent == "South America") {
+        spiralDot.css({
             'background-color': '#DF366E',
         });
     }
@@ -108,7 +110,8 @@ function drawSpiral() {
         let ySpiral = (startY + (Math.sin(angle - 1.5)) * 15 * 10) - rSpiral; // sinus vom winkel
 
         let spiralDot = $('<div></div>');
-        spiralDot.addClass("summerGame");
+        spiralDot.addClass("Game");
+        continentColor();
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -116,7 +119,7 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
-            'background-color': 'white',
+            'background-color': continentColor,
         });
         spiralDot.data(summerGame);
         stage.append(spiralDot);
@@ -141,7 +144,7 @@ function drawSpiral() {
         let ySpiral = (startY + (Math.sin(angle - 1.5)) * 20 * 10) - rSpiral; // sinus vom winkel
 
         let spiralDot = $('<div></div>');
-        spiralDot.addClass("winterGame");
+        spiralDot.addClass("Game");
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -192,32 +195,30 @@ function drawMap() {
     //     });
     // });
 
-    medalistsAtSummerGames.forEach(country => {
-        const area = gmynd.map(country.count, 1, 4383, 25, 500);
-        const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
-        let dot = $('<div></div>');
-        dot.addClass("country");
-        dot.css({
-            'height': rMap * 2,
-            'width': rMap * 2,
-            'left': xMap,
-            'top': yMap,
-            'border-radius': '100%',
-            'background-color': '#FF7A00',
-        });
-        dot.data(country);
-        stage.append(dot);
-        dot.mouseover(() => {
-            dot.addClass("hover");
-            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
-        });
-        dot.mouseout(() => {
-            dot.removeClass("hover");
-            $('#hoverLabel').text("");
-        });
-    });
+    // medalistsAtSummerGames.forEach(country => {
+    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
+    //     const rMap = gmynd.circleRadius(area);
+    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
+    //     let dot = $('<div></div>');
+    //     dot.addClass("medalistsAtSummerGames");
+    //     dot.css({
+    //         'height': rMap * 2,
+    //         'width': rMap * 2,
+    //         'left': xMap,
+    //         'top': yMap,
+    //     });
+    //     dot.data(country);
+    //     stage.append(dot);
+    //     dot.mouseover(() => {
+    //         dot.addClass("hoverSummer");
+    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+    //     });
+    //     dot.mouseout(() => {
+    //         dot.removeClass("hoverSummer");
+    //         $('#hoverLabel').text("");
+    //     });
+    // });
 
     // medalistsAtWinterGames.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
@@ -225,23 +226,21 @@ function drawMap() {
     //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
     //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
     //     let dot = $('<div></div>');
-    //     dot.addClass("country");
+    //     dot.addClass("medalistsAtWinterGames");
     //     dot.css({
     //         'height': rMap * 2,
     //         'width': rMap * 2,
     //         'left': xMap,
     //         'top': yMap,
-    //         'border-radius': '100%',
-    //         'background-color': '#00C2FF',
     //     });
     //     dot.data(country);
     //     stage.append(dot);
     //     dot.mouseover(() => {
-    //         dot.addClass("hover");
+    //         dot.addClass("hoverWinter");
     //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
     //     });
     //     dot.mouseout(() => {
-    //         dot.removeClass("hover");
+    //         dot.removeClass("hoverWinter");
     //         $('#hoverLabel').text("");
     //     });
     // });
@@ -250,7 +249,9 @@ function drawMap() {
 function drawDiagram() {
 
 }
-
+// Wie drehe ich eine Spirale richtig? 
 // Wie lege ich Größen etc an, sodass sie responsiv bleiben (auch beim Text etc).?
 // Wie kann ich eine Karte als Ganzes skalieren, ohne dass sich Radius etc verändern?
 // Warum sind manche Kreise nicht rund (auf der Karte)?
+// Wie schaffe ich es, dass bei einem Mousover alle andern Objekte sich verfärben (also nicht das Objekt, über welches gehovert wird)?
+// Wie kann ich einem Kontinent eine Farbe zuweisen?

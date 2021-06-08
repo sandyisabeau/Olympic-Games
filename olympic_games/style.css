@@ -32,12 +32,24 @@ body {
     border-radius: 100%;
 }
 
-.hover {
-    background-color: gray;
+.medalistsAtSummerGames {
+    background-color: #FF7A00;
+    position: absolute;
+    border-radius: 100%;
 }
 
-.clicked {
-    background-color: red;
+.hoverSummer {
+    background-color: #693200;
+}
+
+.medalistsAtWinterGames {
+    background-color: #00C2FF;
+    position: absolute;
+    border-radius: 100%;
+}
+
+.hoverWinter {
+    background-color: #005874;
 }
 
 .continents {
