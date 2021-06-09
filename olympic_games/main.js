@@ -103,15 +103,40 @@ function drawSpiral() {
     cumulatedSummerGames.forEach(summerGame => {
         let angle = (summerGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle - 90);
-        const area = gmynd.map(summerGame.count, 19, 2031, 20, 500);
+        const area = gmynd.map(summerGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * 15 * 10 - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * 15 * 10 - rSpiral); // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * 15 * 20 - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * 15 * 20 - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
-        // continentColor();
+
+        if (summerGame.continent == "Europe") {
+            spiralDot.css({
+                'background-color': '#2796EA',
+            });
+        }
+        if (summerGame.continent == "Asia") {
+            spiralDot.css({
+                'background-color': '#FF9839',
+            });
+        }
+        if (summerGame.continent == "Oceania") {
+            spiralDot.css({
+                'background-color': '#22AE70',
+            });
+        }
+        if (summerGame.continent == "North America") {
+            spiralDot.css({
+                'background-color': '#DF366E',
+            });
+        }
+        if (summerGame.continent == "South America") {
+            spiralDot.css({
+                'background-color': '#DF366E',
+            });
+        }
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -119,8 +144,6 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
-            'background-color': 'white',
-            // 'background-color': continentColor,
         });
         spiralDot.data(summerGame);
         stage.append(spiralDot);
@@ -137,15 +160,42 @@ function drawSpiral() {
     // console.log(countryExtremes);
     cumulatedWinterGames.forEach(winterGame => {
         let angle = (winterGame.Year - 1896) * 2.9;
-        angle = gmynd.radians(angle);
-        const area = gmynd.map(winterGame.count, 19, 2031, 20, 500);
+        angle = gmynd.radians(angle - 90);
+        const area = gmynd.map(winterGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle - 1.5)) * 20 * 10) - rSpiral; // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle - 1.5)) * 20 * 10) - rSpiral; // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * 20 * 20 - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * 20 * 20 - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
+
+        if (winterGame.continent == "Europe") {
+            spiralDot.css({
+                'background-color': '#2796EA',
+            });
+        }
+        if (winterGame.continent == "Asia") {
+            spiralDot.css({
+                'background-color': '#FF9839',
+            });
+        }
+        if (winterGame.continent == "Oceania") {
+            spiralDot.css({
+                'background-color': '#22AE70',
+            });
+        }
+        if (winterGame.continent == "North America") {
+            spiralDot.css({
+                'background-color': '#DF366E',
+            });
+        }
+        if (winterGame.continent == "South America") {
+            spiralDot.css({
+                'background-color': '#DF366E',
+            });
+        }
+
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -153,7 +203,6 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
-            'background-color': 'white',
         });
         spiralDot.data(winterGame);
         stage.append(spiralDot);
