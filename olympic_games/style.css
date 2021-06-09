@@ -13,11 +13,41 @@ body {
 #hoverLabel,
 #clickLabel {
     background-color: #1E1E1E;
-    width: 100vw;
+    width: 1920px;
 }
 
 #stage {
-    height: 100vh;
+    height: 1080px;
+}
+
+.btn {
+    position: absolute;
+    color: white;
+    background-color: #1E1E1E;
+    border: none;
+    font-size: 30px;
+    font-family: 'Caros', sans-serif;
+}
+
+.showSpiral {
+    top: 50px;
+    left: 50px;
+    color: white;
+    font-weight: bold;
+}
+
+.showMap {
+    top: 50px;
+    left: 190px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+}
+
+.showDiagram {
+    top: 50px;
+    left: 330px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
 }
 
 #hoverLabel,
