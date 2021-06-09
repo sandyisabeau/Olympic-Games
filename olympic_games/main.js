@@ -288,16 +288,6 @@ function drawDiagram() {
     showMap = false;
 
 }
-// Wichtig:
-// Wie schaffe ich es, dass bei einem Mousover alle andern Objekte sich verfärben (also nicht das Objekt, über welches gehovert wird)?
-// Warum sind manche Kreise nicht rund (auf der Karte)?
-// Wie lege ich Größen etc an, sodass sie responsiv bleiben (auch beim Text etc).?
-
-
-// Wie drehe ich eine Spirale richtig? 
-// Warum sind manche Kreise nicht rund (auf der Karte)?
-// Texte positionieren ohne Stage zu verschieben?
-// Wie kann ich einem Kontinent eine Farbe zuweisen?
 
 
 function teamView() {
@@ -323,20 +313,3 @@ function medalistView() {
     }
     console.log("medalistView");
 }
-// function teamView() {
-//     console.log("teamwoggle");
-
-//     // stage.empty();
-//     if (showMap = false) {
-//         drawMap();
-//     }
-// }
-
-// function medalistView() {
-//     console.log("medalistwoggle");
-
-//     // stage.empty();
-//     if (showDiagram = false) {
-//         drawDiagram();
-//     }
-// }
