@@ -2,7 +2,10 @@ let stageHeight, stageWidth;
 let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
 let stage;
 let dot
-    // let showingChart;
+let showSpiral;
+let showMap;
+let showDiagram;
+
 $(function() {
     stage = $('#stage');
     stageHeight = stage.height();
@@ -63,35 +66,12 @@ function prepareData() {
     // console.log(allMedalists);
 }
 
-// function continentColor() {
-//     if (summerGame.continent == "Europe") {
-//         spiralDot.css({
-//             'background-color': '#2796EA',
-//         });
-//     }
-//     if (summerGame.continent == "Asia") {
-//         spiralDot.css({
-//             'background-color': '#FF9839',
-//         });
-//     }
-//     if (summerGame.continent == "Oceania") {
-//         spiralDot.css({
-//             'background-color': '#22AE70',
-//         });
-//     }
-//     if (summerGame.continent == "North America") {
-//         spiralDot.css({
-//             'background-color': '#DF366E',
-//         });
-//     }
-//     if (summerGame.continent == "South America") {
-//         spiralDot.css({
-//             'background-color': '#DF366E',
-//         });
-//     }
-// }
 
 function drawSpiral() {
+    showSpiral = true;
+
+
+
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
     const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
@@ -218,6 +198,7 @@ function drawSpiral() {
 }
 
 function drawMap() {
+    showSpiral = false;
     // allMedalists.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 4383, 30, 700);
     //     const rMap = gmynd.circleRadius(area);
@@ -297,8 +278,9 @@ function drawMap() {
     // });
 }
 
-function drawDiagram() {}
-
+function drawDiagram() {
+    showDiagram = true;
+}
 // Wichtig:
 // Wie schaffe ich es, dass bei einem Mousover alle andern Objekte sich verfärben (also nicht das Objekt, über welches gehovert wird)?
 // Warum sind manche Kreise nicht rund (auf der Karte)?
@@ -309,3 +291,34 @@ function drawDiagram() {}
 // Warum sind manche Kreise nicht rund (auf der Karte)?
 // Texte positionieren ohne Stage zu verschieben?
 // Wie kann ich einem Kontinent eine Farbe zuweisen?
+
+
+function teamView() {
+
+    stage.empty();
+    if (showSpiral) {
+        drawMap();
+    } else {
+        drawSpiral();
+    }
+    console.log("teamView");
+
+}
+
+// function teamView() {
+//     console.log("teamwoggle");
+
+//     // stage.empty();
+//     if (showMap = false) {
+//         drawMap();
+//     }
+// }
+
+// function medalistView() {
+//     console.log("medalistwoggle");
+
+//     // stage.empty();
+//     if (showDiagram = false) {
+//         drawDiagram();
+//     }
+// }
