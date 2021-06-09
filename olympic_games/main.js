@@ -69,7 +69,8 @@ function prepareData() {
 
 function drawSpiral() {
     showSpiral = true;
-
+    showDiagram = false;
+    showMap = false;
 
 
     const startX = stageWidth / 2;
@@ -199,6 +200,9 @@ function drawSpiral() {
 
 function drawMap() {
     showSpiral = false;
+    showDiagram = false;
+    showMap = true;
+
     // allMedalists.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 4383, 30, 700);
     //     const rMap = gmynd.circleRadius(area);
@@ -227,7 +231,7 @@ function drawMap() {
     // });
 
     medalistsAtSummerGames.forEach(country => {
-        const area = gmynd.map(country.count, 1, 4383, 25, 500);
+        const area = gmynd.map(country.count, 1, 3875, 50, 2000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
@@ -253,7 +257,7 @@ function drawMap() {
     });
 
     // medalistsAtWinterGames.forEach(country => {
-    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
+    //     const area = gmynd.map(country.count, 1, 3875, 50, 2000);
     //     const rMap = gmynd.circleRadius(area);
     //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
     //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
@@ -279,7 +283,10 @@ function drawMap() {
 }
 
 function drawDiagram() {
+    showSpiral = false;
     showDiagram = true;
+    showMap = false;
+
 }
 // Wichtig:
 // Wie schaffe ich es, dass bei einem Mousover alle andern Objekte sich verfärben (also nicht das Objekt, über welches gehovert wird)?
@@ -294,17 +301,28 @@ function drawDiagram() {
 
 
 function teamView() {
-
     stage.empty();
-    if (showSpiral) {
+    if (showSpiral || showDiagram) {
         drawMap();
-    } else {
-        drawSpiral();
     }
     console.log("teamView");
-
 }
 
+function gameView() {
+    stage.empty();
+    if (showMap || showDiagram) {
+        drawSpiral();
+    }
+    console.log("gameView");
+}
+
+function medalistView() {
+    stage.empty();
+    if (showSpiral || showMap) {
+        drawDiagram();
+    }
+    console.log("medalistView");
+}
 // function teamView() {
 //     console.log("teamwoggle");
 
