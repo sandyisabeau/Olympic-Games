@@ -8,9 +8,9 @@ $(function() {
     stageHeight = stage.height();
     stageWidth = stage.width();
     prepareData();
-    continentColor()
-        // createDots()
-        // drawTimespiral();
+    // continentColor();
+    // createDots();
+    // drawTimespiral();
     drawSpiral();
     // drawMap();
     // drawDiagram();
@@ -63,33 +63,33 @@ function prepareData() {
     // console.log(allMedalists);
 }
 
-function continentColor() {
-    if (summerGame.continent == "Europe") {
-        spiralDot.css({
-            'background-color': '#2796EA',
-        });
-    }
-    if (summerGame.continent == "Asia") {
-        spiralDot.css({
-            'background-color': '#FF9839',
-        });
-    }
-    if (summerGame.continent == "Oceania") {
-        spiralDot.css({
-            'background-color': '#22AE70',
-        });
-    }
-    if (summerGame.continent == "North America") {
-        spiralDot.css({
-            'background-color': '#DF366E',
-        });
-    }
-    if (summerGame.continent == "South America") {
-        spiralDot.css({
-            'background-color': '#DF366E',
-        });
-    }
-}
+// function continentColor() {
+//     if (summerGame.continent == "Europe") {
+//         spiralDot.css({
+//             'background-color': '#2796EA',
+//         });
+//     }
+//     if (summerGame.continent == "Asia") {
+//         spiralDot.css({
+//             'background-color': '#FF9839',
+//         });
+//     }
+//     if (summerGame.continent == "Oceania") {
+//         spiralDot.css({
+//             'background-color': '#22AE70',
+//         });
+//     }
+//     if (summerGame.continent == "North America") {
+//         spiralDot.css({
+//             'background-color': '#DF366E',
+//         });
+//     }
+//     if (summerGame.continent == "South America") {
+//         spiralDot.css({
+//             'background-color': '#DF366E',
+//         });
+//     }
+// }
 
 function drawSpiral() {
     const startX = stageWidth / 2;
@@ -102,16 +102,16 @@ function drawSpiral() {
     // console.log(countryExtremes);
     cumulatedSummerGames.forEach(summerGame => {
         let angle = (summerGame.Year - 1896) * 2.9;
-        angle = gmynd.radians(angle);
+        angle = gmynd.radians(angle - 90);
         const area = gmynd.map(summerGame.count, 19, 2031, 20, 500);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle - 1.5)) * 15 * 10) - rSpiral; // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle - 1.5)) * 15 * 10) - rSpiral; // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * 15 * 10 - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * 15 * 10 - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
-        continentColor();
+        // continentColor();
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -119,7 +119,8 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
-            'background-color': continentColor,
+            'background-color': 'white',
+            // 'background-color': continentColor,
         });
         spiralDot.data(summerGame);
         stage.append(spiralDot);
@@ -195,30 +196,31 @@ function drawMap() {
     //     });
     // });
 
-    // medalistsAtSummerGames.forEach(country => {
-    //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
-    //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistsAtSummerGames");
-    //     dot.css({
-    //         'height': rMap * 2,
-    //         'width': rMap * 2,
-    //         'left': xMap,
-    //         'top': yMap,
-    //     });
-    //     dot.data(country);
-    //     stage.append(dot);
-    //     dot.mouseover(() => {
-    //         dot.addClass("hoverSummer");
-    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
-    //     });
-    //     dot.mouseout(() => {
-    //         dot.removeClass("hoverSummer");
-    //         $('#hoverLabel').text("");
-    //     });
-    // });
+    medalistsAtSummerGames.forEach(country => {
+        const area = gmynd.map(country.count, 1, 4383, 25, 500);
+        const rMap = gmynd.circleRadius(area);
+        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
+        let dot = $('<div></div>');
+        dot.addClass("medalistsAtSummerGames");
+        dot.css({
+            'height': rMap * 2,
+            'width': rMap * 2,
+            'left': xMap,
+            'top': yMap,
+        });
+        dot.data(country);
+        stage.append(dot);
+        dot.mouseover(() => {
+            $('.medalistsAtSummerGames').addClass("hoverSummer");
+            dot.removeClass("hoverSummer");
+            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+        });
+        dot.mouseout(() => {
+            $('.medalistsAtSummerGames').removeClass("hoverSummer");
+            $('#hoverLabel').text("");
+        });
+    });
 
     // medalistsAtWinterGames.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 4383, 25, 500);
@@ -246,12 +248,15 @@ function drawMap() {
     // });
 }
 
-function drawDiagram() {
+function drawDiagram() {}
 
-}
-// Wie drehe ich eine Spirale richtig? 
-// Wie lege ich Größen etc an, sodass sie responsiv bleiben (auch beim Text etc).?
-// Wie kann ich eine Karte als Ganzes skalieren, ohne dass sich Radius etc verändern?
-// Warum sind manche Kreise nicht rund (auf der Karte)?
+// Wichtig:
 // Wie schaffe ich es, dass bei einem Mousover alle andern Objekte sich verfärben (also nicht das Objekt, über welches gehovert wird)?
+// Warum sind manche Kreise nicht rund (auf der Karte)?
+// Wie lege ich Größen etc an, sodass sie responsiv bleiben (auch beim Text etc).?
+
+
+// Wie drehe ich eine Spirale richtig? 
+// Warum sind manche Kreise nicht rund (auf der Karte)?
+// Texte positionieren ohne Stage zu verschieben?
 // Wie kann ich einem Kontinent eine Farbe zuweisen?
