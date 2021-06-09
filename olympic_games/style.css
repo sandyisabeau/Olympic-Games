@@ -50,6 +50,22 @@ body {
     font-weight: normal;
 }
 
+.continent-legend {
+    position: absolute;
+    /* width: 152px;
+    height: 211px; */
+    left: 50px;
+    top: 800px;
+    font-family: 'Caros', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    color: #FFFF;
+    /* z-index: 2; */
+    cursor: pointer;
+}
+
 #hoverLabel,
 #clickLabel {
     margin-top: 5px;
