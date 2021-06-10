@@ -1,5 +1,6 @@
 let stageHeight, stageWidth;
 let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
+let segmentedAthleteAge, segmentedAthleteWeight, segmentedAthleteHeight;
 let stage;
 let dot
 let showSpiral;
@@ -50,12 +51,15 @@ function prepareData() {
 
     //Functions to separate male and female medalists
     athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
-    let segmentedAthleteAge = gmynd.addPropSegment(athleteCharacteristics, "Age", 8);
-    let segmentedAthleteHeight = gmynd.addPropSegment(athleteCharacteristics, "Height", 8);
-    let segmentedAthleteWeight = gmynd.addPropSegment(athleteCharacteristics, "Weight", 8);
-    console.log(segmentedAthleteAge);
-    console.log(segmentedAthleteHeight);
-    console.log(segmentedAthleteWeight);
+    let rankededAthleteAge = gmynd.addPropRank(athleteCharacteristics, "Age");
+    // let rankedAthleteHeight = gmynd.addPropRank(athleteCharacteristics, "Height");
+    // let rankedAthleteWeight = gmynd.addPropRank(athleteCharacteristics, "Weight");
+    // segmentedAthleteAge = gmynd.addPropSegment(athleteCharacteristics, "Age", 8);
+    // segmentedAthleteHeight = gmynd.addPropSegment(athleteCharacteristics, "Height", 8);
+    // segmentedAthleteWeight = gmynd.addPropSegment(athleteCharacteristics, "Weight", 8);
+    console.log(rankededAthleteAge);
+    // console.log(rankedAthleteHeight);
+    // console.log(rankedAthleteWeight);
 
 
 
@@ -107,8 +111,8 @@ function drawSpiral() {
         const area = gmynd.map(summerGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * 15 * 20 - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * 15 * 20 - rSpiral); // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * (summerGame.Year - 1896 + 200) - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * (summerGame.Year - 1896 + 200) - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
@@ -165,8 +169,8 @@ function drawSpiral() {
         const area = gmynd.map(winterGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * 20 * 20 - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * 20 * 20 - rSpiral); // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * (winterGame.Year - 1896 + 300) - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * (winterGame.Year - 1896 + 300) - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
@@ -303,35 +307,29 @@ function drawMap() {
 }
 
 function drawDiagram() {
-    //     showSpiral = false;
-    //     showDiagram = true;
-    //     showMap = false;
-    //     for (let i = 0; i < cumulatedSummerGames.length; i++) {
-    //         const summerYears = cumulatedSummerGames[i];
 
-    //         const rDiagram =
-    //             for (let i = 0; i < data.length; i++) {
-    //                 // console.log("i = " + i);
-    //                 for (let j = 0; j < data[i]; j++) {
-    //                     const x = i * 2 * w;
-    //                     const y = stageHeight - (j * h * 1.5) - h;
+    for (let i = 0; i < segmentedAthleteAge; i++) {
+        for (let j = 0; j < segmentedAthleteWeight; j++) {
+            const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
+            const x = stageWidth / AgeSegmentOf8;
+            const y = stageHeight / WeightSegmentOf8;
+            console.log("Hey")
 
-    //                     let dot = $('<div></div>');
-    //                     dot.css({
-    //                         'height': h,
-    //                         'width': w,
-    //                         'background-color': 'white',
-    //                         'position': 'absolute',
-    //                         'left': x,
-    //                         'top': y,
-    //                         'border-radius': '100%'
-    //                     });
-    //                     $('#stage').append(dot);
+            let dot = $('<div></div>');
+            dot.css({
+                'height': rDiagram,
+                'width': rDiagram,
+                'background-color': 'white',
+                'position': 'absolute',
+                'left': x,
+                'top': y,
+                'border-radius': '100%'
+            });
+            $('#stage').append(dot);
 
-    //                     // console.log("j = " + j);
-    //                 }
-    //             }
-    //     }
+            // console.log("j = " + j);
+        }
+    }
 }
 
 
