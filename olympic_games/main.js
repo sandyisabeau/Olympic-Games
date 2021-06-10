@@ -49,14 +49,34 @@ function prepareData() {
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     //Functions to separate male and female medalists
-    let femaleMedalists = gmynd.findAllByValue(data, "Sex", "F");
-    let maleMedalists = gmynd.findAllByValue(data, "Sex", "M");
+    athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
+    let segmentedAthleteAge = gmynd.addPropSegment(athleteCharacteristics, "Age", 8);
+    let segmentedAthleteHeight = gmynd.addPropSegment(athleteCharacteristics, "Height", 8);
+    let segmentedAthleteWeight = gmynd.addPropSegment(athleteCharacteristics, "Weight", 8);
+    console.log(segmentedAthleteAge);
+    console.log(segmentedAthleteHeight);
+    console.log(segmentedAthleteWeight);
+
+
+
+    // femaleMedalistsH = gmynd.dataExtremes(femaleMedalists, "Height");
+    // femaleMedalistsW = gmynd.dataExtremes(femaleMedalists, "Weight");
+    // femaleMedalistsA = gmynd.dataExtremes(femaleMedalists, "Age");
+    // maleMedalistsH = gmynd.dataExtremes(maleMedalists, "Height");
+    // maleMedalistsW = gmynd.dataExtremes(maleMedalists, "Weight");
+    // maleMedalistsA = gmynd.dataExtremes(maleMedalists, "Age");
+    // console.log(femaleMedalistsH);
+    // console.log(femaleMedalistsW);
+    // console.log(femaleMedalistsA);
+    // console.log(maleMedalistsH);
+    // console.log(maleMedalistsW);
+    // console.log(maleMedalistsA);
+
 
     //Functions to group the different types of medals in relation to gender
-    femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
-    maleMedalists = gmynd.groupData(maleMedalists, "Medal");
-    console.log(femaleMedalists);
-    console.log(maleMedalists);
+    // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
+    // maleMedalists = gmynd.groupData(maleMedalists, "Medal");
+
 
     // Function to see number of medalists
     allMedalists = gmynd.cumulateData(data, ["NOC", "longitude", "latitude", "countryName"]);
@@ -283,10 +303,35 @@ function drawMap() {
 }
 
 function drawDiagram() {
-    showSpiral = false;
-    showDiagram = true;
-    showMap = false;
+    //     showSpiral = false;
+    //     showDiagram = true;
+    //     showMap = false;
+    //     for (let i = 0; i < cumulatedSummerGames.length; i++) {
+    //         const summerYears = cumulatedSummerGames[i];
 
+    //         const rDiagram =
+    //             for (let i = 0; i < data.length; i++) {
+    //                 // console.log("i = " + i);
+    //                 for (let j = 0; j < data[i]; j++) {
+    //                     const x = i * 2 * w;
+    //                     const y = stageHeight - (j * h * 1.5) - h;
+
+    //                     let dot = $('<div></div>');
+    //                     dot.css({
+    //                         'height': h,
+    //                         'width': w,
+    //                         'background-color': 'white',
+    //                         'position': 'absolute',
+    //                         'left': x,
+    //                         'top': y,
+    //                         'border-radius': '100%'
+    //                     });
+    //                     $('#stage').append(dot);
+
+    //                     // console.log("j = " + j);
+    //                 }
+    //             }
+    //     }
 }
 
 
