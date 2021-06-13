@@ -49,35 +49,20 @@ function prepareData() {
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
+
+    //Functions to calculate the number of different medals
+    let medals = gmynd.groupData(data, ['countryName', 'Medal']);
+    console.log(medals);
+
     //Functions to separate male and female medalists
-    athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
+    // athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
     // let rankededAthleteAge = gmynd.addPropRank(athleteCharacteristics, "Age");
     // let rankedAthleteHeight = gmynd.addPropRank(athleteCharacteristics, "Height");
     // let rankedAthleteWeight = gmynd.addPropRank(athleteCharacteristics, "Weight");
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
     segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
-
-    // segmentedAthleteWeight = gmynd.addPropSegment(athleteCharacteristics, "Weight", 8);
     console.log(segmentedAthletes);
-    // console.log(rankedAthleteHeight);
-    // console.log(rankedAthleteWeight);
-
-
-
-    // femaleMedalistsH = gmynd.dataExtremes(femaleMedalists, "Height");
-    // femaleMedalistsW = gmynd.dataExtremes(femaleMedalists, "Weight");
-    // femaleMedalistsA = gmynd.dataExtremes(femaleMedalists, "Age");
-    // maleMedalistsH = gmynd.dataExtremes(maleMedalists, "Height");
-    // maleMedalistsW = gmynd.dataExtremes(maleMedalists, "Weight");
-    // maleMedalistsA = gmynd.dataExtremes(maleMedalists, "Age");
-    // console.log(femaleMedalistsH);
-    // console.log(femaleMedalistsW);
-    // console.log(femaleMedalistsA);
-    // console.log(maleMedalistsH);
-    // console.log(maleMedalistsW);
-    // console.log(maleMedalistsA);
-
 
     //Functions to group the different types of medals in relation to gender
     // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
@@ -310,28 +295,56 @@ function drawMap() {
 
 function drawDiagram() {
 
-    for (let i = 0; i < segmentedAthleteAge; i++) {
-        for (let j = 0; j < segmentedAthleteWeight; j++) {
-            const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
-            const x = stageWidth / AgeSegmentOf8;
-            const y = stageHeight / WeightSegmentOf8;
-            console.log("Hey")
+    // for (let i = 0; i < segmentedAthleteAge; i++) {
+    //     for (let j = 0; j < segmentedAthleteWeight; j++) {
+    //         const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
+    //         const x = stageWidth / AgeSegmentOf8;
+    //         const y = stageHeight / WeightSegmentOf8;
+    //         console.log("Hey")
 
-            let dot = $('<div></div>');
-            dot.css({
-                'height': rDiagram,
-                'width': rDiagram,
-                'background-color': 'white',
-                'position': 'absolute',
-                'left': x,
-                'top': y,
-                'border-radius': '100%'
-            });
-            $('#stage').append(dot);
+    //         let dot = $('<div></div>');
+    //         dot.css({
+    //             'height': rDiagram,
+    //             'width': rDiagram,
+    //             'background-color': 'white',
+    //             'position': 'absolute',
+    //             'left': x,
+    //             'top': y,
+    //             'border-radius': '100%'
+    //         });
+    //         $('#stage').append(dot);
 
-            // console.log("j = " + j);
-        }
-    }
+    //         // console.log("j = " + j);
+    //     }
+    // }
+
+    // segmentedAthletes.forEach(segment => {
+    //     const area = 20;
+    //     const rMap = gmynd.circleRadius(area);
+    //     const xMap = gmynd.map(segment.count, 0, 8, 0, 1920) - rMap;
+    //     const yMap = gmynd.map(segment.count, 0, 8, 0, 1080) - rMap;
+    //     let dot = $('<div></div>');
+    //     dot.addClass("segmentedAthletes");
+    //     console.log("Hey")
+    //     dot.css({
+    //         'height': rMap * 2,
+    //         'width': rMap * 2,
+    //         'left': xMap,
+    //         'top': yMap,
+    //         'background-color': 'white',
+    //     });
+    //     dot.data(segment);
+    //     stage.append(dot);
+    // dot.mouseover(() => {
+    //     $('.segmentedAthletes').addClass("hoverSummer");
+    //     dot.removeClass("hoverSummer");
+    //     $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+    // });
+    // dot.mouseout(() => {
+    //     $('.medalistsAtSummerGames').removeClass("hoverSummer");
+    //     $('#hoverLabel').text("");
+    // });
+    // });
 }
 
 
