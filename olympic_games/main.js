@@ -38,6 +38,8 @@ function prepareData() {
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "country", "number"]);
 
 
+
+
     //Functions to separate Winter and Summer Games (for Spiral)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
@@ -50,29 +52,27 @@ function prepareData() {
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
+    //Functions to calculate the number of different medals
+    let medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
+    let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
+    console.log(medalsSummer);
+    console.log(medalsWinter);
+
+    // Function to see number of medalists
+    // allMedalists = gmynd.cumulateData(data, ["longitude", "latitude", "countryName"]);
+    medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
+    medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
+
+
     //Functions to separate male and female medalists
-    segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
-    segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
-    segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
+    // segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
+    // segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
+    // segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
     // console.log(segmentedAthletes);
 
     //Functions to group the different types of medals in relation to gender
     // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
     // maleMedalists = gmynd.groupData(maleMedalists, "Medal");
-
-    //Functions to calculate the number of different medals
-    let medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
-    let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
-
-    console.log(medalsSummer);
-    console.log(medalsWinter);
-
-    // Function to see number of medalists
-    allMedalists = gmynd.cumulateData(data, ["NOC", "longitude", "latitude", "countryName"]);
-    medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["NOC", "longitude", "latitude", "countryName"]);
-    medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["NOC", "longitude", "latitude", "countryName"]);
-
-    console.log(medalistsAtSummerGames);
 
 }
 
@@ -103,31 +103,20 @@ function drawSpiral() {
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
 
+        let spiralDotColor;
+
         if (summerGame.continent == "Europe") {
-            spiralDot.css({
-                'background-color': '#2796EA',
-            });
+            spiralDotColor = '#2796EA';
+        } else if (summerGame.continent == "Asia") {
+            spiralDotColor = '#FF9839';
+        } else if (summerGame.continent == "Oceania") {
+            spiralDotColor = '#22AE70';
+        } else if (summerGame.continent == "North America") {
+            spiralDotColor = '#DF366E';
+        } else if (summerGame.continent == "South America") {
+            spiralDotColor = '#DF366E';
         }
-        if (summerGame.continent == "Asia") {
-            spiralDot.css({
-                'background-color': '#FF9839',
-            });
-        }
-        if (summerGame.continent == "Oceania") {
-            spiralDot.css({
-                'background-color': '#22AE70',
-            });
-        }
-        if (summerGame.continent == "North America") {
-            spiralDot.css({
-                'background-color': '#DF366E',
-            });
-        }
-        if (summerGame.continent == "South America") {
-            spiralDot.css({
-                'background-color': '#DF366E',
-            });
-        }
+
         spiralDot.css({
             'height': rSpiral * 2,
             'width': rSpiral * 2,
@@ -135,12 +124,16 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
+            'background-color': spiralDotColor,
         });
         spiralDot.data(summerGame);
         stage.append(spiralDot);
         spiralDot.mouseover(() => {
             spiralDot.addClass("hover");
-            $('#hoverLabel').text('Season: Summer' + ',' + ' Year : ' + summerGame.Year + ', ' + 'City: ' + summerGame.City + ', ' + 'Continent: ' + summerGame.continent + ', ' + 'Athletes: ' + summerGame.count);
+            $('#hoverLabel').text('Season: Summer' + ',' + ' Continent : ' + summerGame.continent + ', ' + 'City: ' + summerGame.City + ', ' + 'Year: ' + summerGame.Year + ', ' + 'Athletes: ' + summerGame.count);
+            $('#hoverLabel').css({
+                'color': spiralDotColor,
+            });
         });
         spiralDot.mouseout(() => {
             spiralDot.removeClass("hover");
@@ -165,23 +158,19 @@ function drawSpiral() {
             spiralDot.css({
                 'background-color': '#2796EA',
             });
-        }
-        if (winterGame.continent == "Asia") {
+        } else if (winterGame.continent == "Asia") {
             spiralDot.css({
                 'background-color': '#FF9839',
             });
-        }
-        if (winterGame.continent == "Oceania") {
+        } else if (winterGame.continent == "Oceania") {
             spiralDot.css({
                 'background-color': '#22AE70',
             });
-        }
-        if (winterGame.continent == "North America") {
+        } else if (winterGame.continent == "North America") {
             spiralDot.css({
                 'background-color': '#DF366E',
             });
-        }
-        if (winterGame.continent == "South America") {
+        } else if (winterGame.continent == "South America") {
             spiralDot.css({
                 'background-color': '#DF366E',
             });
