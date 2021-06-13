@@ -37,6 +37,7 @@ function prepareData() {
     //Filter to delete incomplete Data
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "country", "number"]);
 
+
     //Functions to separate Winter and Summer Games (for Spiral)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
     winterGames = gmynd.findAllByValue(cityContinents, "Season", "Winter");
@@ -49,32 +50,30 @@ function prepareData() {
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
-
-    //Functions to calculate the number of different medals
-    let medals = gmynd.groupData(data, ['countryName', 'Medal']);
-    console.log(medals);
-
     //Functions to separate male and female medalists
-    // athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
-    // let rankededAthleteAge = gmynd.addPropRank(athleteCharacteristics, "Age");
-    // let rankedAthleteHeight = gmynd.addPropRank(athleteCharacteristics, "Height");
-    // let rankedAthleteWeight = gmynd.addPropRank(athleteCharacteristics, "Weight");
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
     segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
-    console.log(segmentedAthletes);
+    // console.log(segmentedAthletes);
 
     //Functions to group the different types of medals in relation to gender
     // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
     // maleMedalists = gmynd.groupData(maleMedalists, "Medal");
 
+    //Functions to calculate the number of different medals
+    let medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
+    let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
+
+    console.log(medalsSummer);
+    console.log(medalsWinter);
 
     // Function to see number of medalists
     allMedalists = gmynd.cumulateData(data, ["NOC", "longitude", "latitude", "countryName"]);
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["NOC", "longitude", "latitude", "countryName"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["NOC", "longitude", "latitude", "countryName"]);
 
-    // console.log(allMedalists);
+    console.log(medalistsAtSummerGames);
+
 }
 
 
