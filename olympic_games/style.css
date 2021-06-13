@@ -12,7 +12,7 @@ body {
 #stage,
 #hoverLabel,
 #clickLabel {
-    background-color: #1E1E1E;
+    background-color: #111111;
     width: 1920px;
 }
 
@@ -23,29 +23,69 @@ body {
 .btn {
     position: absolute;
     color: white;
-    background-color: #1E1E1E;
+    background-color: #111111;
     border: none;
     font-size: 30px;
     font-family: 'Caros', sans-serif;
 }
 
+#hoverSeason {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: -367px;
+    font-size: 18px;
+}
+
+#hoverContinent {
+    height: 40px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 32px;
+}
+
+#hoverYear {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 20px;
+}
+
+#hoverCity {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+#hoverMedalists {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 8px;
+    font-size: 20px;
+}
+
 .showSpiral {
     top: 50px;
-    left: 50px;
+    left: 80px;
     color: white;
     font-weight: bold;
 }
 
 .showMap {
     top: 50px;
-    left: 190px;
+    left: 220px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
 }
 
 .showDiagram {
     top: 50px;
-    left: 330px;
+    left: 360px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
 }
@@ -68,7 +108,7 @@ body {
 
 #hoverLabel,
 #clickLabel {
-    margin-top: 5px;
+    top: 5px;
     height: 20px;
 }
 

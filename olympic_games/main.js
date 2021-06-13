@@ -128,16 +128,43 @@ function drawSpiral() {
         });
         spiralDot.data(summerGame);
         stage.append(spiralDot);
+
         spiralDot.mouseover(() => {
             spiralDot.addClass("hover");
-            $('#hoverLabel').text('Season: Summer' + ',' + ' Continent : ' + summerGame.continent + ', ' + 'City: ' + summerGame.City + ', ' + 'Year: ' + summerGame.Year + ', ' + 'Athletes: ' + summerGame.count);
-            $('#hoverLabel').css({
+            //Season        
+            $('#hoverSeason').text('Olympic Summer Game');
+            $('#hoverSeason').css({
+                'color': 'white',
+            });
+            //Continent
+            $('#hoverContinent').text(summerGame.continent);
+            $('#hoverContinent').css({
                 'color': spiralDotColor,
             });
+            //Year
+            $('#hoverYear').text(summerGame.Year);
+            $('#hoverYear').css({
+                'color': 'white',
+            });
+            //City
+            $('#hoverCity').text(summerGame.City);
+            $('#hoverCity').css({
+                'color': 'white',
+            });
+            //Medalists
+            $('#hoverMedalists').text(summerGame.count + ' Medalists');
+            $('#hoverMedalists').css({
+                'color': 'white',
+            });
         });
+
         spiralDot.mouseout(() => {
             spiralDot.removeClass("hover");
-            $('#hoverLabel').text("");
+            $('#hoverSeason').text("");
+            $('#hoverContinent').text("");
+            $('#hoverYear').text("");
+            $('#hoverCity').text("");
+            $('#hoverMedalists').text("");
         });
     });
 
@@ -154,26 +181,18 @@ function drawSpiral() {
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
 
+        let spiralDotColor;
+
         if (winterGame.continent == "Europe") {
-            spiralDot.css({
-                'background-color': '#2796EA',
-            });
+            spiralDotColor = '#2796EA';
         } else if (winterGame.continent == "Asia") {
-            spiralDot.css({
-                'background-color': '#FF9839',
-            });
+            spiralDotColor = '#FF9839';
         } else if (winterGame.continent == "Oceania") {
-            spiralDot.css({
-                'background-color': '#22AE70',
-            });
+            spiralDotColor = '#22AE70';
         } else if (winterGame.continent == "North America") {
-            spiralDot.css({
-                'background-color': '#DF366E',
-            });
+            spiralDotColor = '#DF366E';
         } else if (winterGame.continent == "South America") {
-            spiralDot.css({
-                'background-color': '#DF366E',
-            });
+            spiralDotColor = '#DF366E';
         }
 
         spiralDot.css({
@@ -183,16 +202,48 @@ function drawSpiral() {
             'top': ySpiral,
             'position': 'absolute',
             'border-radius': '100%',
+            'background-color': spiralDotColor,
         });
+
         spiralDot.data(winterGame);
         stage.append(spiralDot);
+
         spiralDot.mouseover(() => {
             spiralDot.addClass("hover");
-            $('#hoverLabel').text('Season: Winter' + ',' + ' Year : ' + winterGame.Year + ', ' + 'City: ' + winterGame.City + ', ' + 'Continent: ' + winterGame.continent + ', ' + 'Athletes: ' + winterGame.count);
+            //Season        
+            $('#hoverSeason').text('Olympic Winter Game');
+            $('#hoverSeason').css({
+                'color': 'white',
+            });
+            //Continent
+            $('#hoverContinent').text(winterGame.continent);
+            $('#hoverContinent').css({
+                'color': spiralDotColor,
+            });
+            //Year
+            $('#hoverYear').text(winterGame.Year);
+            $('#hoverYear').css({
+                'color': 'white',
+            });
+            //City
+            $('#hoverCity').text(winterGame.City);
+            $('#hoverCity').css({
+                'color': 'white',
+            });
+            //Medalists
+            $('#hoverMedalists').text(winterGame.count + ' Medalists');
+            $('#hoverMedalists').css({
+                'color': 'white',
+            });
         });
+
         spiralDot.mouseout(() => {
             spiralDot.removeClass("hover");
-            $('#hoverLabel').text("");
+            $('#hoverSeason').text("");
+            $('#hoverContinent').text("");
+            $('#hoverYear').text("");
+            $('#hoverCity').text("");
+            $('#hoverMedalists').text("");
         });
     });
 }
@@ -205,8 +256,8 @@ function drawMap() {
     medalistsAtSummerGames.forEach(country => {
         const area = gmynd.map(country.count, 1, 3875, 50, 2000);
         const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
+        const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         dot.css({
@@ -217,22 +268,39 @@ function drawMap() {
         });
         dot.data(country);
         stage.append(dot);
-        dot.mouseover(() => {
-            $('.medalistsAtSummerGames').addClass("hoverSummer");
-            dot.removeClass("hoverSummer");
-            $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+
+        spiralDot.mouseover(() => {
+            spiralDot.addClass("hoverSummer");
+            //Season        
+            $('#hoverSeason').text('Olympic Summer Game');
+            $('#hoverSeason').css({
+                'color': 'white',
+            });
+            //Continent
+            $('#hoverCountry').text(summerGame.countryName);
+            $('#hoverCountry').css({
+                'color': spiralDotColor,
+            });
+            //Year
+            $('#hoverMedalists').text(summerGame.count + ' Medalists');
+            $('#hoverMedalists').css({
+                'color': 'white',
+            });
         });
-        dot.mouseout(() => {
-            $('.medalistsAtSummerGames').removeClass("hoverSummer");
-            $('#hoverLabel').text("");
+
+        spiralDot.mouseout(() => {
+            spiralDot.removeClass("hoverSummer");
+            $('#hoverSeason').text("");
+            $('#hoverCountry').text("");
+            $('#hoverMedalists').text("");
         });
     });
 
     // medalistsAtWinterGames.forEach(country => {
     //     const area = gmynd.map(country.count, 1, 3875, 50, 2000);
     //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
+    //     const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
     //     let dot = $('<div></div>');
     //     dot.addClass("medalistsAtWinterGames");
     //     dot.css({
