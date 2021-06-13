@@ -269,30 +269,31 @@ function drawMap() {
         dot.data(country);
         stage.append(dot);
 
-        spiralDot.mouseover(() => {
-            spiralDot.addClass("hoverSummer");
+        dot.mouseover(() => {
+            $('.medalistsAtSummerGames').addClass("hoverSummer");
+            dot.removeClass("hoverSummer");
             //Season        
-            $('#hoverSeason').text('Olympic Summer Game');
-            $('#hoverSeason').css({
+            $('#hoverSeasonMap').text('Olympic Summer Game');
+            $('#hoverSeasonMap').css({
                 'color': 'white',
             });
             //Continent
-            $('#hoverCountry').text(summerGame.countryName);
-            $('#hoverCountry').css({
+            $('#hoverCountryMap').text(country.countryName);
+            $('#hoverCountryMap').css({
                 'color': spiralDotColor,
             });
             //Year
-            $('#hoverMedalists').text(summerGame.count + ' Medalists');
-            $('#hoverMedalists').css({
+            $('#hoverMedalistsMap').text(country.count + ' Medalists');
+            $('#hoverMedalistsMap').css({
                 'color': 'white',
             });
         });
 
-        spiralDot.mouseout(() => {
-            spiralDot.removeClass("hoverSummer");
-            $('#hoverSeason').text("");
-            $('#hoverCountry').text("");
-            $('#hoverMedalists').text("");
+        dot.mouseout(() => {
+            $('.medalistsAtSummerGames').removeClass("hoverSummer");
+            $('#hoverSeasonMap').text("");
+            $('#hoverCountryMap').text("");
+            $('#hoverMedalistsMap').text("");
         });
     });
 
@@ -311,14 +312,32 @@ function drawMap() {
     //     });
     //     dot.data(country);
     //     stage.append(dot);
-    //     dot.mouseover(() => {
-    //         dot.addClass("hoverWinter");
-    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
+
+    // dot.mouseover(() => {
+    // $('.medalistsAtSummerGames').addClass("hoverWinter");
+    //     //Season        
+    //     $('#hoverSeasonMap').text('Olympic Winter Game');
+    //     $('#hoverSeasonMap').css({
+    //         'color': 'white',
     //     });
-    //     dot.mouseout(() => {
-    //         dot.removeClass("hoverWinter");
-    //         $('#hoverLabel').text("");
+    //     //Continent
+    //     $('#hoverCountryMap').text(country.countryName);
+    //     $('#hoverCountryMap').css({
+    //         'color': spiralDotColor,
     //     });
+    //     //Year
+    //     $('#hoverMedalistsMap').text(country.count + ' Medalists');
+    //     $('#hoverMedalistsMap').css({
+    //         'color': 'white',
+    //     });
+    // });
+
+    // dot.mouseout(() => {
+    //     $('.medalistsAtSummerGames').removeClass("hoverWinter");
+    //     $('#hoverSeason').text("");
+    //     $('#hoverCountry').text("");
+    //     $('#hoverMedalists').text("");
+    // });
     // });
 }
 
