@@ -1,6 +1,6 @@
 let stageHeight, stageWidth;
 let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
-let segmentedAthleteAge, segmentedAthleteWeight, segmentedAthleteHeight;
+let segmentedAthletes
 let stage;
 let dot
 let showSpiral;
@@ -51,13 +51,15 @@ function prepareData() {
 
     //Functions to separate male and female medalists
     athleteCharacteristics = gmynd.cumulateData(data, ["Sex", "Age", "Height", "Weight"]);
-    let rankededAthleteAge = gmynd.addPropRank(athleteCharacteristics, "Age");
+    // let rankededAthleteAge = gmynd.addPropRank(athleteCharacteristics, "Age");
     // let rankedAthleteHeight = gmynd.addPropRank(athleteCharacteristics, "Height");
     // let rankedAthleteWeight = gmynd.addPropRank(athleteCharacteristics, "Weight");
-    // segmentedAthleteAge = gmynd.addPropSegment(athleteCharacteristics, "Age", 8);
-    // segmentedAthleteHeight = gmynd.addPropSegment(athleteCharacteristics, "Height", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
+
     // segmentedAthleteWeight = gmynd.addPropSegment(athleteCharacteristics, "Weight", 8);
-    console.log(rankededAthleteAge);
+    console.log(segmentedAthletes);
     // console.log(rankedAthleteHeight);
     // console.log(rankedAthleteWeight);
 
