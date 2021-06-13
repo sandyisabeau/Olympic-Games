@@ -213,33 +213,6 @@ function drawMap() {
     showDiagram = false;
     showMap = true;
 
-    // allMedalists.forEach(country => {
-    //     const area = gmynd.map(country.count, 1, 4383, 30, 700);
-    //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -180, 180, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -90, 90, stageHeight, 0) - rMap;
-    //     let dot = $('<div></div>');
-    //     dot.addClass("country");
-    //     dot.css({
-    //         'height': rMap * 2,
-    //         'width': rMap * 2,
-    //         'left': xMap,
-    //         'top': yMap,
-    //         'border-radius': '100%',
-    //         'background-color': 'white',
-    //     });
-    //     dot.data(country);
-    //     stage.append(dot);
-    //     dot.mouseover(() => {
-    //         dot.addClass("hover");
-    //         $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
-    //     });
-    //     dot.mouseout(() => {
-    //         dot.removeClass("hover");
-    //         $('#hoverLabel').text("");
-    //     });
-    // });
-
     medalistsAtSummerGames.forEach(country => {
         const area = gmynd.map(country.count, 1, 3875, 50, 2000);
         const rMap = gmynd.circleRadius(area);
