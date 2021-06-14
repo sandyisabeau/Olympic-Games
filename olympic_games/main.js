@@ -1,13 +1,18 @@
-let stageHeight, stageWidth;
-let data, cityContinents, groupedData, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames, medalistsAtSummerGames, medalistsAtWinterGames, allMedalists;
-let segmentedAthletes
 let stage;
-let dot
+let stageHeight, stageWidth;
+let data, cityContinents; //for general data preparation
+let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
+let medalistsAtSummerGames, medalistsAtWinterGames; // for map
+let segmentedAthletes; //for diagram
+let dot;
+
 let showSpiral;
-let showMap;
-let showDiagram;
 showSpiral = true;
+
+let showMap;
 showDiagram = false;
+
+let showDiagram;
 showMap = false;
 
 
@@ -19,12 +24,7 @@ $(function() {
     stageHeight = stage.height();
     stageWidth = stage.width();
     prepareData();
-    // continentColor();
-    // createDots();
-    // drawTimespiral();
     drawSpiral();
-    // drawMap();
-    // drawDiagram();
 });
 
 function prepareData() {
@@ -44,8 +44,7 @@ function prepareData() {
     //Filter to delete incomplete Data
     gmynd.deletePropsInData(data, ["alpha2Code", "iso2", "numericCode", "country", "number"]);
 
-
-
+    // -----------------------------------------------------------------------------------------------
 
     //Functions to separate Winter and Summer Games (for Spiral)
     summerGames = gmynd.findAllByValue(cityContinents, "Season", "Summer");
@@ -62,11 +61,8 @@ function prepareData() {
     //Functions to calculate the number of different medals
     let medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
     let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
-    console.log(medalsSummer);
-    console.log(medalsWinter);
 
     // Function to see number of medalists
-    // allMedalists = gmynd.cumulateData(data, ["longitude", "latitude", "countryName"]);
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
 
@@ -80,22 +76,19 @@ function prepareData() {
     //Functions to group the different types of medals in relation to gender
     // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
     // maleMedalists = gmynd.groupData(maleMedalists, "Medal");
-
 }
 
 
 function drawSpiral() {
+    showSpiral = true;
+
     $('.summer').hide();
     $('.winter').hide();
-    showSpiral = true;
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
-    const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
-    const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
-    // console.log(athletesPerSummerGame);
-    // console.log(athletesPerWinterGame);
+    // const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
+    // const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
 
-    // console.log(countryExtremes);
     cumulatedSummerGames.forEach(summerGame => {
         let angle = (summerGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle - 90);
@@ -107,7 +100,6 @@ function drawSpiral() {
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
-
         let spiralDotColor;
 
         if (summerGame.continent == "Europe") {
@@ -173,7 +165,6 @@ function drawSpiral() {
         });
     });
 
-    // console.log(countryExtremes);
     cumulatedWinterGames.forEach(winterGame => {
         let angle = (winterGame.Year - 1896) * 2.9;
         angle = gmynd.radians(angle - 90);
