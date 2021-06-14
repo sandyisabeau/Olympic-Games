@@ -25,7 +25,6 @@ body {
     color: white;
     background-color: #111111;
     border: none;
-    font-size: 30px;
     font-family: 'Caros', sans-serif;
 }
 
@@ -61,7 +60,7 @@ body {
     font-size: 20px;
 }
 
-#hoverMedalists {
+#hoverMedalist {
     height: 24px;
     width: 341px;
     margin-left: 80px;
@@ -98,6 +97,7 @@ body {
     left: 80px;
     color: white;
     font-weight: normal;
+    font-size: 36px;
 }
 
 .map {
@@ -105,6 +105,7 @@ body {
     left: 220px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
+    font-size: 36px;
 }
 
 .diagram {
@@ -112,6 +113,23 @@ body {
     left: 360px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
+    font-size: 36px;
+}
+
+.summer {
+    top: 100px;
+    left: 80px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.winter {
+    top: 100px;
+    left: 220px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
 }
 
 .continent-legend {

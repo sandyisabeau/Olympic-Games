@@ -13,6 +13,8 @@ showMap = false;
 
 
 $(function() {
+    $('.summer').hide();
+    $('.winter').hide();
     stage = $('#stage');
     stageHeight = stage.height();
     stageWidth = stage.width();
@@ -83,6 +85,8 @@ function prepareData() {
 
 
 function drawSpiral() {
+    $('.summer').hide();
+    $('.winter').hide();
     showSpiral = true;
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
@@ -153,8 +157,8 @@ function drawSpiral() {
                 'color': 'white',
             });
             //Medalists
-            $('#hoverMedalists').text(summerGame.count + ' Medalists');
-            $('#hoverMedalists').css({
+            $('#hoverMedalist').text(summerGame.count + ' Medalists');
+            $('#hoverMedalist').css({
                 'color': 'white',
             });
         });
@@ -165,7 +169,7 @@ function drawSpiral() {
             $('#hoverContinent').text("");
             $('#hoverYear').text("");
             $('#hoverCity').text("");
-            $('#hoverMedalists').text("");
+            $('#hoverMedalist').text("");
         });
     });
 
@@ -232,8 +236,8 @@ function drawSpiral() {
                 'color': 'white',
             });
             //Medalists
-            $('#hoverMedalists').text(winterGame.count + ' Medalists');
-            $('#hoverMedalists').css({
+            $('#hoverMedalist').text(winterGame.count + ' Medalists');
+            $('#hoverMedalist').css({
                 'color': 'white',
             });
         });
@@ -244,13 +248,15 @@ function drawSpiral() {
             $('#hoverContinent').text("");
             $('#hoverYear').text("");
             $('#hoverCity').text("");
-            $('#hoverMedalists').text("");
+            $('#hoverMedalist').text("");
         });
     });
 }
 
 function drawMap() {
     showMap = true;
+    $('.summer').show();
+    $('.winter').show();
 
     medalistsAtSummerGames.forEach(country => {
         const area = gmynd.map(country.count, 1, 3875, 50, 2000);
@@ -279,11 +285,11 @@ function drawMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': spiralDotColor,
+                'color': "#FF7A00",
             });
             //Year
-            $('#hoverMedalistsMap').text(country.count + ' Medalists');
-            $('#hoverMedalistsMap').css({
+            $('#hoverMedalistMap').text(country.count + ' Medalists');
+            $('#hoverMedalistMap').css({
                 'color': 'white',
             });
         });
@@ -292,7 +298,7 @@ function drawMap() {
             $('.medalistsAtSummerGames').removeClass("hoverSummer");
             $('#hoverSeasonMap').text("");
             $('#hoverCountryMap').text("");
-            $('#hoverMedalistsMap').text("");
+            $('#hoverMedalistMap').text("");
         });
     });
 
@@ -322,11 +328,11 @@ function drawMap() {
     //     //Continent
     //     $('#hoverCountryMap').text(country.countryName);
     //     $('#hoverCountryMap').css({
-    //         'color': spiralDotColor,
+    //         'color': "#00C2FF",
     //     });
     //     //Year
-    //     $('#hoverMedalistsMap').text(country.count + ' Medalists');
-    //     $('#hoverMedalistsMap').css({
+    //     $('#hoverMedalistMap').text(country.count + ' Medalists');
+    //     $('#hoverMedalistMap').css({
     //         'color': 'white',
     //     });
     // });
@@ -342,6 +348,8 @@ function drawMap() {
 
 function drawDiagram() {
     showDiagram = true;
+    $('.summer').hide();
+    $('.winter').hide();
     // for (let i = 0; i < segmentedAthleteAge; i++) {
     //     for (let j = 0; j < segmentedAthleteWeight; j++) {
     //         const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
