@@ -6,6 +6,11 @@ let dot
 let showSpiral;
 let showMap;
 let showDiagram;
+showSpiral = true;
+showDiagram = false;
+showMap = false;
+
+
 
 $(function() {
     stage = $('#stage');
@@ -79,10 +84,6 @@ function prepareData() {
 
 function drawSpiral() {
     showSpiral = true;
-    showDiagram = false;
-    showMap = false;
-
-
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
     const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
@@ -249,8 +250,6 @@ function drawSpiral() {
 }
 
 function drawMap() {
-    showSpiral = false;
-    showDiagram = false;
     showMap = true;
 
     medalistsAtSummerGames.forEach(country => {
@@ -342,7 +341,7 @@ function drawMap() {
 }
 
 function drawDiagram() {
-
+    showDiagram = true;
     // for (let i = 0; i < segmentedAthleteAge; i++) {
     //     for (let j = 0; j < segmentedAthleteWeight; j++) {
     //         const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
@@ -395,27 +394,53 @@ function drawDiagram() {
     // });
 }
 
+function gameView() {
+    stage.empty();
+    drawSpiral();
+    $('.spiral').css({
+        'color': "gray",
+    });
+
+    $('.map').css({
+        'color': "#F14766",
+    });
+
+    $('.diagram').css({
+        'color': "gray",
+    });
+    console.log("gameView");
+}
 
 function teamView() {
     stage.empty();
-    if (showSpiral || showDiagram) {
-        drawMap();
-    }
-    console.log("teamView");
-}
+    drawMap();
+    $('.spiral').css({
+        'color': "gray",
+    });
 
-function gameView() {
-    stage.empty();
-    if (showMap || showDiagram) {
-        drawSpiral();
-    }
-    console.log("gameView");
+    $('.map').css({
+        'color': "#F14766",
+    });
+
+    $('.diagram').css({
+        'color': "gray",
+    });
+    console.log("teamView");
 }
 
 function medalistView() {
     stage.empty();
-    if (showSpiral || showMap) {
-        drawDiagram();
-    }
+    drawDiagram();
+    $('.spiral').css({
+        'color': "gray",
+    });
+
+    $('.map').css({
+        'color': "#F14766",
+    });
+
+    $('.diagram').css({
+        'color': "gray",
+    });
     console.log("medalistView");
 }

@@ -93,21 +93,21 @@ body {
     font-size: 20px;
 }
 
-.showSpiral {
+.spiral {
     top: 50px;
     left: 80px;
     color: white;
     font-weight: bold;
 }
 
-.showMap {
+.map {
     top: 50px;
     left: 220px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
 }
 
-.showDiagram {
+.diagram {
     top: 50px;
     left: 360px;
     color: rgba(255, 255, 255, 0.5);
