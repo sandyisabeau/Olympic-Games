@@ -2,7 +2,7 @@ let stage;
 let stageHeight, stageWidth;
 let data, cityContinents; //for general data preparation
 let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
-let medalistsAtSummerGames, medalistsAtWinterGames; // for map
+let medalistsAtSummerGames, medalistsAtWinterGames, medalsSummer; // for map
 let segmentedAthletes; //for diagram
 let dot;
 
@@ -10,16 +10,19 @@ let showSpiral;
 showSpiral = true;
 
 let showMap;
-showDiagram = false;
+showMap = false;
 
 let showDiagram;
-showMap = false;
+showDiagram = false;
 
 
 
 $(function() {
     $('.summer').hide();
     $('.winter').hide();
+    $('.age').hide();
+    $('.weight').hide();
+    $('.height').hide();
     stage = $('#stage');
     stageHeight = stage.height();
     stageWidth = stage.width();
@@ -59,10 +62,10 @@ function prepareData() {
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
 
     //Functions to calculate the number of different medals
-    let medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
+    medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
     let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
-
-    // Function to see number of medalists
+    console.log(medalsSummer)
+        // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
 
@@ -84,6 +87,10 @@ function drawSpiral() {
 
     $('.summer').hide();
     $('.winter').hide();
+    $('.age').hide();
+    $('.weight').hide();
+    $('.height').hide();
+
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
     // const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
@@ -95,8 +102,8 @@ function drawSpiral() {
         const area = gmynd.map(summerGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * (summerGame.Year - 1896 + 200) - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * (summerGame.Year - 1896 + 200) - rSpiral); // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * ((summerGame.Year - 1896) / 4 + 250) - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * ((summerGame.Year - 1896) / 4 + 250) - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
@@ -171,8 +178,8 @@ function drawSpiral() {
         const area = gmynd.map(winterGame.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * (winterGame.Year - 1896 + 300) - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * (winterGame.Year - 1896 + 300) - rSpiral); // sinus vom winkel
+        let xSpiral = (startX + (Math.cos(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // cosinus vom winkel
+        let ySpiral = (startY + (Math.sin(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // sinus vom winkel
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
@@ -248,8 +255,13 @@ function drawMap() {
     showMap = true;
     $('.summer').show();
     $('.winter').show();
+    $('.age').hide();
+    $('.weight').hide();
+    $('.height').hide();
 
     medalistsAtSummerGames.forEach(country => {
+        $('.medalistsAtSummerGames').show();
+
         const area = gmynd.map(country.count, 1, 3875, 50, 2000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
@@ -293,54 +305,61 @@ function drawMap() {
         });
     });
 
-    // medalistsAtWinterGames.forEach(country => {
-    //     const area = gmynd.map(country.count, 1, 3875, 50, 2000);
-    //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistsAtWinterGames");
-    //     dot.css({
-    //         'height': rMap * 2,
-    //         'width': rMap * 2,
-    //         'left': xMap,
-    //         'top': yMap,
-    //     });
-    //     dot.data(country);
-    //     stage.append(dot);
+    medalistsAtWinterGames.forEach(country => {
+        $('.medalistsAtWinterGames').show();
 
-    // dot.mouseover(() => {
-    // $('.medalistsAtSummerGames').addClass("hoverWinter");
-    //     //Season        
-    //     $('#hoverSeasonMap').text('Olympic Winter Game');
-    //     $('#hoverSeasonMap').css({
-    //         'color': 'white',
-    //     });
-    //     //Continent
-    //     $('#hoverCountryMap').text(country.countryName);
-    //     $('#hoverCountryMap').css({
-    //         'color': "#00C2FF",
-    //     });
-    //     //Year
-    //     $('#hoverMedalistMap').text(country.count + ' Medalists');
-    //     $('#hoverMedalistMap').css({
-    //         'color': 'white',
-    //     });
-    // });
+        const area = gmynd.map(country.count, 1, 3875, 50, 2000);
+        const rMap = gmynd.circleRadius(area);
+        const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
+        let dot = $('<div></div>');
+        dot.addClass("medalistsAtWinterGames");
+        dot.css({
+            'height': rMap * 2,
+            'width': rMap * 2,
+            'left': xMap,
+            'top': yMap,
+        });
+        dot.data(country);
+        stage.append(dot);
 
-    // dot.mouseout(() => {
-    //     $('.medalistsAtSummerGames').removeClass("hoverWinter");
-    //     $('#hoverSeason').text("");
-    //     $('#hoverCountry').text("");
-    //     $('#hoverMedalists').text("");
-    // });
-    // });
+        dot.mouseover(() => {
+            $('.medalistsAtSummerGames').addClass("hoverWinter");
+            //Season        
+            $('#hoverSeasonMap').text('Olympic Winter Game');
+            $('#hoverSeasonMap').css({
+                'color': 'white',
+            });
+            //Continent
+            $('#hoverCountryMap').text(country.countryName);
+            $('#hoverCountryMap').css({
+                'color': "#00C2FF",
+            });
+            //Year
+            $('#hoverMedalistMap').text(country.count + ' Medalists');
+            $('#hoverMedalistMap').css({
+                'color': 'white',
+            });
+        });
+
+        dot.mouseout(() => {
+            $('.medalistsAtSummerGames').removeClass("hoverWinter");
+            $('#hoverSeason').text("");
+            $('#hoverCountry').text("");
+            $('#hoverMedalists').text("");
+        });
+    });
+
+
 }
 
 function drawDiagram() {
     showDiagram = true;
     $('.summer').hide();
     $('.winter').hide();
+    $('.age').show();
+    $('.weight').show();
+    $('.height').show();
     // for (let i = 0; i < segmentedAthleteAge; i++) {
     //     for (let j = 0; j < segmentedAthleteWeight; j++) {
     //         const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
@@ -424,6 +443,9 @@ function teamView() {
     $('.diagram').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
+    $('.summer').css({
+        'color': 'white',
+    });
     console.log("teamView");
 }
 
@@ -446,17 +468,47 @@ function medalistView() {
 
 function summerView() {
     stage.empty();
-    drawDiagram();
-    $('.spiral').css({
+    $('.medalistsAtSummerGames').show();
+    $('.medalistsAtWinterGames').hide();
+
+    $('.summer').css({
+        'color': 'white',
+    });
+
+    $('.winter').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
 
-    $('.map').css({
+    console.log("summerView");
+}
+
+function winterView() {
+    stage.empty();
+    $('.medalistsAtSummerGames').hide();
+    $('.medalistsAtWinterGames').show();
+
+    $('.summer').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
 
-    $('.diagram').css({
-        'color': "white",
+    $('.winter').css({
+        'color': 'white',
     });
-    console.log("medalistView");
+
+    console.log("winterView");
+}
+
+function ageView() {
+    stage.empty();
+    console.log("AgeView");
+}
+
+function weightView() {
+    stage.empty();
+    console.log("WeightView");
+}
+
+function heightView() {
+    stage.empty();
+    console.log("HeightView");
 }
