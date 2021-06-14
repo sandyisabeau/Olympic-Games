@@ -398,15 +398,15 @@ function gameView() {
     stage.empty();
     drawSpiral();
     $('.spiral').css({
-        'color': "gray",
+        'color': "white",
     });
 
     $('.map').css({
-        'color': "#F14766",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
 
     $('.diagram').css({
-        'color': "gray",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
     console.log("gameView");
 }
@@ -415,15 +415,15 @@ function teamView() {
     stage.empty();
     drawMap();
     $('.spiral').css({
-        'color': "gray",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
 
     $('.map').css({
-        'color': "#F14766",
+        'color': "white",
     });
 
     $('.diagram').css({
-        'color': "gray",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
     console.log("teamView");
 }
@@ -432,15 +432,15 @@ function medalistView() {
     stage.empty();
     drawDiagram();
     $('.spiral').css({
-        'color': "gray",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
 
     $('.map').css({
-        'color': "#F14766",
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
 
     $('.diagram').css({
-        'color': "gray",
+        'color': "white",
     });
     console.log("medalistView");
 }
