@@ -452,3 +452,20 @@ function medalistView() {
     });
     console.log("medalistView");
 }
+
+function summerView() {
+    stage.empty();
+    drawDiagram();
+    $('.spiral').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+
+    $('.map').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+
+    $('.diagram').css({
+        'color': "white",
+    });
+    console.log("medalistView");
+}

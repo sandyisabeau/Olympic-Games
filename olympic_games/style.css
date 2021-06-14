@@ -117,19 +117,19 @@ body {
 }
 
 .summer {
-    top: 100px;
+    top: 110px;
     left: 80px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .winter {
-    top: 100px;
+    top: 110px;
     left: 220px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .continent-legend {
