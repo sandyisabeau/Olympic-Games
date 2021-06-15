@@ -2,7 +2,8 @@ let stage;
 let stageHeight, stageWidth;
 let data, cityContinents; //for general data preparation
 let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
-let medalistsAtSummerGames, medalistsAtWinterGames, medalsSummer; // for map
+let medalistsAtSummerGames, medalistsAtWinterGames; // for map
+let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
 let dot;
 
@@ -63,7 +64,7 @@ function prepareData() {
 
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
-    let medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
+    medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
     console.log(medalsSummer)
         // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
@@ -266,6 +267,11 @@ function drawMap() {
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
+
+        if (country.countryName == medalsSummer.countryName) {
+
+        }
+
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         dot.css({
