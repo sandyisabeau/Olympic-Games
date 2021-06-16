@@ -275,12 +275,13 @@ function drawMap() {
 
     medalistsAtSummerGames.forEach(country => {
         $('.medalistsAtSummerGames').show();
-
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
-
+        const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
+        let yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
+        if (country.latitude >= 39 && country.latitude <= 65 && country.continent == "Europe") {
+            yMap = gmynd.map(country.latitude, -70, 95, stageHeight, 0) - rMap;
+        }
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         let mapDotColor;
