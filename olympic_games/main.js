@@ -82,6 +82,7 @@ function prepareData() {
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName", "continent"]);
+    console.log(medalistsAtSummerGames);
 
     //Functions to separate male and female medalists
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 20);
@@ -278,10 +279,7 @@ function drawMap() {
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
-        let yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
-        if (country.latitude >= 39 && country.latitude <= 65 && country.continent == "Europe") {
-            yMap = gmynd.map(country.latitude, -70, 95, stageHeight, 0) - rMap;
-        }
+        const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         let mapDotColor;
@@ -315,14 +313,14 @@ function drawMap() {
             $('.medalistsAtSummerGames').addClass("hoverSummer");
             dot.removeClass("hoverSummer");
             //Season        
-            $('#hoverSeasonMap').text('Olympic Summer Game');
+            $('#hoverSeasonMap').text('Medalists Country of Origin');
             $('#hoverSeasonMap').css({
                 'color': 'white',
             });
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': "#FF7A00",
+                'color': mapDotColor,
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
