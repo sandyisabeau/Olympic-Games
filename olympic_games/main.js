@@ -18,6 +18,7 @@ showDiagram = false;
 
 
 let currentFilters = [];
+let currentData
 
 function addToFilters(prop) {
     currentFilters.push(prop);
@@ -25,7 +26,6 @@ function addToFilters(prop) {
 }
 
 function getDataSubset() {
-    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
     return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
 }
 
@@ -381,17 +381,17 @@ function drawDiagram() {
     $('.weight').show();
     $('.height').show();
 
-    let currentData = getDataSubset();
+    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
+    currentData = getDataSubset();
 
     currentData.forEach(medalistGroup => {
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
-        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 1, 20, 0, stageWidth);
-        const yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 1, 20, 0, stageHeight);
+        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 0, stageWidth) - rDiagram;
+        const yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 0, stageHeight) - rDiagram;
 
         let dot = $('<div></div>');
         dot.addClass("medalistGroup");
-        console.log(currentData);
         dot.css({
             'height': rDiagram * 2,
             'width': rDiagram * 2,
