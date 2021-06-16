@@ -25,11 +25,9 @@ function addToFilters(prop) {
 }
 
 function getDataSubset() {
+    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
     return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
 }
-
-
-//let currentData = getDataSubset();
 
 $(function() {
     $('.summer').hide();
@@ -85,9 +83,9 @@ function prepareData() {
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
 
     //Functions to separate male and female medalists
-    segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
-    segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
-    segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Age", 20);
+    segmentedAthletes = gmynd.addPropSegment(data, "Height", 20);
+    segmentedAthletes = gmynd.addPropSegment(data, "Weight", 20);
     //segmentedAthletes = gmynd.cumulateData(segmentedAthletes, ["Sex", "HeightSegmentOf8", "WeightSegmentOf8"]);
     console.log(segmentedAthletes);
 
@@ -293,6 +291,7 @@ function drawMap() {
             'width': rMap * 2,
             'left': xMap,
             'top': yMap,
+            'border-radius': '100%',
         });
         dot.data(country);
         stage.append(dot);
@@ -339,6 +338,7 @@ function drawMap() {
             'width': rMap * 2,
             'left': xMap,
             'top': yMap,
+            'border-radius': '100%',
         });
         dot.data(country);
         stage.append(dot);
@@ -380,45 +380,29 @@ function drawDiagram() {
     $('.age').show();
     $('.weight').show();
     $('.height').show();
-    // for (let i = 0; i < segmentedAthleteAge; i++) {
-    //     for (let j = 0; j < segmentedAthleteWeight; j++) {
-    //         const rDiagram = AgeSegmentOf8 + WeightSegmentOf8;
-    //         const x = stageWidth / AgeSegmentOf8;
-    //         const y = stageHeight / WeightSegmentOf8;
-    //         console.log("Hey")
 
-    //         let dot = $('<div></div>');
-    //         dot.css({
-    //             'height': rDiagram,
-    //             'width': rDiagram,
-    //             'background-color': 'white',
-    //             'position': 'absolute',
-    //             'left': x,
-    //             'top': y,
-    //             'border-radius': '100%'
-    //         });
-    //         $('#stage').append(dot);
+    let currentData = getDataSubset();
 
-    //         // console.log("j = " + j);
-    //     }
-    // }
+    currentData.forEach(medalistGroup => {
+        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+        const rDiagram = gmynd.circleRadius(area);
+        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 1, 20, 0, stageWidth);
+        const yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 1, 20, 0, stageHeight);
 
-    // segmentedAthletes.forEach(segment => {
-    //     const area = 20;
-    //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(segment.count, 0, 8, 0, 1920) - rMap;
-    //     const yMap = gmynd.map(segment.count, 0, 8, 0, 1080) - rMap;
-    //     let dot = $('<div></div>');
-    //     dot.addClass("segmentedAthletes");
-    //     console.log("Hey")
-    //     dot.css({
-    //         'height': rMap * 2,
-    //         'width': rMap * 2,
-    //         'left': xMap,
-    //         'top': yMap,
-    //         'background-color': 'white',
-    //     });
-    // });
+        let dot = $('<div></div>');
+        dot.addClass("medalistGroup");
+        console.log(currentData);
+        dot.css({
+            'height': rDiagram * 2,
+            'width': rDiagram * 2,
+            'left': xDiagram,
+            'top': yDiagram,
+            'background-color': 'white',
+            'border-radius': '100%',
+        });
+        dot.data(medalistGroup);
+        stage.append(dot);
+    });
 }
 
 function gameView() {
