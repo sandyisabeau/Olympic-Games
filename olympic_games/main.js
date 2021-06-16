@@ -17,6 +17,19 @@ let showDiagram;
 showDiagram = false;
 
 
+let currentFilters = [];
+
+function addToFilters(prop) {
+    currentFilters.push(prop);
+    currentFilters.pop();
+}
+
+function getDataSubset() {
+    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
+}
+
+
+//let currentData = getDataSubset();
 
 $(function() {
     $('.summer').hide();
@@ -65,17 +78,18 @@ function prepareData() {
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
     medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
-    console.log(medalsSummer)
-        // Function to see number of medalists
+    console.log(medalsSummer);
+
+    // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
 
-
     //Functions to separate male and female medalists
-    // segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
-    // segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
-    // segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
-    // console.log(segmentedAthletes);
+    segmentedAthletes = gmynd.addPropSegment(data, "Age", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Height", 8);
+    segmentedAthletes = gmynd.addPropSegment(data, "Weight", 8);
+    //segmentedAthletes = gmynd.cumulateData(segmentedAthletes, ["Sex", "HeightSegmentOf8", "WeightSegmentOf8"]);
+    console.log(segmentedAthletes);
 
     //Functions to group the different types of medals in relation to gender
     // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
@@ -404,17 +418,6 @@ function drawDiagram() {
     //         'top': yMap,
     //         'background-color': 'white',
     //     });
-    //     dot.data(segment);
-    //     stage.append(dot);
-    // dot.mouseover(() => {
-    //     $('.segmentedAthletes').addClass("hoverSummer");
-    //     dot.removeClass("hoverSummer");
-    //     $('#hoverLabel').text('Country : ' + country.countryName + ', ' + 'Athletes : ' + country.count);
-    // });
-    // dot.mouseout(() => {
-    //     $('.medalistsAtSummerGames').removeClass("hoverSummer");
-    //     $('#hoverLabel').text("");
-    // });
     // });
 }
 
@@ -518,3 +521,10 @@ function heightView() {
     stage.empty();
     console.log("HeightView");
 }
+
+//Wie kann ich die Medaillen aufschlüsseln? 
+//Geht das über das Object oder brauche ich eine neue Funktion/Berechnung?
+//Wie kann ich Athleten gruppieren bzw. einer Gruppe einen Abschnitt auf einer Achse zuweisen?
+//Wie lassen sich den Achsen unterschiedliche "Eigenschaften" zuwesien? 
+//Verlinkung von Sommer und Winter? Also das etwas was in einer Function steht nicht zeitgleich angezeigt wird?
+//Wie kann ich die Map besser codieren also mit einem createDots()?
