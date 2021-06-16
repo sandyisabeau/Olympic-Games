@@ -184,27 +184,27 @@ body {
     border-radius: 100%;
 }
 
-.medalistsAtSummerGames {
-    background-color: #FF7A00;
-    position: absolute;
-    border-radius: 100%;
-}
 
+/* .medalistsAtSummerGames {
+    /* background-color: #FF7A00; */
+
+position: absolute;
+border-radius: 100%;
+
+}
 .hoverSummer {
-    background-color: #693200;
+    /* background-color: #693200; */
 }
-
 .medalistsAtWinterGames {
-    background-color: #00C2FF;
+    /* background-color: #00C2FF; */
+    
     position: absolute;
     border-radius: 100%;
 }
-
 .hoverWinter {
-    background-color: #005874;
+    /* background-color: #005874; */
 }
-
-.continents {
+*/ .continents {
     position: absolute;
     left: 5vw;
     top: 75vh;

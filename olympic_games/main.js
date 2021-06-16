@@ -72,6 +72,7 @@ function prepareData() {
     //Functions to separate Winter and Summer Games (for Map)
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
+    console.log(medalistsAtSummerGames);
 
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
@@ -79,8 +80,8 @@ function prepareData() {
     console.log(medalsSummer);
 
     // Function to see number of medalists
-    medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName"]);
-    medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName"]);
+    medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
+    medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName", "continent"]);
 
     //Functions to separate male and female medalists
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 20);
@@ -275,23 +276,36 @@ function drawMap() {
     medalistsAtSummerGames.forEach(country => {
         $('.medalistsAtSummerGames').show();
 
-        const area = gmynd.map(country.count, 1, 3875, 50, 2000);
+        const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
 
-        if (country.countryName == medalsSummer.countryName) {
-
-        }
-
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
+        let mapDotColor;
+
+        if (country.continent == "Europe") {
+            mapDotColor = '#2796EA';
+        } else if (country.continent == "Asia") {
+            mapDotColor = '#FF9839';
+        } else if (country.continent == "Oceania") {
+            mapDotColor = '#22AE70';
+        } else if (country.continent == "North America") {
+            mapDotColor = '#DF366E';
+        } else if (country.continent == "South America") {
+            mapDotColor = '#DF366E';
+        } else if (country.continent == "Africa") {
+            mapDotColor = '#7F79DA';
+        }
         dot.css({
             'height': rMap * 2,
             'width': rMap * 2,
             'left': xMap,
             'top': yMap,
             'border-radius': '100%',
+            'position': 'absolute',
+            'background-color': mapDotColor,
         });
         dot.data(country);
         stage.append(dot);
@@ -324,51 +338,51 @@ function drawMap() {
         });
     });
 
-    medalistsAtWinterGames.forEach(country => {
-        $('.medalistsAtWinterGames').show();
+    // medalistsAtWinterGames.forEach(country => {
+    //     $('.medalistsAtWinterGames').show();
 
-        const area = gmynd.map(country.count, 1, 3875, 50, 2000);
-        const rMap = gmynd.circleRadius(area);
-        const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
-        let dot = $('<div></div>');
-        dot.addClass("medalistsAtWinterGames");
-        dot.css({
-            'height': rMap * 2,
-            'width': rMap * 2,
-            'left': xMap,
-            'top': yMap,
-            'border-radius': '100%',
-        });
-        dot.data(country);
-        stage.append(dot);
+    //     const area = gmynd.map(country.count, 1, 3875, 50, 2000);
+    //     const rMap = gmynd.circleRadius(area);
+    //     const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
+    //     const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
+    //     let dot = $('<div></div>');
+    //     dot.addClass("medalistsAtWinterGames");
+    //     dot.css({
+    //         'height': rMap * 2,
+    //         'width': rMap * 2,
+    //         'left': xMap,
+    //         'top': yMap,
+    //         'border-radius': '100%',
+    //     });
+    //     dot.data(country);
+    //     stage.append(dot);
 
-        dot.mouseover(() => {
-            $('.medalistsAtSummerGames').addClass("hoverWinter");
-            //Season        
-            $('#hoverSeasonMap').text('Olympic Winter Game');
-            $('#hoverSeasonMap').css({
-                'color': 'white',
-            });
-            //Continent
-            $('#hoverCountryMap').text(country.countryName);
-            $('#hoverCountryMap').css({
-                'color': "#00C2FF",
-            });
-            //Year
-            $('#hoverMedalistMap').text(country.count + ' Medalists');
-            $('#hoverMedalistMap').css({
-                'color': 'white',
-            });
-        });
+    //     dot.mouseover(() => {
+    //         $('.medalistsAtSummerGames').addClass("hoverWinter");
+    //         //Season        
+    //         $('#hoverSeasonMap').text('Olympic Winter Game');
+    //         $('#hoverSeasonMap').css({
+    //             'color': 'white',
+    //         });
+    //         //Continent
+    //         $('#hoverCountryMap').text(country.countryName);
+    //         $('#hoverCountryMap').css({
+    //             'color': "#00C2FF",
+    //         });
+    //         //Year
+    //         $('#hoverMedalistMap').text(country.count + ' Medalists');
+    //         $('#hoverMedalistMap').css({
+    //             'color': 'white',
+    //         });
+    //     });
 
-        dot.mouseout(() => {
-            $('.medalistsAtSummerGames').removeClass("hoverWinter");
-            $('#hoverSeason').text("");
-            $('#hoverCountry').text("");
-            $('#hoverMedalists').text("");
-        });
-    });
+    //     dot.mouseout(() => {
+    //         $('.medalistsAtSummerGames').removeClass("hoverWinter");
+    //         $('#hoverSeason').text("");
+    //         $('#hoverCountry').text("");
+    //         $('#hoverMedalists').text("");
+    //     });
+    // });
 
 
 }
