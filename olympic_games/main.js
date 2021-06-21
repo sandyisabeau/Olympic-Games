@@ -394,36 +394,36 @@ function drawDiagram() {
     $('.weight').show();
     $('.height').show();
 
-    // Diagram based on height and weight
-    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
-    currentData = getDataSubset();
+    // // Diagram based on height and weight
+    // currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
+    // currentData = getDataSubset();
 
-    currentData.forEach(medalistGroup => {
-        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-        const rDiagram = gmynd.circleRadius(area);
-        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-        let yDiagram
+    // currentData.forEach(medalistGroup => {
+    //     const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+    //     const rDiagram = gmynd.circleRadius(area);
+    //     const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
+    //     let yDiagram
 
-        if (medalistGroup.Sex == "F") {
-            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
-        } else {
-            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
-        }
-        let dot = $('<div></div>');
-        dot.addClass("medalistGroup");
-        dot.css({
-            'height': rDiagram * 2,
-            'width': rDiagram * 2,
-            'left': xDiagram,
-            'top': yDiagram,
-            'position': 'absolute',
-            'background-color': 'white',
-            'border-radius': '100%',
-        });
-        dot.data(medalistGroup);
-        stage.append(dot);
-        console.log(yDiagram)
-    });
+    //     if (medalistGroup.Sex == "F") {
+    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+    //     } else {
+    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+    //     }
+    //     let dot = $('<div></div>');
+    //     dot.addClass("medalistGroup");
+    //     dot.css({
+    //         'height': rDiagram * 2,
+    //         'width': rDiagram * 2,
+    //         'left': xDiagram,
+    //         'top': yDiagram,
+    //         'position': 'absolute',
+    //         'background-color': 'white',
+    //         'border-radius': '100%',
+    //     });
+    //     dot.data(medalistGroup);
+    //     stage.append(dot);
+    //     console.log(yDiagram)
+    // });
 
     // // Diagram based on Age and Height
     // currentFilters = ["AgeSegmentOf20", "HeightSegmentOf20"];
@@ -456,36 +456,35 @@ function drawDiagram() {
     //     console.log(yDiagram)
     // });
 
-    // // Diagram based on Age and Weight
-    // currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
-    // currentData = getDataSubset();
+    // Diagram based on Age and Weight
+    currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
+    currentData = getDataSubset();
 
-    // currentData.forEach(medalistGroup => {
-    //     const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-    //     const rDiagram = gmynd.circleRadius(area);
-    //     const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-    //     let yDiagram
-
-    //     if (medalistGroup.Sex == "F") {
-    //         yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
-    //     } else {
-    //         yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
-    //     }
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistGroup");
-    //     dot.css({
-    //         'height': rDiagram * 2,
-    //         'width': rDiagram * 2,
-    //         'left': xDiagram,
-    //         'top': yDiagram,
-    //         'position': 'absolute',
-    //         'background-color': 'white',
-    //         'border-radius': '100%',
-    //     });
-    //     dot.data(medalistGroup);
-    //     stage.append(dot);
-    //     console.log(currentData)
-    // });
+    currentData.forEach(medalistGroup => {
+        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+        const rDiagram = gmynd.circleRadius(area);
+        const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
+        let yDiagram
+        if (medalistGroup.Sex == "F") {
+            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+        } else {
+            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+        }
+        let dot = $('<div></div>');
+        dot.addClass("medalistGroup");
+        dot.css({
+            'height': rDiagram * 2,
+            'width': rDiagram * 2,
+            'left': xDiagram,
+            'top': yDiagram,
+            'position': 'absolute',
+            'background-color': 'white',
+            'border-radius': '100%',
+        });
+        dot.data(medalistGroup);
+        stage.append(dot);
+        console.log(currentData)
+    });
 }
 
 function gameView() {
