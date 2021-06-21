@@ -6,7 +6,7 @@ let medalistsAtSummerGames, medalistsAtWinterGames; // for map
 let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
 let dot;
-
+let mostFrequentMedalsPerCountry={};
 let showSpiral;
 showSpiral = true;
 
@@ -54,7 +54,7 @@ function prepareData() {
     data = gmynd.filterPropType(data, "Height", "Number");
     data = gmynd.filterPropType(data, "Age", "Number");
 
-    //Function to merge the continents of the city in which the games took place    
+    //Function to merge the continents of the city in which the games took place
     cityContinents = gmynd.mergeData(data, cityData, "City");
 
     //Filter to delete incomplete Data
@@ -79,7 +79,21 @@ function prepareData() {
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
     groupedMedals = gmynd.groupData(medalsSummer, ["countryName"]);
     medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
+    console.log("groupedMedals:");
     console.log(groupedMedals);
+
+    for (let countryName in groupedMedals) {
+        let country = groupedMedals[countryName];
+        let mostFrequentMedal = {countryName:countryName, Medal:"", count:0};
+        country.forEach(medalType => {
+            if (medalType.count > mostFrequentMedal.count) {
+                mostFrequentMedal = medalType;
+            }
+        });
+        mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
+    }
+    console.log("mostFrequentMedalsPerCountry:");
+    console.log(mostFrequentMedalsPerCountry);
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
@@ -126,15 +140,15 @@ function drawSpiral() {
         spiralDot.addClass("Game");
         let spiralDotColor;
 
-        if (summerGame.continent == "Europe") {
+        if (summerGame.continent === "Europe") {
             spiralDotColor = '#2796EA';
-        } else if (summerGame.continent == "Asia") {
+        } else if (summerGame.continent === "Asia") {
             spiralDotColor = '#FF9839';
-        } else if (summerGame.continent == "Oceania") {
+        } else if (summerGame.continent === "Oceania") {
             spiralDotColor = '#22AE70';
-        } else if (summerGame.continent == "North America") {
+        } else if (summerGame.continent === "North America") {
             spiralDotColor = '#DF366E';
-        } else if (summerGame.continent == "South America") {
+        } else if (summerGame.continent === "South America") {
             spiralDotColor = '#DF366E';
         }
 
@@ -152,7 +166,7 @@ function drawSpiral() {
 
         spiralDot.mouseover(() => {
             spiralDot.addClass("hover");
-            //Season        
+            //Season
             $('#hoverSeason').text('Olympic Summer Game');
             $('#hoverSeason').css({
                 'color': 'white',
@@ -230,7 +244,7 @@ function drawSpiral() {
 
         spiralDot.mouseover(() => {
             spiralDot.addClass("hover");
-            //Season        
+            //Season
             $('#hoverSeason').text('Olympic Winter Game');
             $('#hoverSeason').css({
                 'color': 'white',
@@ -276,14 +290,6 @@ function drawMap() {
     $('.weight').hide();
     $('.height').hide();
 
-    // const keys = Object.keys(groupedMedals);
-    // const keyCount = keys.length;
-    for (let key in groupedMedals) {
-        let maxMedalsPerTeam = gmynd.dataMax(medalsSummer[countryName], "count")
-        console.log(maxMedalsPerTeam);
-    }
-
-
     medalistsAtSummerGames.forEach(country => {
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
@@ -310,7 +316,7 @@ function drawMap() {
         dot.mouseover(() => {
             $('.medalistsAtSummerGames').addClass("hoverSummer");
             dot.removeClass("hoverSummer");
-            //Season        
+            //Season
             $('#hoverSeasonMap').text('Medalists Country of Origin');
             $('#hoverSeasonMap').css({
                 'color': 'white',
@@ -356,7 +362,7 @@ function drawMap() {
 
     //     dot.mouseover(() => {
     //         $('.medalistsAtSummerGames').addClass("hoverWinter");
-    //         //Season        
+    //         //Season
     //         $('#hoverSeasonMap').text('Olympic Winter Game');
     //         $('#hoverSeasonMap').css({
     //             'color': 'white',
