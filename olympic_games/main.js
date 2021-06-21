@@ -76,8 +76,10 @@ function prepareData() {
     console.log(medalistsAtSummerGames);
 
     //Functions to calculate the number of different medals
-    medalsSummer = gmynd.cumulatepData(medalistsAtSummerGames, ['countryName', 'Medal']);
-    medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ['countryName', 'Medal']);
+    medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
+    groupedMedals = gmynd.groupData(medalsSummer, ["countryName"]);
+    medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
+    console.log(groupedMedals);
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
@@ -274,14 +276,20 @@ function drawMap() {
     $('.weight').hide();
     $('.height').hide();
 
+    const keys = Object.keys(groupedMedals);
+    const keyCount = keys.length;
+    for (let key in groupedMedals) {
+        let maxMedalsPerTeam = gmynd.dataMax(medalsSummer[countryName], "count")
+        console.log(maxMedalsPerTeam);
+    }
+
+
     medalistsAtSummerGames.forEach(country => {
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
-        const maxMedalsPerTeam = gmynd.dataMax(medalsSummer, "Medal");
-        console.log(maxMedalsPerTeam);
 
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");

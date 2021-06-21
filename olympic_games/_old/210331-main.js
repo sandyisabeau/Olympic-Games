@@ -2,7 +2,7 @@ const data = [4, 5, 2, 7, 3, 8, 1, 55, 4, 7, 4, 7, 9, 1];
 let stageHeight, stageWidth;
 let max = data[0];
 
-$(function () {
+$(function() {
     // wird erst ausgeführt, wenn Website komplett geladen:
     stageHeight = $('#stage').innerHeight();
     stageWidth = $('#stage').innerWidth();
