@@ -276,8 +276,8 @@ function drawMap() {
     $('.weight').hide();
     $('.height').hide();
 
-    const keys = Object.keys(groupedMedals);
-    const keyCount = keys.length;
+    // const keys = Object.keys(groupedMedals);
+    // const keyCount = keys.length;
     for (let key in groupedMedals) {
         let maxMedalsPerTeam = gmynd.dataMax(medalsSummer[countryName], "count")
         console.log(maxMedalsPerTeam);
