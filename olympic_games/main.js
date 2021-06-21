@@ -19,6 +19,7 @@ showDiagram = false;
 
 let currentFilters = [];
 let currentData
+let thirdParameter
 
 function addToFilters(prop) {
     currentFilters.push(prop);
@@ -75,9 +76,8 @@ function prepareData() {
     console.log(medalistsAtSummerGames);
 
     //Functions to calculate the number of different medals
-    medalsSummer = gmynd.groupData(medalistsAtSummerGames, ['countryName', 'Medal']);
-    medalsWinter = gmynd.groupData(medalistsAtWinterGames, ['countryName', 'Medal']);
-    console.log(medalsSummer);
+    medalsSummer = gmynd.cumulatepData(medalistsAtSummerGames, ['countryName', 'Medal']);
+    medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ['countryName', 'Medal']);
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
@@ -280,23 +280,13 @@ function drawMap() {
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
+        const maxMedalsPerTeam = gmynd.dataMax(medalsSummer, "Medal");
+        console.log(maxMedalsPerTeam);
+
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         let mapDotColor;
 
-        if (country.continent == "Europe") {
-            mapDotColor = '#2796EA';
-        } else if (country.continent == "Asia") {
-            mapDotColor = '#FF9839';
-        } else if (country.continent == "Oceania") {
-            mapDotColor = '#22AE70';
-        } else if (country.continent == "North America") {
-            mapDotColor = '#DF366E';
-        } else if (country.continent == "South America") {
-            mapDotColor = '#DF366E';
-        } else if (country.continent == "Africa") {
-            mapDotColor = '#7F79DA';
-        }
         dot.css({
             'height': rMap * 2,
             'width': rMap * 2,
@@ -465,6 +455,8 @@ function drawDiagram() {
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
         let yDiagram
+        thirdParameter = gmynd.cumulateData(medalistGroup, ["Height"]);
+        console.log(thirdParameter);
         if (medalistGroup.Sex == "F") {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
         } else {
@@ -483,7 +475,7 @@ function drawDiagram() {
         });
         dot.data(medalistGroup);
         stage.append(dot);
-        console.log(currentData)
+        console.log(medalistGroup);
     });
 }
 
