@@ -90,19 +90,7 @@ function prepareData() {
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = medalType;
             }
-            if (medalType = "Gold") {
-                let goldMedals = { countryName: countryName, Medal: "Gold", count: medalType.count };
-                console.log(goldMedals);
-            }
-
-            if (medalType = "Silver") {
-                let silverMedals = { countryName: countryName, Medal: "Gold", count: 0 };
-                console.log(goldMedals);
-            }
-            if (medalType = "Bronze") {
-                let silverMedals = { countryName: countryName, Medal: "Gold", count: 0 };
-                console.log(goldMedals);
-            }
+            console.log(countryName, medalType.Medal, medalType.count);
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
     }
