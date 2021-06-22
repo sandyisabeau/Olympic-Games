@@ -6,7 +6,8 @@ let medalistsAtSummerGames, medalistsAtWinterGames; // for map
 let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
 let dot;
-let mostFrequentMedalsPerCountry={};
+let mostFrequentMedalsPerCountry = {};
+
 let showSpiral;
 showSpiral = true;
 
@@ -84,16 +85,32 @@ function prepareData() {
 
     for (let countryName in groupedMedals) {
         let country = groupedMedals[countryName];
-        let mostFrequentMedal = {countryName:countryName, Medal:"", count:0};
+        let mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         country.forEach(medalType => {
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = medalType;
             }
+            if (medalType = "Gold") {
+                let goldMedals = { countryName: countryName, Medal: "Gold", count: medalType.count };
+                console.log(goldMedals);
+            }
+
+            if (medalType = "Silver") {
+                let silverMedals = { countryName: countryName, Medal: "Gold", count: 0 };
+                console.log(goldMedals);
+            }
+            if (medalType = "Bronze") {
+                let silverMedals = { countryName: countryName, Medal: "Gold", count: 0 };
+                console.log(goldMedals);
+            }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
     }
+
     console.log("mostFrequentMedalsPerCountry:");
     console.log(mostFrequentMedalsPerCountry);
+
+
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
@@ -104,12 +121,8 @@ function prepareData() {
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 20);
     segmentedAthletes = gmynd.addPropSegment(data, "Height", 20);
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 20);
-    //segmentedAthletes = gmynd.cumulateData(segmentedAthletes, ["Sex", "HeightSegmentOf8", "WeightSegmentOf8"]);
     console.log(segmentedAthletes);
 
-    //Functions to group the different types of medals in relation to gender
-    // femaleMedalists = gmynd.groupData(femaleMedalists, "Medal");
-    // maleMedalists = gmynd.groupData(maleMedalists, "Medal");
 }
 
 
@@ -469,8 +482,10 @@ function drawDiagram() {
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
         let yDiagram
-        thirdParameter = gmynd.cumulateData(medalistGroup, ["Height"]);
+
+        thirdParameter = gmynd.cumulateData(data, ["Height"]);
         console.log(thirdParameter);
+
         if (medalistGroup.Sex == "F") {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
         } else {
@@ -593,10 +608,3 @@ function heightView() {
     stage.empty();
     console.log("HeightView");
 }
-
-//Wie kann ich die Medaillen aufschlüsseln? 
-//Geht das über das Object oder brauche ich eine neue Funktion/Berechnung?
-//Wie kann ich Athleten gruppieren bzw. einer Gruppe einen Abschnitt auf einer Achse zuweisen?
-//Wie lassen sich den Achsen unterschiedliche "Eigenschaften" zuwesien? 
-//Verlinkung von Sommer und Winter? Also das etwas was in einer Function steht nicht zeitgleich angezeigt wird?
-//Wie kann ich die Map besser codieren also mit einem createDots()?
