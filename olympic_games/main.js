@@ -45,23 +45,20 @@ $(function() {
 function addToFilters(prop) {
     currentFilters.push(prop);
     currentFilters.pop();
-
-
 };
 
 function getDataSubset() {
     return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
 };
 
-// function addToParameters() {
-//     thirdParameter.push(prop);
-//     thirdParameter.pop();
+function addToParameters() {
+    thirdParameter.push(prop);
+    thirdParameter.pop();
+};
 
-// }
-
-// function getThirdParameter() {
-//     return gmynd.cumulateData(currentData, [thirdParameter]);
-// };
+function getThirdParameter() {
+    return gmynd.cumulateData(currentData, [thirdParameter]);
+};
 
 // function addMedalToFilters(prop) {
 //     currentMedal.push(prop);
@@ -470,6 +467,8 @@ function drawDiagram() {
     $('.weight').show();
     $('.height').show();
 
+
+
     // // Diagram based on height and weight
     // currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
     // currentData = getDataSubset();
@@ -538,7 +537,11 @@ function drawDiagram() {
     currentData = getDataSubset();
     console.log(currentData);
 
+    // currentData.add(thirdParameter);
+
+
     currentData.forEach(medalistGroup => {
+        console.log(medalistGroup);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -557,7 +560,7 @@ function drawDiagram() {
             'left': xDiagram,
             'top': yDiagram,
             'position': 'absolute',
-            'background-color': color,
+            'background-color': 'white',
             'border-radius': '100%',
         });
         dot.data(medalistGroup);
