@@ -6,8 +6,9 @@ let medalistsAtSummerGames, medalistsAtWinterGames; // for map
 let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
 let dot;
+let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
-
+let goldCount, silverCount, bronzeCount;
 let showSpiral;
 showSpiral = true;
 
@@ -17,6 +18,7 @@ showMap = false;
 let showDiagram;
 showDiagram = false;
 
+let medalColor;
 
 let currentFilters = [];
 let currentData
@@ -42,6 +44,7 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     drawSpiral();
+    getColor();
 });
 
 function prepareData() {
@@ -85,14 +88,29 @@ function prepareData() {
 
     for (let countryName in groupedMedals) {
         let country = groupedMedals[countryName];
-        let mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
+        mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         country.forEach(medalType => {
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = medalType;
             }
-            console.log(countryName, medalType.Medal, medalType.count);
+            // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
+            // console.log(medals);
+            if (countryName == countryName && medalType.Medal == "Gold") {
+                goldCount = medalType.count;
+                // console.log("Gold" + goldCount)
+            }
+            if (countryName == countryName && medalType.Medal == "Silver") {
+                silverCount = medalType.count;
+                // console.log("Silver" + silverCount)
+            }
+            if (countryName == countryName && medalType.Medal == "Bronze") {
+                bronzeCount = medalType.count;
+                // console.log("Bronze" + bronzeCount)
+            }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
+        let color = getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        console.log(color);
     }
 
     console.log("mostFrequentMedalsPerCountry:");
@@ -113,6 +131,13 @@ function prepareData() {
 
 }
 
+function getColor(g, s, b, max) {
+    let R = (g / max) * 255;
+    let G = (s / max) * 255;
+    let B = (b / max) * 255;
+    console.log(g);
+    return 'rgb(' + R + ', ' + G + ', ' + B + ')';
+}
 
 function drawSpiral() {
     showSpiral = true;
@@ -297,11 +322,9 @@ function drawMap() {
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
-
+        getColor();
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
-        let mapDotColor;
-
         dot.css({
             'height': rMap * 2,
             'width': rMap * 2,
@@ -309,7 +332,7 @@ function drawMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': mapDotColor,
+            'background-color': medalColor,
         });
         dot.data(country);
         stage.append(dot);
@@ -325,7 +348,7 @@ function drawMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': mapDotColor,
+                'color': medalColor,
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
