@@ -1,5 +1,4 @@
-let stage;
-let stageHeight, stageWidth;
+let stage, stageHeight, stageWidth;
 let data, cityContinents; //for general data preparation
 let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
 let medalistsAtSummerGames, medalistsAtWinterGames; // for map
@@ -9,7 +8,7 @@ let dot;
 let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
 let goldCount, silverCount, bronzeCount;
-let medalCount;
+
 let showSpiral;
 showSpiral = true;
 
@@ -19,20 +18,10 @@ showMap = false;
 let showDiagram;
 showDiagram = false;
 
-let medalColor;
-
 let currentFilters = [];
 let currentData
+
 let thirdParameter
-
-function addToFilters(prop) {
-    currentFilters.push(prop);
-    currentFilters.pop();
-}
-
-function getDataSubset() {
-    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
-}
 
 $(function() {
     $('.summer').hide();
@@ -47,6 +36,16 @@ $(function() {
     drawSpiral();
     getCount();
 });
+
+//Functions for segmentesAthletes
+function addToFilters(prop) {
+    currentFilters.push(prop);
+    currentFilters.pop();
+};
+
+function getDataSubset() {
+    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
+};
 
 function prepareData() {
 
@@ -80,9 +79,6 @@ function prepareData() {
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
     console.log(medalistsAtSummerGames);
 
-    const gender = gmynd.groupData(data, ["countryName", "Sex"]);
-    console.log(gender);
-
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
     groupedMedals = gmynd.groupData(medalsSummer, ["countryName"]);
@@ -113,24 +109,33 @@ function prepareData() {
             }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
-        medalCount = getCount(goldCount, silverCount, bronzeCount);
+        let medalCount = getCount(goldCount, silverCount, bronzeCount);
     }
 
     console.log("mostFrequentMedalsPerCountry:");
     console.log(mostFrequentMedalsPerCountry);
-
-
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
     medalistsAtWinterGames = gmynd.cumulateData(medalistsAtWinterGames, ["longitude", "latitude", "countryName", "continent"]);
     console.log(medalistsAtSummerGames);
 
-    //Functions to separate male and female medalists
+    //Functions to put medalists into segments
     segmentedAthletes = gmynd.addPropSegment(data, "Age", 20);
     segmentedAthletes = gmynd.addPropSegment(data, "Height", 20);
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 20);
     console.log(segmentedAthletes);
+
+    //Functions to separate male and female medalists
+    const calculations = [{
+        value: 'Sex',
+        method: 'Percentile',
+        p: .75
+    }, ];
+    const medalistGender = gmynd.cumulateData(data, ["countryName", "Sex"], calculations);
+    const groupedGender = gmynd.groupData(medalistGender, ["countryName"]);
+
+    console.log(groupedGender);
 
 }
 
