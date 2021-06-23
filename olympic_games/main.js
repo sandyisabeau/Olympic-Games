@@ -95,15 +95,15 @@ function prepareData() {
             }
             // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
             // console.log(medals);
-            if (countryName == countryName && medalType.Medal == "Gold") {
+            if (medalType.Medal == "Gold") {
                 goldCount = medalType.count;
                 // console.log("Gold" + goldCount)
             }
-            if (countryName == countryName && medalType.Medal == "Silver") {
+            if (medalType.Medal == "Silver") {
                 silverCount = medalType.count;
                 // console.log("Silver" + silverCount)
             }
-            if (countryName == countryName && medalType.Medal == "Bronze") {
+            if (medalType.Medal == "Bronze") {
                 bronzeCount = medalType.count;
                 // console.log("Bronze" + bronzeCount)
             }
@@ -135,7 +135,6 @@ function getColor(g, s, b, max) {
     let R = (g / max) * 255;
     let G = (s / max) * 255;
     let B = (b / max) * 255;
-    console.log(g);
     return 'rgb(' + R + ', ' + G + ', ' + B + ')';
 }
 
@@ -317,12 +316,12 @@ function drawMap() {
     $('.height').hide();
 
     medalistsAtSummerGames.forEach(country => {
+
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
-        getColor();
         let dot = $('<div></div>');
         dot.addClass("medalistsAtSummerGames");
         dot.css({
@@ -332,7 +331,7 @@ function drawMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': medalColor,
+            'background-color': getColor,
         });
         dot.data(country);
         stage.append(dot);
@@ -348,7 +347,7 @@ function drawMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': medalColor,
+                'color': color,
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
