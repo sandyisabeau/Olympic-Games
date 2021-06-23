@@ -9,6 +9,7 @@ let dot;
 let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
 let goldCount, silverCount, bronzeCount;
+let medalCount;
 let showSpiral;
 showSpiral = true;
 
@@ -44,7 +45,7 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     drawSpiral();
-    getColor();
+    getCount();
 });
 
 function prepareData() {
@@ -79,6 +80,9 @@ function prepareData() {
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
     console.log(medalistsAtSummerGames);
 
+    const gender = gmynd.groupData(data, ["countryName", "Sex"]);
+    console.log(gender);
+
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
     groupedMedals = gmynd.groupData(medalsSummer, ["countryName"]);
@@ -109,8 +113,7 @@ function prepareData() {
             }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
-        let color = getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
-        console.log(color);
+        medalCount = getCount(goldCount, silverCount, bronzeCount);
     }
 
     console.log("mostFrequentMedalsPerCountry:");
@@ -131,11 +134,10 @@ function prepareData() {
 
 }
 
-function getColor(g, s, b, max) {
-    let R = (g / max) * 255;
-    let G = (s / max) * 255;
-    let B = (b / max) * 255;
-    return 'rgb(' + R + ', ' + G + ', ' + B + ')';
+function getCount(g, s, b) {
+    //     // let R = (g / max) * 255;
+    //     // let G = (s / max) * 255;
+    //     // let B = (b / max) * 255;
 }
 
 function drawSpiral() {
@@ -317,12 +319,15 @@ function drawMap() {
 
     medalistsAtSummerGames.forEach(country => {
 
+        getCount();
+
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
-        const yMap = gmynd.map(country.latitude, -80, 100, stageHeight, 0) - rMap;
+        const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
+
         dot.addClass("medalistsAtSummerGames");
         dot.css({
             'height': rMap * 2,
@@ -331,7 +336,7 @@ function drawMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': getColor,
+            'background-color': "#FFFE7A",
         });
         dot.data(country);
         stage.append(dot);
