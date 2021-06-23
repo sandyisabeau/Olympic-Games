@@ -117,6 +117,22 @@ body {
 }
 
 .summer {
+    top: 56px;
+    left: 1600px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.winter {
+    top: 56px;
+    left: 1720px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.all {
     top: 110px;
     left: 80px;
     color: rgba(255, 255, 255, 0.5);
@@ -124,9 +140,25 @@ body {
     font-size: 24px;
 }
 
-.winter {
+.gold {
     top: 110px;
-    left: 220px;
+    left: 150px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.silver {
+    top: 110px;
+    left: 260px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.bronze {
+    top: 110px;
+    left: 370px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
     font-size: 24px;

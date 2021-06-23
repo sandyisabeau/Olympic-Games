@@ -7,8 +7,9 @@ let segmentedAthletes; //for diagram
 let dot;
 let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
-let goldCount, silverCount, bronzeCount;
-
+// let goldCount, silverCount, bronzeCount;
+let cumulatedCountries;
+let color;
 let showSpiral;
 showSpiral = true;
 
@@ -18,10 +19,13 @@ showMap = false;
 let showDiagram;
 showDiagram = false;
 
+let currentMedal;
+let currentMedalData;
+let thirdParameter = [];
 let currentFilters = [];
-let currentData
+let currentData;
 
-let thirdParameter
+let heightAsThirdParameter;
 
 $(function() {
     $('.summer').hide();
@@ -37,15 +41,36 @@ $(function() {
     getCount();
 });
 
-//Functions for segmentesAthletes
+//Functions for segmentedAthletes
 function addToFilters(prop) {
     currentFilters.push(prop);
     currentFilters.pop();
+
+
 };
 
 function getDataSubset() {
     return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
 };
+
+// function addToParameters() {
+//     thirdParameter.push(prop);
+//     thirdParameter.pop();
+
+// }
+
+// function getThirdParameter() {
+//     return gmynd.cumulateData(currentData, [thirdParameter]);
+// };
+
+// function addMedalToFilters(prop) {
+//     currentMedal.push(prop);
+//     currentMedal.pop();
+// }
+
+// function getMedal() {
+//     return gmynd.cumulateData(medalistsAtSummerGames, ["countryName", ...currentMedal]);
+// };
 
 function prepareData() {
 
@@ -85,6 +110,7 @@ function prepareData() {
     medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
     console.log("groupedMedals:");
     console.log(groupedMedals);
+
 
     for (let countryName in groupedMedals) {
         let country = groupedMedals[countryName];
@@ -150,6 +176,10 @@ function drawSpiral() {
 
     $('.summer').hide();
     $('.winter').hide();
+    $('.all').hide();
+    $('.gold').hide();
+    $('.silver').hide();
+    $('.bronze').hide();
     $('.age').hide();
     $('.weight').hide();
     $('.height').hide();
@@ -318,14 +348,19 @@ function drawMap() {
     showMap = true;
     $('.summer').show();
     $('.winter').show();
+    $('.all').show();
+    $('.gold').show();
+    $('.silver').show();
+    $('.bronze').show();
     $('.age').hide();
     $('.weight').hide();
     $('.height').hide();
 
+    currentMedal = "Gold";
+    currentMedalData = getMedal();
+    console.log(currentMedalData);
+
     medalistsAtSummerGames.forEach(country => {
-
-        getCount();
-
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
@@ -427,6 +462,10 @@ function drawDiagram() {
     showDiagram = true;
     $('.summer').hide();
     $('.winter').hide();
+    $('.all').hide();
+    $('.gold').hide();
+    $('.silver').hide();
+    $('.bronze').hide();
     $('.age').show();
     $('.weight').show();
     $('.height').show();
@@ -495,16 +534,15 @@ function drawDiagram() {
 
     // Diagram based on Age and Weight
     currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
+    thirdParameter = ["Height"]
     currentData = getDataSubset();
+    console.log(currentData);
 
     currentData.forEach(medalistGroup => {
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
         let yDiagram
-
-        thirdParameter = gmynd.cumulateData(data, ["Height"]);
-        console.log(thirdParameter);
 
         if (medalistGroup.Sex == "F") {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
@@ -519,12 +557,11 @@ function drawDiagram() {
             'left': xDiagram,
             'top': yDiagram,
             'position': 'absolute',
-            'background-color': 'white',
+            'background-color': color,
             'border-radius': '100%',
         });
         dot.data(medalistGroup);
         stage.append(dot);
-        console.log(medalistGroup);
     });
 }
 
@@ -590,11 +627,9 @@ function summerView() {
     $('.summer').css({
         'color': 'white',
     });
-
     $('.winter').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
-
     console.log("summerView");
 }
 
@@ -612,6 +647,26 @@ function winterView() {
     });
 
     console.log("winterView");
+}
+
+function allMedalsView() {
+    stage.empty();
+    console.log("allMedalsView");
+}
+
+function goldView() {
+    stage.empty();
+    console.log("goldView");
+}
+
+function silverView() {
+    stage.empty();
+    console.log("silverView");
+}
+
+function bronzeView() {
+    stage.empty();
+    console.log("bronzeView");
 }
 
 function ageView() {
