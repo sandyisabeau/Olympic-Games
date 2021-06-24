@@ -9,7 +9,6 @@ let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
 // let goldCount, silverCount, bronzeCount;
 let cumulatedCountries;
-let color;
 let showSpiral;
 showSpiral = true;
 
@@ -27,7 +26,6 @@ let currentData;
 
 let heightAsThirdParameter;
 
-let getColor = chroma.scale(['cornflowerblue', 'pink', 'cornflowerblue']).domain([-90, 90]).mode('lrgb');
 
 $(function() {
     $('.summer').hide();
@@ -40,7 +38,7 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     drawSpiral();
-    getCount();
+    getColor();
 });
 
 //Functions for segmentedAthletes
@@ -144,9 +142,13 @@ function prepareData() {
         let country = groupedMedals[countryName];
         mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         country.forEach(medalType => {
+            if (mostFrequentMedal.count > 0) {
+                mostFrequentMedal = medalType;
+                // console.log(medalType);
+            };
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = medalType;
-            }
+            };
             // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
             // console.log(medals);
             if (medalType.Medal == "Gold") {
@@ -163,11 +165,12 @@ function prepareData() {
             }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
-        let medalCount = getCount(goldCount, silverCount, bronzeCount);
+        let color = getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        console.log(color);
     }
 
-    console.log("mostFrequentMedalsPerCountry:");
-    console.log(mostFrequentMedalsPerCountry);
+    // console.log("mostFrequentMedalsPerCountry:");
+    // console.log(mostFrequentMedalsPerCountry);
 
     // Function to see number of medalists
     medalistsAtSummerGames = gmynd.cumulateData(medalistsAtSummerGames, ["longitude", "latitude", "countryName", "continent"]);
@@ -193,11 +196,14 @@ function prepareData() {
 
 }
 
-function getCount(g, s, b) {
-    //     // let R = (g / max) * 255;
-    //     // let G = (s / max) * 255;
-    //     // let B = (b / max) * 255;
+function getColor(g, s, b, max) {
+    let R = (g / max) * 255;
+    let G = (s / max) * 255;
+    let B = (b / max) * 255;
+    console.log(g, s, b, max);
+    return 'rgb(' + R + ', ' + G + ', ' + B + ')';
 }
+
 
 function drawSpiral() {
     showSpiral = true;
