@@ -50,7 +50,36 @@ function addToFilters(prop) {
 };
 
 function getDataSubset() {
-    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters], { value: thirdParameter, method: "Average" });
+    const calculations = [{
+            value: thirdParameter,
+            method: "Average",
+        },
+        {
+            value: "Height",
+            method: "Min",
+        },
+        {
+            value: "Height",
+            method: "Max",
+        },
+        {
+            value: "Weight",
+            method: "Min",
+        },
+        {
+            value: "Weight",
+            method: "Max",
+        },
+        {
+            value: "Age",
+            method: "Min",
+        },
+        {
+            value: "Age",
+            method: "Max",
+        },
+    ];
+    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters], calculations);
 };
 
 function addToParameters() {
@@ -554,9 +583,9 @@ function drawDiagram() {
         } else {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
         }
-        let dot = $('<div></div>');
-        dot.addClass("medalistGroup");
-        dot.css({
+        let scatterPlotDot = $('<div></div>');
+        scatterPlotDot.addClass("medalistGroup");
+        scatterPlotDot.css({
             'height': rDiagram * 2,
             'width': rDiagram * 2,
             'left': xDiagram,
@@ -565,8 +594,41 @@ function drawDiagram() {
             'background-color': thirdParameterColor,
             'border-radius': '100%',
         });
-        dot.data(medalistGroup);
-        stage.append(dot);
+        scatterPlotDot.data(medalistGroup);
+        stage.append(scatterPlotDot);
+
+        scatterPlotDot.mouseover(() => {
+            scatterPlotDot.addClass("hover");
+            //Gender
+            $('#hoverGender').text(medalistGroup.Sex);
+            $('#hoverGender').css({
+                'color': 'white',
+            });
+            //Age
+            $('#hoverAge').text(medalistGroup.AgeMin, " - ", medalistGroup.AgeMax);
+            $('#hoverAge').css({
+                'color': 'white',
+            });
+            //Weight
+            $('#hoverWeight').text(medalistGroup.WeightMin, " - ", medalistGroup.WeightMax);
+            $('#hoverWeight').css({
+                'color': 'white',
+            });
+            //Height
+            $('#hoverHeight').text(medalistGroup.HeightMin, " - ", medalistGroup.HeightMax);
+            $('#hoverHeight').css({
+                'color': thirdParameterColor,
+            });
+        });
+
+        scatterPlotDot.mouseout(() => {
+            scatterPlotDot.removeClass("hover");
+            $('#hoverSeason').text("");
+            $('#hoverContinent').text("");
+            $('#hoverYear').text("");
+            $('#hoverCity').text("");
+            $('#hoverMedalist').text("");
+        });
     });
 }
 
