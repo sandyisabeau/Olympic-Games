@@ -27,6 +27,8 @@ let currentData;
 
 let heightAsThirdParameter;
 
+let getColor = chroma.scale(['cornflowerblue', 'pink', 'cornflowerblue']).domain([-90, 90]).mode('lrgb');
+
 $(function() {
     $('.summer').hide();
     $('.winter').hide();
@@ -540,7 +542,8 @@ function drawDiagram() {
 
 
     currentData.forEach(medalistGroup => {
-        const color = gmynd.map()
+        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 1, 5);
+        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -559,7 +562,7 @@ function drawDiagram() {
             'left': xDiagram,
             'top': yDiagram,
             'position': 'absolute',
-            'background-color': 'white',
+            'background-color': thirdParameterColor,
             'border-radius': '100%',
         });
         dot.data(medalistGroup);
