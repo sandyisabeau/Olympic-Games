@@ -413,8 +413,8 @@ function drawMap() {
             $('.medalistsAtSummerGames').addClass("hoverSummer");
             dot.removeClass("hoverSummer");
             //Season
-            $('#hoverSeasonMap').text('Medalists Country of Origin');
-            $('#hoverSeasonMap').css({
+            $('#hoverOriginMap').text('Medalists Country of Origin');
+            $('#hoverOriginMap').css({
                 'color': 'white',
             });
             //Continent
@@ -571,7 +571,7 @@ function drawDiagram() {
 
 
     currentData.forEach(medalistGroup => {
-        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 1, 5);
+        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
         const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
@@ -605,19 +605,24 @@ function drawDiagram() {
                 'color': 'white',
             });
             //Age
-            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax);
+            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
             $('#hoverAge').css({
                 'color': 'white',
             });
             //Weight
-            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax);
+            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
             $('#hoverWeight').css({
                 'color': 'white',
             });
             //Height
-            $('#hoverHeight').text("Height: " + medalistGroup.HeightMin + " - " + medalistGroup.HeightMax);
+            $('#hoverHeight').text("Height: " + Math.round(medalistGroup.HeightAverage) + " cm");
             $('#hoverHeight').css({
                 'color': thirdParameterColor,
+            });
+            //Count
+            $('#hoverCount').text("Count: " + medalistGroup.count);
+            $('#hoverCount').css({
+                'color': 'white',
             });
         });
 
@@ -627,6 +632,7 @@ function drawDiagram() {
             $('#hoverAge').text("");
             $('#hoverWeight').text("");
             $('#hoverHeight').text("");
+            $('#hoverCount').text("");
         });
     });
 }
