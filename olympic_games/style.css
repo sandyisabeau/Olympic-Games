@@ -92,6 +92,38 @@ body {
     font-size: 18px;
 }
 
+#hoverGender {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 18px;
+}
+
+#hoverAge {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 18px;
+}
+
+#hoverWeight {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 18px;
+}
+
+#hoverHeight {
+    height: 24px;
+    width: 341px;
+    margin-left: 80px;
+    margin-top: 16px;
+    font-size: 18px;
+}
+
 .spiral {
     top: 50px;
     left: 80px;

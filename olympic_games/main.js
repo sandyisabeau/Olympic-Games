@@ -600,22 +600,22 @@ function drawDiagram() {
         scatterPlotDot.mouseover(() => {
             scatterPlotDot.addClass("hover");
             //Gender
-            $('#hoverGender').text(medalistGroup.Sex);
+            $('#hoverGender').text("Gender: " + medalistGroup.Sex);
             $('#hoverGender').css({
                 'color': 'white',
             });
             //Age
-            $('#hoverAge').text(medalistGroup.AgeMin, " - ", medalistGroup.AgeMax);
+            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax);
             $('#hoverAge').css({
                 'color': 'white',
             });
             //Weight
-            $('#hoverWeight').text(medalistGroup.WeightMin, " - ", medalistGroup.WeightMax);
+            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax);
             $('#hoverWeight').css({
                 'color': 'white',
             });
             //Height
-            $('#hoverHeight').text(medalistGroup.HeightMin, " - ", medalistGroup.HeightMax);
+            $('#hoverHeight').text("Height: " + medalistGroup.HeightMin + " - " + medalistGroup.HeightMax);
             $('#hoverHeight').css({
                 'color': thirdParameterColor,
             });
@@ -623,11 +623,10 @@ function drawDiagram() {
 
         scatterPlotDot.mouseout(() => {
             scatterPlotDot.removeClass("hover");
-            $('#hoverSeason').text("");
-            $('#hoverContinent').text("");
-            $('#hoverYear').text("");
-            $('#hoverCity').text("");
-            $('#hoverMedalist').text("");
+            $('#hoverGender').text("");
+            $('#hoverAge').text("");
+            $('#hoverWeight').text("");
+            $('#hoverHeight').text("");
         });
     });
 }
