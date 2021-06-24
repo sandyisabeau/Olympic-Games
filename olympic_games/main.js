@@ -48,7 +48,7 @@ function addToFilters(prop) {
 };
 
 function getDataSubset() {
-    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters]);
+    return gmynd.cumulateData(segmentedAthletes, ["Sex", ...currentFilters], { value: thirdParameter, method: "Average" });
 };
 
 function addToParameters() {
@@ -533,15 +533,14 @@ function drawDiagram() {
 
     // Diagram based on Age and Weight
     currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
-    thirdParameter = ["Height"]
+    thirdParameter = "Height"
     currentData = getDataSubset();
     console.log(currentData);
 
-    // currentData.add(thirdParameter);
 
 
     currentData.forEach(medalistGroup => {
-        console.log(medalistGroup);
+        const color = gmynd.map()
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;

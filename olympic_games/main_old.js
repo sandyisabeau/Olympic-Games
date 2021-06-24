@@ -1,34 +1,34 @@
-Skip to content
-Search or jump to…
+// Skip to content
+// Search or jump to…
 
-Pull requests
-Issues
-Marketplace
-Explore
+// Pull requests
+// Issues
+// Marketplace
+// Explore
 
-@sandyisabeau
-sandyisabeau
-    /
-    Olympic - Games
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Olympic - Games / olympic_games / main.js /
-    @sandyisabeau
-sandyisabeau fabians getColor()
-Latest commit 399 d5f5 12 hours ago
-History
-2 contributors
-@sandyisabeau @caitoor
-621 lines(536 sloc) 19.7 KB
+// @sandyisabeau
+// sandyisabeau
+//     /
+//     Olympic - Games
+// 1
+// 00
+// Code
+// Issues
+// Pull requests
+// Actions
+// Projects
+// Wiki
+// Security
+// Insights
+// Settings
+// Olympic - Games / olympic_games / main.js /
+//     @sandyisabeau
+// sandyisabeau fabians getColor()
+// Latest commit 399 d5f5 12 hours ago
+// History
+// 2 contributors
+// @sandyisabeau @caitoor
+// 621 lines(536 sloc) 19.7 KB
 
 let stage;
 let stageHeight, stageWidth;
@@ -167,7 +167,7 @@ function getColor(g, s, b, max) {
     let R = (g / max) * 255;
     let G = (s / max) * 255;
     let B = (b / max) * 255;
-    console.log(g);
+    console.log(g, s, b, max);
     return 'rgb(' + R + ', ' + G + ', ' + B + ')';
 }
 
