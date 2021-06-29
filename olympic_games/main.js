@@ -142,13 +142,11 @@ function prepareData() {
         let country = groupedMedals[countryName];
         mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         country.forEach(medalType => {
-            if (mostFrequentMedal.count > 0) {
-                mostFrequentMedal = medalType;
-                // console.log(medalType);
-            };
             if (medalType.count > mostFrequentMedal.count) {
-                mostFrequentMedal = medalType;
+                mostFrequentMedal = Object.assign({}, medalType);
             };
+            console.log(medalType);
+
             // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
             // console.log(medals);
             if (medalType.Medal == "Gold") {
