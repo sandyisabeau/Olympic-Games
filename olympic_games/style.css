@@ -135,7 +135,7 @@ body {
 .spiral {
     top: 50px;
     left: 80px;
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
     font-size: 30px;
 }
@@ -226,4 +226,8 @@ body {
     color: rgba(255, 255, 255, 0.5);
     font-weight: normal;
     font-size: 24px;
+}
+
+.spiralDot {
+    transition: all 3 s ease-in-out;
 }
