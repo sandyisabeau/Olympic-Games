@@ -1,6 +1,6 @@
 let stage, stageHeight, stageWidth;
 let data, cityContinents; //for general data preparation
-let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
+let games, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
 let medalistsAtSummerGames, medalistsAtWinterGames; // for map
 let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
@@ -94,15 +94,6 @@ function getThirdParameter() {
     return gmynd.cumulateData(currentData, [thirdParameter]);
 };
 
-// function addMedalToFilters(prop) {
-//     currentMedal.push(prop);
-//     currentMedal.pop();
-// }
-
-// function getMedal() {
-//     return gmynd.cumulateData(medalistsAtSummerGames, ["countryName", ...currentMedal]);
-// };
-
 function prepareData() {
 
     //Functions to merge all datasets
@@ -129,7 +120,8 @@ function prepareData() {
     // Functions to calculate Winter and Summer Games (for Spiral)
     cumulatedSummerGames = gmynd.cumulateData(summerGames, ["Year", "City", "continent"]);
     cumulatedWinterGames = gmynd.cumulateData(winterGames, ["Year", "City", "continent"]);
-
+    games = gmynd.cumulateData(cityContinents, ["Year", "City", "continent", "Season"]);
+    console.log(games);
     //Functions to separate Winter and Summer Games (for Map)
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
@@ -183,18 +175,6 @@ function prepareData() {
     segmentedAthletes = gmynd.addPropSegment(data, "Height", 20);
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 20);
     console.log(segmentedAthletes);
-
-    //Functions to separate male and female medalists
-    const calculations = [{
-        value: 'Sex',
-        method: 'Percentile',
-        p: .75
-    }, ];
-    const medalistGender = gmynd.cumulateData(data, ["countryName", "Sex"], calculations);
-    const groupedGender = gmynd.groupData(medalistGender, ["countryName"]);
-
-    console.log(groupedGender);
-
 }
 
 function getColor(g, s, b, max) {
@@ -208,7 +188,6 @@ function getColor(g, s, b, max) {
 
 function drawSpiral() {
     showSpiral = true;
-
     $('.summer').hide();
     $('.winter').hide();
     $('.all').hide();
@@ -221,31 +200,37 @@ function drawSpiral() {
 
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
-    // const athletesPerSummerGame = gmynd.dataExtremes(cumulatedSummerGames, "count");
-    // const athletesPerWinterGame = gmynd.dataExtremes(cumulatedWinterGames, "count");
 
-    cumulatedSummerGames.forEach(summerGame => {
-        let angle = (summerGame.Year - 1896) * 2.9;
+    games.forEach(game => {
+        let angle = (game.Year - 1896) * 2.9;
         angle = gmynd.radians(angle - 90);
-        const area = gmynd.map(summerGame.count, 19, 2031, 50, 750);
+        const area = gmynd.map(game.count, 19, 2031, 50, 750);
         const rSpiral = gmynd.circleRadius(area);
+        let xSpiral;
+        let ySpiral;
 
-        let xSpiral = (startX + (Math.cos(angle)) * ((summerGame.Year - 1896) / 4 + 250) - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * ((summerGame.Year - 1896) / 4 + 250) - rSpiral); // sinus vom winkel
+        if (game.Season === "Summer") {
+            xSpiral = (startX + (Math.cos(angle)) * ((game.Year - 1896) / 4 + 250) - rSpiral); // cosinus vom winkel
+            ySpiral = (startY + (Math.sin(angle)) * ((game.Year - 1896) / 4 + 250) - rSpiral); // sinus vom winkel  
+        }
+        if (game.Season === "Winter") {
+            xSpiral = (startX + (Math.cos(angle)) * ((game.Year - 1896) / 4 + 350) - rSpiral); // cosinus vom winkel
+            ySpiral = (startY + (Math.sin(angle)) * ((game.Year - 1896) / 4 + 350) - rSpiral); // sinus vom winkel  
+        }
 
         let spiralDot = $('<div></div>');
         spiralDot.addClass("Game");
         let spiralDotColor;
 
-        if (summerGame.continent === "Europe") {
+        if (game.continent === "Europe") {
             spiralDotColor = '#2796EA';
-        } else if (summerGame.continent === "Asia") {
+        } else if (game.continent === "Asia") {
             spiralDotColor = '#FF9839';
-        } else if (summerGame.continent === "Oceania") {
+        } else if (game.continent === "Oceania") {
             spiralDotColor = '#22AE70';
-        } else if (summerGame.continent === "North America") {
+        } else if (game.continent === "North America") {
             spiralDotColor = '#DF366E';
-        } else if (summerGame.continent === "South America") {
+        } else if (game.continent === "South America") {
             spiralDotColor = '#DF366E';
         }
 
@@ -258,7 +243,7 @@ function drawSpiral() {
             'border-radius': '100%',
             'background-color': spiralDotColor,
         });
-        spiralDot.data(summerGame);
+        spiralDot.data(game);
         stage.append(spiralDot);
 
         spiralDot.mouseover(() => {
@@ -269,22 +254,22 @@ function drawSpiral() {
                 'color': 'white',
             });
             //Continent
-            $('#hoverContinent').text(summerGame.continent);
+            $('#hoverContinent').text(game.continent);
             $('#hoverContinent').css({
                 'color': spiralDotColor,
             });
             //Year
-            $('#hoverYear').text(summerGame.Year);
+            $('#hoverYear').text(game.Year);
             $('#hoverYear').css({
                 'color': 'white',
             });
             //City
-            $('#hoverCity').text(summerGame.City);
+            $('#hoverCity').text(game.City);
             $('#hoverCity').css({
                 'color': 'white',
             });
             //Medalists
-            $('#hoverMedalist').text(summerGame.count + ' Medalists');
+            $('#hoverMedalist').text(game.count + ' Medalists');
             $('#hoverMedalist').css({
                 'color': 'white',
             });
@@ -300,83 +285,83 @@ function drawSpiral() {
         });
     });
 
-    cumulatedWinterGames.forEach(winterGame => {
-        let angle = (winterGame.Year - 1896) * 2.9;
-        angle = gmynd.radians(angle - 90);
-        const area = gmynd.map(winterGame.count, 19, 2031, 50, 750);
-        const rSpiral = gmynd.circleRadius(area);
+    // cumulatedWinterGames.forEach(winterGame => {
+    //     let angle = (winterGame.Year - 1896) * 2.9;
+    //     angle = gmynd.radians(angle - 90);
+    //     const area = gmynd.map(winterGame.count, 19, 2031, 50, 750);
+    //     const rSpiral = gmynd.circleRadius(area);
 
-        let xSpiral = (startX + (Math.cos(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // cosinus vom winkel
-        let ySpiral = (startY + (Math.sin(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // sinus vom winkel
+    //     let xSpiral = (startX + (Math.cos(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // cosinus vom winkel
+    //     let ySpiral = (startY + (Math.sin(angle)) * ((winterGame.Year - 1896) / 4 + 350) - rSpiral); // sinus vom winkel
 
-        let spiralDot = $('<div></div>');
-        spiralDot.addClass("Game");
+    //     let spiralDot = $('<div></div>');
+    //     spiralDot.addClass("Game");
 
-        let spiralDotColor;
+    //     let spiralDotColor;
 
-        if (winterGame.continent == "Europe") {
-            spiralDotColor = '#2796EA';
-        } else if (winterGame.continent == "Asia") {
-            spiralDotColor = '#FF9839';
-        } else if (winterGame.continent == "Oceania") {
-            spiralDotColor = '#22AE70';
-        } else if (winterGame.continent == "North America") {
-            spiralDotColor = '#DF366E';
-        } else if (winterGame.continent == "South America") {
-            spiralDotColor = '#DF366E';
-        }
+    //     if (winterGame.continent == "Europe") {
+    //         spiralDotColor = '#2796EA';
+    //     } else if (winterGame.continent == "Asia") {
+    //         spiralDotColor = '#FF9839';
+    //     } else if (winterGame.continent == "Oceania") {
+    //         spiralDotColor = '#22AE70';
+    //     } else if (winterGame.continent == "North America") {
+    //         spiralDotColor = '#DF366E';
+    //     } else if (winterGame.continent == "South America") {
+    //         spiralDotColor = '#DF366E';
+    //     }
 
-        spiralDot.css({
-            'height': rSpiral * 2,
-            'width': rSpiral * 2,
-            'left': xSpiral,
-            'top': ySpiral,
-            'position': 'absolute',
-            'border-radius': '100%',
-            'background-color': spiralDotColor,
-        });
+    //     spiralDot.css({
+    //         'height': rSpiral * 2,
+    //         'width': rSpiral * 2,
+    //         'left': xSpiral,
+    //         'top': ySpiral,
+    //         'position': 'absolute',
+    //         'border-radius': '100%',
+    //         'background-color': spiralDotColor,
+    //     });
 
-        spiralDot.data(winterGame);
-        stage.append(spiralDot);
+    //     spiralDot.data(winterGame);
+    //     stage.append(spiralDot);
 
-        spiralDot.mouseover(() => {
-            spiralDot.addClass("hover");
-            //Season
-            $('#hoverSeason').text('Olympic Winter Game');
-            $('#hoverSeason').css({
-                'color': 'white',
-            });
-            //Continent
-            $('#hoverContinent').text(winterGame.continent);
-            $('#hoverContinent').css({
-                'color': spiralDotColor,
-            });
-            //Year
-            $('#hoverYear').text(winterGame.Year);
-            $('#hoverYear').css({
-                'color': 'white',
-            });
-            //City
-            $('#hoverCity').text(winterGame.City);
-            $('#hoverCity').css({
-                'color': 'white',
-            });
-            //Medalists
-            $('#hoverMedalist').text(winterGame.count + ' Medalists');
-            $('#hoverMedalist').css({
-                'color': 'white',
-            });
-        });
+    //     spiralDot.mouseover(() => {
+    //         spiralDot.addClass("hover");
+    //         //Season
+    //         $('#hoverSeason').text('Olympic Winter Game');
+    //         $('#hoverSeason').css({
+    //             'color': 'white',
+    //         });
+    //         //Continent
+    //         $('#hoverContinent').text(winterGame.continent);
+    //         $('#hoverContinent').css({
+    //             'color': spiralDotColor,
+    //         });
+    //         //Year
+    //         $('#hoverYear').text(winterGame.Year);
+    //         $('#hoverYear').css({
+    //             'color': 'white',
+    //         });
+    //         //City
+    //         $('#hoverCity').text(winterGame.City);
+    //         $('#hoverCity').css({
+    //             'color': 'white',
+    //         });
+    //         //Medalists
+    //         $('#hoverMedalist').text(winterGame.count + ' Medalists');
+    //         $('#hoverMedalist').css({
+    //             'color': 'white',
+    //         });
+    //     });
 
-        spiralDot.mouseout(() => {
-            spiralDot.removeClass("hover");
-            $('#hoverSeason').text("");
-            $('#hoverContinent').text("");
-            $('#hoverYear').text("");
-            $('#hoverCity').text("");
-            $('#hoverMedalist').text("");
-        });
-    });
+    //     spiralDot.mouseout(() => {
+    //         spiralDot.removeClass("hover");
+    //         $('#hoverSeason').text("");
+    //         $('#hoverContinent').text("");
+    //         $('#hoverYear').text("");
+    //         $('#hoverCity').text("");
+    //         $('#hoverMedalist').text("");
+    //     });
+    // });
 }
 
 function drawSummerMap() {
