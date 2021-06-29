@@ -15,8 +15,14 @@ showSpiral = true;
 let showMap;
 showMap = false;
 
-let showDiagram;
-showDiagram = false;
+let showAgeAndHeight;
+showAgeAndHeight = false;
+
+let showWeightAndAge;
+showWeightAndAge = false;
+
+let showHeightAndWeight;
+showHeightAndWeight = false;
 
 let currentMedal;
 let currentMedalData;
@@ -212,9 +218,9 @@ function drawSpiral() {
     $('.gold').hide();
     $('.silver').hide();
     $('.bronze').hide();
-    $('.age').hide();
-    $('.weight').hide();
-    $('.height').hide();
+    $('.ageAndHeight').hide();
+    $('.weightAndAge').hide();
+    $('.heightAndWeight').hide();
 
     const startX = stageWidth / 2;
     const startY = stageHeight / 2;
@@ -384,9 +390,9 @@ function drawMap() {
     $('.gold').show();
     $('.silver').show();
     $('.bronze').show();
-    $('.age').hide();
-    $('.weight').hide();
-    $('.height').hide();
+    $('.ageAndHeight').hide();
+    $('.weightAndAge').hide();
+    $('.heightAndWeight').hide();
 
     currentMedal = "Gold";
     currentMedalData = getMedal();
@@ -535,40 +541,9 @@ function drawDiagram() {
     //     console.log(yDiagram)
     // });
 
-    // // Diagram based on Age and Height
-    // currentFilters = ["AgeSegmentOf20", "HeightSegmentOf20"];
-    // currentData = getDataSubset();
-
-    // currentData.forEach(medalistGroup => {
-    //     const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-    //     const rDiagram = gmynd.circleRadius(area);
-    //     const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-    //     let yDiagram
-
-    //     if (medalistGroup.Sex == "F") {
-    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
-    //     } else {
-    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
-    //     }
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistGroup");
-    //     dot.css({
-    //         'height': rDiagram * 2,
-    //         'width': rDiagram * 2,
-    //         'left': xDiagram,
-    //         'top': yDiagram,
-    //         'position': 'absolute',
-    //         'background-color': 'white',
-    //         'border-radius': '100%',
-    //     });
-    //     dot.data(medalistGroup);
-    //     stage.append(dot);
-    //     console.log(yDiagram)
-    // });
-
     // Diagram based on Age and Weight
     currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
-    thirdParameter = "Height"
+    thirdParameter = "Height";
     currentData = getDataSubset();
     console.log(currentData);
 
@@ -586,6 +561,267 @@ function drawDiagram() {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
         } else {
             yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+        }
+        let scatterPlotDot = $('<div></div>');
+        scatterPlotDot.addClass("medalistGroup");
+        scatterPlotDot.css({
+            'height': rDiagram * 2,
+            'width': rDiagram * 2,
+            'left': xDiagram,
+            'top': yDiagram,
+            'position': 'absolute',
+            'background-color': thirdParameterColor,
+            'border-radius': '100%',
+        });
+        scatterPlotDot.data(medalistGroup);
+        stage.append(scatterPlotDot);
+
+        scatterPlotDot.mouseover(() => {
+            scatterPlotDot.addClass("hover");
+            //Gender
+            $('#hoverGender').text("Gender: " + medalistGroup.Sex);
+            $('#hoverGender').css({
+                'color': 'white',
+            });
+            //Age
+            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
+            $('#hoverAge').css({
+                'color': 'white',
+            });
+            //Weight
+            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
+            $('#hoverWeight').css({
+                'color': 'white',
+            });
+            //Height
+            $('#hoverHeight').text("Height: " + Math.round(medalistGroup.HeightAverage) + " cm");
+            $('#hoverHeight').css({
+                'color': thirdParameterColor,
+            });
+            //Count
+            $('#hoverCount').text("Count: " + medalistGroup.count);
+            $('#hoverCount').css({
+                'color': 'white',
+            });
+        });
+
+        scatterPlotDot.mouseout(() => {
+            scatterPlotDot.removeClass("hover");
+            $('#hoverGender').text("");
+            $('#hoverAge').text("");
+            $('#hoverWeight').text("");
+            $('#hoverHeight').text("");
+            $('#hoverCount').text("");
+        });
+    });
+}
+
+function drawAgeAndHeight() {
+    showAgeAndHeight = true;
+
+    $('.summer').hide();
+    $('.winter').hide();
+    $('.all').hide();
+    $('.gold').hide();
+    $('.silver').hide();
+    $('.bronze').hide();
+    $('.ageAndHeight').show();
+    $('.weightAndAge').show();
+    $('.heightAndWeight').show();
+
+    // Diagram based on Age and Height
+    currentFilters = ["AgeSegmentOf20", "HeightSegmentOf20"];
+    thirdParameter = "Weight";
+    currentData = getDataSubset();
+    console.log(currentData);
+
+    currentData.forEach(medalistGroup => {
+        const colorScale = gmynd.map(medalistGroup.WeightAverage, 34.5, 119.5, 5, 1);
+        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+        const rDiagram = gmynd.circleRadius(area);
+        const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
+        let yDiagram
+
+        if (medalistGroup.Sex == "F") {
+            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+        } else {
+            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+        }
+        let scatterPlotDot = $('<div></div>');
+        scatterPlotDot.addClass("medalistGroup");
+        scatterPlotDot.css({
+            'height': rDiagram * 2,
+            'width': rDiagram * 2,
+            'left': xDiagram,
+            'top': yDiagram,
+            'position': 'absolute',
+            'background-color': thirdParameterColor,
+            'border-radius': '100%',
+        });
+        scatterPlotDot.data(medalistGroup);
+        stage.append(scatterPlotDot);
+
+        scatterPlotDot.mouseover(() => {
+            scatterPlotDot.addClass("hover");
+            //Gender
+            $('#hoverGender').text("Gender: " + medalistGroup.Sex);
+            $('#hoverGender').css({
+                'color': 'white',
+            });
+            //Age
+            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
+            $('#hoverAge').css({
+                'color': 'white',
+            });
+            //Weight
+            $('#hoverWeight').text("Weight: " + medalistGroup.HeightMin + " - " + medalistGroup.HeightMax + " kg");
+            $('#hoverWeight').css({
+                'color': 'white',
+            });
+            //Height
+            $('#hoverHeight').text("Height: " + Math.round(medalistGroup.WeightAverage) + " cm");
+            $('#hoverHeight').css({
+                'color': thirdParameterColor,
+            });
+            //Count
+            $('#hoverCount').text("Count: " + medalistGroup.count);
+            $('#hoverCount').css({
+                'color': 'white',
+            });
+        });
+
+        scatterPlotDot.mouseout(() => {
+            scatterPlotDot.removeClass("hover");
+            $('#hoverGender').text("");
+            $('#hoverAge').text("");
+            $('#hoverWeight').text("");
+            $('#hoverHeight').text("");
+            $('#hoverCount').text("");
+        });
+    });
+}
+
+function drawWeightAndAge() {
+    showWeightAndAge = true;
+    $('.summer').hide();
+    $('.winter').hide();
+    $('.all').hide();
+    $('.gold').hide();
+    $('.silver').hide();
+    $('.bronze').hide();
+    $('.age').show();
+    $('.weight').show();
+    $('.height').show();
+    // Diagram based on Age and Weight
+    currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
+    thirdParameter = "Height";
+    currentData = getDataSubset();
+    console.log(currentData);
+
+
+
+    currentData.forEach(medalistGroup => {
+        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
+        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+        const rDiagram = gmynd.circleRadius(area);
+        const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
+        let yDiagram
+
+        if (medalistGroup.Sex == "F") {
+            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+        } else {
+            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+        }
+        let scatterPlotDot = $('<div></div>');
+        scatterPlotDot.addClass("medalistGroup");
+        scatterPlotDot.css({
+            'height': rDiagram * 2,
+            'width': rDiagram * 2,
+            'left': xDiagram,
+            'top': yDiagram,
+            'position': 'absolute',
+            'background-color': thirdParameterColor,
+            'border-radius': '100%',
+        });
+        scatterPlotDot.data(medalistGroup);
+        stage.append(scatterPlotDot);
+
+        scatterPlotDot.mouseover(() => {
+            scatterPlotDot.addClass("hover");
+            //Gender
+            $('#hoverGender').text("Gender: " + medalistGroup.Sex);
+            $('#hoverGender').css({
+                'color': 'white',
+            });
+            //Age
+            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
+            $('#hoverAge').css({
+                'color': 'white',
+            });
+            //Weight
+            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
+            $('#hoverWeight').css({
+                'color': 'white',
+            });
+            //Height
+            $('#hoverHeight').text("Height: " + Math.round(medalistGroup.HeightAverage) + " cm");
+            $('#hoverHeight').css({
+                'color': thirdParameterColor,
+            });
+            //Count
+            $('#hoverCount').text("Count: " + medalistGroup.count);
+            $('#hoverCount').css({
+                'color': 'white',
+            });
+        });
+
+        scatterPlotDot.mouseout(() => {
+            scatterPlotDot.removeClass("hover");
+            $('#hoverGender').text("");
+            $('#hoverAge').text("");
+            $('#hoverWeight').text("");
+            $('#hoverHeight').text("");
+            $('#hoverCount').text("");
+        });
+    });
+}
+
+function drawHeightAndWeight() {
+    showHeightAndWeight = true;
+    $('.summer').hide();
+    $('.winter').hide();
+    $('.all').hide();
+    $('.gold').hide();
+    $('.silver').hide();
+    $('.bronze').hide();
+    $('.age').show();
+    $('.weight').show();
+    $('.height').show();
+    // Diagram based on Age and Weight
+    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
+    thirdParameter = "Age";
+    currentData = getDataSubset();
+    console.log(currentData);
+
+
+    // Diagram based on height and weight
+    currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
+    currentData = getDataSubset();
+
+    currentData.forEach(medalistGroup => {
+        const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 5, 1);
+        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
+        const rDiagram = gmynd.circleRadius(area);
+        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
+        let yDiagram
+
+        if (medalistGroup.Sex == "F") {
+            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+        } else {
+            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
@@ -680,7 +916,7 @@ function teamView() {
 
 function medalistView() {
     stage.empty();
-    drawDiagram();
+    drawAgeAndHeight();
     $('.spiral').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
@@ -745,17 +981,20 @@ function bronzeView() {
     console.log("bronzeView");
 }
 
-function ageView() {
+function ageAndHeightView() {
     stage.empty();
-    console.log("AgeView");
+    drawAgeAndHeight();
+    console.log("ageAndHeightView");
 }
 
-function weightView() {
+function weightAndAgeView() {
     stage.empty();
-    console.log("WeightView");
+    drawWeightAndAge();
+    console.log("weightAndAgeView");
 }
 
-function heightView() {
+function heightAndWeightView() {
     stage.empty();
-    console.log("HeightView");
+    drawHeightAndWeight();
+    console.log("heightAndWeight");
 }
