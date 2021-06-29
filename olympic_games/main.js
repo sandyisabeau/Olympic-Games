@@ -4,11 +4,12 @@ let summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for
 let medalistsAtSummerGames, medalistsAtWinterGames; // for map
 let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
-let dot;
 let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
 // let goldCount, silverCount, bronzeCount;
+
 let cumulatedCountries;
+
 let showSpiral;
 showSpiral = true;
 
@@ -17,6 +18,7 @@ showSummerMap = false;
 
 let showWinterMap;
 showWinterMap = false;
+
 let showAgeAndHeight;
 showAgeAndHeight = false;
 
@@ -26,21 +28,16 @@ showWeightAndAge = false;
 let showHeightAndWeight;
 showHeightAndWeight = false;
 
-let currentMedal;
-let currentMedalData;
 let thirdParameter = [];
 let currentFilters = [];
 let currentData;
 
-let heightAsThirdParameter;
-let max;
-let goldCount, silverCount, bronzeCount
 $(function() {
     $('.summer').hide();
     $('.winter').hide();
-    $('.age').hide();
-    $('.weight').hide();
-    $('.height').hide();
+    $('.ageAndHeight').hide();
+    $('.weightAndAge').hide();
+    $('.heightAndWeight').hide();
     stage = $('#stage');
     stageHeight = stage.height();
     stageWidth = stage.width();
