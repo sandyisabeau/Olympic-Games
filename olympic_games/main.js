@@ -12,9 +12,11 @@ let cumulatedCountries;
 let showSpiral;
 showSpiral = true;
 
-let showMap;
-showMap = false;
+let showSummerMap;
+showSummerMap = false;
 
+let showWinterMap;
+showWinterMap = false;
 let showAgeAndHeight;
 showAgeAndHeight = false;
 
@@ -382,8 +384,8 @@ function drawSpiral() {
     });
 }
 
-function drawMap() {
-    showMap = true;
+function drawSummerMap() {
+    showSummerMap = true;
     $('.summer').show();
     $('.winter').show();
     $('.all').show();
@@ -393,10 +395,6 @@ function drawMap() {
     $('.ageAndHeight').hide();
     $('.weightAndAge').hide();
     $('.heightAndWeight').hide();
-
-    currentMedal = "Gold";
-    currentMedalData = getMedal();
-    console.log(currentMedalData);
 
     medalistsAtSummerGames.forEach(country => {
         $('.medalistsAtSummerGames').show();
@@ -441,177 +439,70 @@ function drawMap() {
 
         dot.mouseout(() => {
             $('.medalistsAtSummerGames').removeClass("hoverSummer");
-            $('#hoverSeasonMap').text("");
+            $('#hoverOriginMap').text("");
             $('#hoverCountryMap').text("");
             $('#hoverMedalistMap').text("");
         });
     });
-
-    // medalistsAtWinterGames.forEach(country => {
-    //     $('.medalistsAtWinterGames').show();
-
-    //     const area = gmynd.map(country.count, 1, 3875, 50, 2000);
-    //     const rMap = gmynd.circleRadius(area);
-    //     const xMap = gmynd.map(country.longitude, -140, 200, 0, stageWidth) - rMap;
-    //     const yMap = gmynd.map(country.latitude, -100, 100, stageHeight, 0) - rMap;
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistsAtWinterGames");
-    //     dot.css({
-    //         'height': rMap * 2,
-    //         'width': rMap * 2,
-    //         'left': xMap,
-    //         'top': yMap,
-    //         'border-radius': '100%',
-    //     });
-    //     dot.data(country);
-    //     stage.append(dot);
-
-    //     dot.mouseover(() => {
-    //         $('.medalistsAtSummerGames').addClass("hoverWinter");
-    //         //Season
-    //         $('#hoverSeasonMap').text('Olympic Winter Game');
-    //         $('#hoverSeasonMap').css({
-    //             'color': 'white',
-    //         });
-    //         //Continent
-    //         $('#hoverCountryMap').text(country.countryName);
-    //         $('#hoverCountryMap').css({
-    //             'color': "#00C2FF",
-    //         });
-    //         //Year
-    //         $('#hoverMedalistMap').text(country.count + ' Medalists');
-    //         $('#hoverMedalistMap').css({
-    //             'color': 'white',
-    //         });
-    //     });
-
-    //     dot.mouseout(() => {
-    //         $('.medalistsAtSummerGames').removeClass("hoverWinter");
-    //         $('#hoverSeason').text("");
-    //         $('#hoverCountry').text("");
-    //         $('#hoverMedalists').text("");
-    //     });
-    // });
-
-
 }
 
-function drawDiagram() {
-    showDiagram = true;
-    $('.summer').hide();
-    $('.winter').hide();
-    $('.all').hide();
-    $('.gold').hide();
-    $('.silver').hide();
-    $('.bronze').hide();
-    $('.age').show();
-    $('.weight').show();
-    $('.height').show();
+function drawWinterMap() {
+    showWinterMap = true;
+    $('.summer').show();
+    $('.winter').show();
+    $('.all').show();
+    $('.gold').show();
+    $('.silver').show();
+    $('.bronze').show();
+    $('.ageAndHeight').hide();
+    $('.weightAndAge').hide();
+    $('.heightAndWeight').hide();
 
+    medalistsAtWinterGames.forEach(country => {
+        $('.medalistsAtWinterGames').show();
 
-
-    // // Diagram based on height and weight
-    // currentFilters = ["HeightSegmentOf20", "WeightSegmentOf20"];
-    // currentData = getDataSubset();
-
-    // currentData.forEach(medalistGroup => {
-    //     const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-    //     const rDiagram = gmynd.circleRadius(area);
-    //     const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-    //     let yDiagram
-
-    //     if (medalistGroup.Sex == "F") {
-    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
-    //     } else {
-    //         yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
-    //     }
-    //     let dot = $('<div></div>');
-    //     dot.addClass("medalistGroup");
-    //     dot.css({
-    //         'height': rDiagram * 2,
-    //         'width': rDiagram * 2,
-    //         'left': xDiagram,
-    //         'top': yDiagram,
-    //         'position': 'absolute',
-    //         'background-color': 'white',
-    //         'border-radius': '100%',
-    //     });
-    //     dot.data(medalistGroup);
-    //     stage.append(dot);
-    //     console.log(yDiagram)
-    // });
-
-    // Diagram based on Age and Weight
-    currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
-    thirdParameter = "Height";
-    currentData = getDataSubset();
-    console.log(currentData);
-
-
-
-    currentData.forEach(medalistGroup => {
-        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
-        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
-        const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-        const rDiagram = gmynd.circleRadius(area);
-        const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-        let yDiagram
-
-        if (medalistGroup.Sex == "F") {
-            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
-        } else {
-            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
-        }
-        let scatterPlotDot = $('<div></div>');
-        scatterPlotDot.addClass("medalistGroup");
-        scatterPlotDot.css({
-            'height': rDiagram * 2,
-            'width': rDiagram * 2,
-            'left': xDiagram,
-            'top': yDiagram,
+        const area = gmynd.map(country.count, 1, 3875, 50, 3000);
+        const rMap = gmynd.circleRadius(area);
+        const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
+        const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
+        let dot = $('<div></div>');
+        dot.addClass("medalistsAtWinterGames");
+        dot.css({
+            'height': rMap * 2,
+            'width': rMap * 2,
+            'left': xMap,
+            'top': yMap,
             'position': 'absolute',
-            'background-color': thirdParameterColor,
+            'background-color': 'blue',
             'border-radius': '100%',
         });
-        scatterPlotDot.data(medalistGroup);
-        stage.append(scatterPlotDot);
+        dot.data(country);
+        stage.append(dot);
 
-        scatterPlotDot.mouseover(() => {
-            scatterPlotDot.addClass("hover");
-            //Gender
-            $('#hoverGender').text("Gender: " + medalistGroup.Sex);
-            $('#hoverGender').css({
+        dot.mouseover(() => {
+            $('.medalistsAtWinterGames').addClass("hoverWinter");
+            //Season
+            $('#hoverSeasonMap').text('Olympic Winter Game');
+            $('#hoverSeasonMap').css({
                 'color': 'white',
             });
-            //Age
-            $('#hoverAge').text("Age: " + medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
-            $('#hoverAge').css({
-                'color': 'white',
+            //Continent
+            $('#hoverCountryMap').text(country.countryName);
+            $('#hoverCountryMap').css({
+                'color': "#00C2FF",
             });
-            //Weight
-            $('#hoverWeight').text("Weight: " + medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
-            $('#hoverWeight').css({
-                'color': 'white',
-            });
-            //Height
-            $('#hoverHeight').text("Height: " + Math.round(medalistGroup.HeightAverage) + " cm");
-            $('#hoverHeight').css({
-                'color': thirdParameterColor,
-            });
-            //Count
-            $('#hoverCount').text("Count: " + medalistGroup.count);
-            $('#hoverCount').css({
+            //Year
+            $('#hoverMedalistMap').text(country.count + ' Medalists');
+            $('#hoverMedalistMap').css({
                 'color': 'white',
             });
         });
 
-        scatterPlotDot.mouseout(() => {
-            scatterPlotDot.removeClass("hover");
-            $('#hoverGender').text("");
-            $('#hoverAge').text("");
-            $('#hoverWeight').text("");
-            $('#hoverHeight').text("");
-            $('#hoverCount').text("");
+        dot.mouseout(() => {
+            $('.medalistsAtWinterGames').removeClass("hoverWinter");
+            $('#hoverSeasonMap').text("");
+            $('#hoverCountryMap').text("");
+            $('#hoverMedalistMap').text("");
         });
     });
 }
@@ -896,7 +787,7 @@ function gameView() {
 
 function teamView() {
     stage.empty();
-    drawMap();
+    drawSummerMap();
     $('.spiral').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
@@ -928,11 +819,22 @@ function medalistView() {
     $('.diagram').css({
         'color': "white",
     });
+    $('.ageAndHeight').css({
+        'color': 'white',
+    });
+    $('.weightAndAge').css({
+        'color': 'white',
+    });
+
+    $('.heightAndWeight').css({
+        'color': 'rgba(178, 143, 255, 0.6)',
+    });
     console.log("medalistView");
 }
 
 function summerView() {
     stage.empty();
+    drawSummerMap();
     $('.medalistsAtSummerGames').show();
     $('.medalistsAtWinterGames').hide();
 
@@ -947,6 +849,7 @@ function summerView() {
 
 function winterView() {
     stage.empty();
+    drawWinterMap();
     $('.medalistsAtSummerGames').hide();
     $('.medalistsAtWinterGames').show();
 
@@ -985,16 +888,46 @@ function ageAndHeightView() {
     stage.empty();
     drawAgeAndHeight();
     console.log("ageAndHeightView");
+    $('.ageAndHeight').css({
+        'color': 'white',
+    });
+    $('.weightAndAge').css({
+        'color': 'white',
+    });
+
+    $('.heightAndWeight').css({
+        'color': 'rgba(178, 143, 255, 0.6)',
+    });
 }
 
 function weightAndAgeView() {
     stage.empty();
     drawWeightAndAge();
     console.log("weightAndAgeView");
+    $('.ageAndHeight').css({
+        'color': 'white',
+    });
+    $('.weightAndAge').css({
+        'color': 'rgba(178, 143, 255, 0.6)',
+    });
+
+    $('.heightAndWeight').css({
+        'color': 'white',
+    });
 }
 
 function heightAndWeightView() {
     stage.empty();
     drawHeightAndWeight();
     console.log("heightAndWeight");
+    $('.ageAndHeight').css({
+        'color': 'rgba(178, 143, 255, 0.6)',
+    });
+    $('.weightAndAge').css({
+        'color': 'white',
+    });
+
+    $('.heightAndWeight').css({
+        'color': 'white',
+    });
 }
