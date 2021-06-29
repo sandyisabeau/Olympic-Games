@@ -33,8 +33,8 @@ let currentFilters = [];
 let currentData;
 
 let heightAsThirdParameter;
-
-
+let max;
+let goldCount, silverCount, bronzeCount
 $(function() {
     $('.summer').hide();
     $('.winter').hide();
@@ -153,21 +153,19 @@ function prepareData() {
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = Object.assign({}, medalType);
             };
-            console.log(medalType);
-
             // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
             // console.log(medals);
             if (medalType.Medal == "Gold") {
                 goldCount = medalType.count;
-                // console.log("Gold" + goldCount)
+                console.log("Gold" + goldCount)
             }
             if (medalType.Medal == "Silver") {
                 silverCount = medalType.count;
-                // console.log("Silver" + silverCount)
+                console.log("Silver" + silverCount)
             }
             if (medalType.Medal == "Bronze") {
                 bronzeCount = medalType.count;
-                // console.log("Bronze" + bronzeCount)
+                console.log("Bronze" + bronzeCount)
             }
         });
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
@@ -403,7 +401,7 @@ function drawSummerMap() {
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
-
+        let col = chroma.random();
         dot.addClass("medalistsAtSummerGames");
         dot.css({
             'height': rMap * 2,
@@ -412,7 +410,7 @@ function drawSummerMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': "#FFFE7A",
+            'background-color': col,
         });
         dot.data(country);
         stage.append(dot);
