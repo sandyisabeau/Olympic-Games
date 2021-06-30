@@ -31,6 +31,16 @@ showHeightAndWeight = false;
 let thirdParameter = [];
 let currentFilters = [];
 let currentData;
+let medalColor = [];
+
+function getColor(g, s, b, max) {
+    let R = gmynd.map((g / max) * 255, 0, 255, 50, 150);
+    let G = gmynd.map((s / max) * 255, 0, 255, 50, 150);
+    let B = gmynd.map((b / max) * 255, 0, 255, 50, 150);
+
+    medalColor.push(chroma([R, G, B]));
+}
+
 
 $(function() {
     $('.summer').hide();
@@ -43,7 +53,6 @@ $(function() {
     stageWidth = stage.width();
     prepareData();
     drawSpiral();
-    getColor();
 });
 
 //Functions for segmentedAthletes
@@ -156,11 +165,10 @@ function prepareData() {
             }
         });
         console.log("-----");
-        console.log(mostFrequentMedal);
-        console.log(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        // console.log(mostFrequentMedal);
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
-        let color = getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
-        // console.log(color);
+        // console.log(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
     }
 
     // console.log("mostFrequentMedalsPerCountry:");
@@ -177,15 +185,6 @@ function prepareData() {
     segmentedAthletes = gmynd.addPropSegment(data, "Weight", 20);
     console.log(segmentedAthletes);
 }
-
-function getColor(g, s, b, max) {
-    let R = (g / max) * 255;
-    let G = (s / max) * 255;
-    let B = (b / max) * 255;
-    //console.log(g, s, b, max);
-    return 'rgb(' + R + ', ' + G + ', ' + B + ')';
-}
-
 
 function drawSpiral() {
     showSpiral = true;
@@ -299,7 +298,7 @@ function drawSummerMap() {
     $('.weightAndAge').hide();
     $('.heightAndWeight').hide();
 
-    medalistsAtSummerGames.forEach(country => {
+    medalistsAtSummerGames.forEach(function(country, index) {
         $('.medalistsAtSummerGames').show();
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
         const rMap = gmynd.circleRadius(area);
@@ -315,7 +314,7 @@ function drawSummerMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': 'orange',
+            'background-color': medalColor[index],
         });
         dot.data(country);
         stage.append(dot);
