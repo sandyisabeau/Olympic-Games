@@ -34,11 +34,11 @@ let currentData;
 let medalColor = [];
 
 function getColor(g, s, b, max) {
-    let R = gmynd.map((g / max) * 255, 0, 255, 50, 150);
-    let G = gmynd.map((s / max) * 255, 0, 255, 50, 150);
-    let B = gmynd.map((b / max) * 255, 0, 255, 50, 150);
+    let C = gmynd.map((g / max), 0, 1, 0, 1);
+    let M = gmynd.map((s / max), 0, 1, 0, 1);
+    let Y = gmynd.map((b / max), 0, 1, 0, 1);
 
-    medalColor.push(chroma([R, G, B]));
+    medalColor.push(chroma([C, M, Y, 0]));
 }
 
 
