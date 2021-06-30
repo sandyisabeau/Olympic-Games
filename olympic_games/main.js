@@ -360,7 +360,7 @@ function drawWinterMap() {
     $('.weightAndAge').hide();
     $('.heightAndWeight').hide();
 
-    medalistsAtWinterGames.forEach(country => {
+    medalistsAtWinterGames.forEach(function(country, index) {
         $('.medalistsAtWinterGames').show();
 
         const area = gmynd.map(country.count, 1, 3875, 50, 3000);
@@ -375,7 +375,7 @@ function drawWinterMap() {
             'left': xMap,
             'top': yMap,
             'position': 'absolute',
-            'background-color': 'blue',
+            'background-color': medalColor[index],
             'border-radius': '100%',
         });
         dot.data(country);
