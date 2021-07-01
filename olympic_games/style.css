@@ -204,7 +204,7 @@ body {
     font-size: 24px;
 }
 
-.ageAndHeight {
+.age {
     top: 110px;
     left: 80px;
     color: rgba(255, 255, 255, 0.5);
@@ -212,7 +212,7 @@ body {
     font-size: 24px;
 }
 
-.weightAndAge {
+.weight {
     top: 110px;
     left: 150px;
     color: rgba(255, 255, 255, 0.5);
@@ -220,7 +220,7 @@ body {
     font-size: 24px;
 }
 
-.heightAndWeight {
+.height {
     top: 110px;
     left: 260px;
     color: rgba(255, 255, 255, 0.5);
