@@ -34,11 +34,11 @@ let currentData;
 let medalColor = [];
 
 function getColor(g, s, b, max) {
-    let R = gmynd.map((g / max) * 255, 0, 255, 50, 150);
-    let G = gmynd.map((s / max) * 255, 0, 255, 50, 150);
-    let B = gmynd.map((b / max) * 255, 0, 255, 50, 150);
+    let R = gmynd.map((g / max) * 255, 0, 255, 0, 255);
+    let G = gmynd.map((s / max) * 255, 0, 255, 0, 255);
+    let B = gmynd.map((b / max) * 255, 0, 255, 0, 255);
 
-    medalColor.push(chroma([R, G, B]));
+    medalColor.push(chroma([R, G, B]).desaturate());
 }
 
 
@@ -247,7 +247,11 @@ function drawSpiral() {
         stage.append(spiralDot);
 
         spiralDot.mouseover(() => {
-            spiralDot.addClass("hover");
+            $('.Game').addClass("hover");
+            spiralDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '0.2',
+            }, 200);
             //Season
             $('#hoverSeason').text('Olympic ' + game.Season + ' Game');
             $('#hoverSeason').css({
@@ -277,6 +281,9 @@ function drawSpiral() {
 
         spiralDot.mouseout(() => {
             spiralDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '1',
+            }, 100);
             $('#hoverSeason').text("");
             $('#hoverContinent').text("");
             $('#hoverYear').text("");
@@ -305,7 +312,6 @@ function drawSummerMap() {
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
         let dot = $('<div></div>');
-        let col = chroma.random();
         dot.addClass("medalistsAtSummerGames");
         dot.css({
             'height': rMap * 2,
@@ -322,6 +328,9 @@ function drawSummerMap() {
         dot.mouseover(() => {
             $('.medalistsAtSummerGames').addClass("hoverSummer");
             dot.removeClass("hoverSummer");
+            $('.hoverSummer').animate({
+                'opacity': '0.2',
+            }, 200);
             //Season
             $('#hoverOriginMap').text('Medalists Country of Origin');
             $('#hoverOriginMap').css({
@@ -330,7 +339,7 @@ function drawSummerMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': 'orange',
+                'color': medalColor[index],
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
@@ -340,6 +349,9 @@ function drawSummerMap() {
         });
 
         dot.mouseout(() => {
+            $('.hoverSummer').animate({
+                'opacity': '1',
+            }, 100);
             $('.medalistsAtSummerGames').removeClass("hoverSummer");
             $('#hoverOriginMap').text("");
             $('#hoverCountryMap').text("");
@@ -383,6 +395,10 @@ function drawWinterMap() {
 
         dot.mouseover(() => {
             $('.medalistsAtWinterGames').addClass("hoverWinter");
+            dot.removeClass("hoverWinter");
+            $('.hoverWinter').animate({
+                'opacity': '0.2',
+            }, 200);
             //Season
             $('#hoverSeasonMap').text('Olympic Winter Game');
             $('#hoverSeasonMap').css({
@@ -391,7 +407,7 @@ function drawWinterMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': "#00C2FF",
+                'color': medalColor[index],
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
@@ -401,6 +417,9 @@ function drawWinterMap() {
         });
 
         dot.mouseout(() => {
+            $('.hoverWinter').animate({
+                'opacity': '1',
+            }, 100);
             $('.medalistsAtWinterGames').removeClass("hoverWinter");
             $('#hoverSeasonMap').text("");
             $('#hoverCountryMap').text("");
@@ -469,6 +488,11 @@ function drawAgeAndHeight() {
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
+            $('.medalistGroup').addClass("hover");
+            scatterPlotDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '0.2',
+            }, 200);
             scatterPlotDot.addClass("hover");
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
@@ -499,6 +523,9 @@ function drawAgeAndHeight() {
 
         scatterPlotDot.mouseout(() => {
             scatterPlotDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '1',
+            }, 100);
             $('#hoverGender').text("");
             $('#hoverAge').text("");
             $('#hoverWeight').text("");
@@ -552,12 +579,16 @@ function drawWeightAndAge(filter1, filter2, third) {
             'position': 'absolute',
             'background-color': thirdParameterColor,
             'border-radius': '100%',
-        }, 500);
+        });
         scatterPlotDot.data(medalistGroup);
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
-            scatterPlotDot.addClass("hover");
+            $('.medalistGroup').addClass("hover");
+            scatterPlotDot.removeClass("hover");
+            $('.hover').css({
+                'opacity': '0.2',
+            }, 500);
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
             $('#hoverGender').css({
@@ -587,6 +618,9 @@ function drawWeightAndAge(filter1, filter2, third) {
 
         scatterPlotDot.mouseout(() => {
             scatterPlotDot.removeClass("hover");
+            $('.hover').css({
+                'opacity': '1',
+            });
             $('#hoverGender').text("");
             $('#hoverAge').text("");
             $('#hoverWeight').text("");
@@ -646,7 +680,11 @@ function drawHeightAndWeight() {
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
-            scatterPlotDot.addClass("hover");
+            $('.medalistGroup').addClass("hover");
+            scatterPlotDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '0.2',
+            }, 200);
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
             $('#hoverGender').css({
@@ -676,6 +714,9 @@ function drawHeightAndWeight() {
 
         scatterPlotDot.mouseout(() => {
             scatterPlotDot.removeClass("hover");
+            $('.hover').animate({
+                'opacity': '1',
+            }, 100);
             $('#hoverGender').text("");
             $('#hoverAge').text("");
             $('#hoverWeight').text("");
