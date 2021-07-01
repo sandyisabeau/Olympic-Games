@@ -229,7 +229,7 @@ function drawSpiral() {
         if (game.continent === "Europe") {
             spiralDotColor = '#2796EA';
         } else if (game.continent === "Asia") {
-            spiralDotColor = '#FF9839';
+            spiralDotColor = '#FFFE5E';
         } else if (game.continent === "Oceania") {
             spiralDotColor = '#22AE70';
         } else if (game.continent === "North America") {
@@ -466,7 +466,7 @@ function drawAgeAndHeight() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.WeightAverage, 34.5, 119.5, 5, 1);
-        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rPlot = gmynd.circleRadius(area);
         const xPlot = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rPlot;
@@ -562,7 +562,7 @@ function drawWeightAndAge() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
-        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -658,7 +658,7 @@ function drawHeightAndWeight() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 5, 1);
-        const thirdParameterColor = chroma('#3C33CE').brighten(colorScale);
+        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -782,7 +782,7 @@ function medalistView() {
         'color': "white",
     });
     $('.age').css({
-        'color': '#A98BFC',
+        'color': '#FF7A00',
     });
     $('.weight').css({
         'color': 'white',
@@ -851,7 +851,7 @@ function ageView() {
     drawHeightAndWeight();
     console.log("ageAndHeightView");
     $('.age').css({
-        'color': '#A98BFC',
+        'color': '#FF7A00',
     });
     $('.weight').css({
         'color': 'white',
@@ -870,7 +870,7 @@ function weightView() {
         'color': 'white',
     });
     $('.weight').css({
-        'color': '#A98BFC',
+        'color': '#FF7A00',
     });
 
     $('.height').css({
@@ -890,6 +890,6 @@ function heightView() {
     });
 
     $('.height').css({
-        'color': '#A98BFC',
+        'color': '#FF7A00',
     });
 }
