@@ -45,13 +45,7 @@ function getColor(g = 0, s = 0, b = 0, max) {
 
 }
 
-
 $(function() {
-    $('.summer').hide();
-    $('.winter').hide();
-    $('.ageAndHeight').hide();
-    $('.weightAndAge').hide();
-    $('.heightAndWeight').hide();
     stage = $('#stage');
     stageHeight = stage.height();
     stageWidth = stage.width();
@@ -229,7 +223,7 @@ function drawSpiral() {
         if (game.continent === "Europe") {
             spiralDotColor = '#2796EA';
         } else if (game.continent === "Asia") {
-            spiralDotColor = '#FFFE5E';
+            spiralDotColor = '#FF7A00';
         } else if (game.continent === "Oceania") {
             spiralDotColor = '#22AE70';
         } else if (game.continent === "North America") {
@@ -466,7 +460,7 @@ function drawAgeAndHeight() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.WeightAverage, 34.5, 119.5, 5, 1);
-        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
+        const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rPlot = gmynd.circleRadius(area);
         const xPlot = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rPlot;
@@ -562,7 +556,7 @@ function drawWeightAndAge() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
-        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
+        const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -658,7 +652,7 @@ function drawHeightAndWeight() {
 
     currentData.forEach(medalistGroup => {
         const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 5, 1);
-        const thirdParameterColor = chroma('#FF7A00').brighten(colorScale);
+        const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -769,7 +763,7 @@ function teamView() {
 
 function medalistView() {
     stage.empty();
-    drawAgeAndHeight();
+    drawHeightAndWeight();
     $('.spiral').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
@@ -782,7 +776,7 @@ function medalistView() {
         'color': "white",
     });
     $('.age').css({
-        'color': '#FF7A00',
+        'color': '#E67BFC',
     });
     $('.weight').css({
         'color': 'white',
@@ -851,7 +845,7 @@ function ageView() {
     drawHeightAndWeight();
     console.log("ageAndHeightView");
     $('.age').css({
-        'color': '#FF7A00',
+        'color': '#E67BFC',
     });
     $('.weight').css({
         'color': 'white',
@@ -870,7 +864,7 @@ function weightView() {
         'color': 'white',
     });
     $('.weight').css({
-        'color': '#FF7A00',
+        'color': '#E67BFC',
     });
 
     $('.height').css({
@@ -890,6 +884,6 @@ function heightView() {
     });
 
     $('.height').css({
-        'color': '#FF7A00',
+        'color': '#E67BFC',
     });
 }
