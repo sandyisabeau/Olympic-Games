@@ -210,97 +210,105 @@ body {
 }
 
 .spiral {
-    top: 50px;
-    left: 80px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 2.92%;
+    right: 91.67%;
+    top: 3.7%;
+    bottom: 93.33%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 30px;
+    line-height: 37px;
 }
 
 .map {
-    top: 50px;
-    left: 220px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 9.17%;
+    right: 85.83%;
+    top: 3.7%;
+    bottom: 93.33%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 30px;
+    line-height: 37px;
 }
 
 .diagram {
-    top: 50px;
-    left: 360px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 15%;
+    right: 78.33%;
+    top: 3.7%;
+    bottom: 93.33%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 30px;
+    line-height: 37px;
 }
 
 .summer {
-    top: 56px;
-    left: 1600px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 2.92%;
+    right: 91.98%;
+    top: 8.15%;
+    bottom: 89.07%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 24px;
+    line-height: 30px;
 }
 
 .winter {
-    top: 56px;
-    left: 1720px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 8.44%;
+    right: 87.5%;
+    top: 8.15%;
+    bottom: 89.07%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 24px;
-}
-
-.all {
-    top: 110px;
-    left: 80px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: normal;
-    font-size: 24px;
-}
-
-.gold {
-    top: 110px;
-    left: 150px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: normal;
-    font-size: 24px;
-}
-
-.silver {
-    top: 110px;
-    left: 260px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: normal;
-    font-size: 24px;
-}
-
-.bronze {
-    top: 110px;
-    left: 370px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: normal;
-    font-size: 24px;
-}
-
-.age {
-    top: 110px;
-    left: 80px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: normal;
-    font-size: 24px;
+    line-height: 30px;
 }
 
 .weight {
-    top: 110px;
-    left: 150px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 2.92%;
+    right: 92.5%;
+    top: 8.15%;
+    bottom: 88.89%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 24px;
+    line-height: 30px;
 }
 
 .height {
-    top: 110px;
-    left: 260px;
-    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 7.92%;
+    right: 87.92%;
+    top: 8.15%;
+    bottom: 88.89%;
+    font-family: Caros;
+    font-style: normal;
     font-weight: normal;
     font-size: 24px;
+    line-height: 30px;
+}
+
+.age {
+    position: absolute;
+    left: 12.5%;
+    right: 85%;
+    top: 8.15%;
+    bottom: 88.89%;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
 }
