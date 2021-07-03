@@ -45,7 +45,7 @@ body {
     width: 341px;
     height: 40px;
     left: 56px;
-    top: 904px;
+    top: 916px;
     font-size: 24px;
     line-height: 30px;
     display: flex;
@@ -89,67 +89,124 @@ body {
 }
 
 #hoverOriginMap {
-    height: 24px;
+    position: absolute;
     width: 341px;
-    margin-left: 80px;
-    margin-top: -180px;
+    height: 24px;
+    left: 56px;
+    top: 880px;
     font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverCountryMap {
-    height: 40px;
+    position: absolute;
     width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    height: 40px;
+    left: 56px;
+    top: 916px;
     font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
 }
 
-#hoverMedalistMap {
+#hoverGold {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 968px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+#hoverSilver {
+    position: absolute;
+    width: 370px;
+    height: 24px;
+    left: 56px;
+    top: 992px;
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+#hoverBronze {
+    position: absolute;
+    width: 370px;
+    height: 24px;
+    left: 56px;
+    top: 1016px;
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverGender {
-    height: 24px;
+    position: absolute;
     width: 341px;
-    margin-left: 80px;
-    margin-top: -90px;
-    font-size: 18px;
+    height: 24px;
+    left: 56px;
+    top: 880px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
 }
 
-#hoverAge {
+#hoverParameterOne {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 920px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
-#hoverWeight {
+#hoverParameterTwo {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 944px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
-#hoverHeight {
+#hoverParameterThree {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 968px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverCount {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 1016px;
     font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
 }
 
 .spiral {

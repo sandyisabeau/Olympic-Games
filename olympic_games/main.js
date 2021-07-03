@@ -288,6 +288,8 @@ function drawSpiral() {
             $('.hover').animate({
                 'height': rSpiral * 2.5,
                 'width': rSpiral * 2.5,
+                'left': xSpiral - (rSpiral * 0.25),
+                'top': ySpiral - (rSpiral * 0.25),
             }, 200);
             //Season
             $('#hoverTitle').text('Olympic ' + game.Season + ' Game');
@@ -320,7 +322,9 @@ function drawSpiral() {
             spiralDot.animate({
                 'height': rSpiral * 2,
                 'width': rSpiral * 2,
-            }, 100);
+                'left': xSpiral,
+                'top': ySpiral,
+            }, 200);
             spiralDot.removeClass("hover");
             $('#hoverTitle').text("");
             $('#hoverContinent').text("");
@@ -369,6 +373,8 @@ function drawSummerMap() {
             dot.animate({
                 'height': rMap * 2.5,
                 'width': rMap * 2.5,
+                'left': xMap - (rMap * 0.25),
+                'top': yMap - (rMap * 0.25),
             }, 200);
             //Season
             $('#hoverOriginMap').text('Medalists Country of Origin');
@@ -380,9 +386,19 @@ function drawSummerMap() {
             $('#hoverCountryMap').css({
                 'color': medalColorSummer[index],
             });
-            //Year
-            $('#hoverMedalistMap').text(country.count + ' Medalists');
-            $('#hoverMedalistMap').css({
+            //Gold medals
+            $('#hoverGold').text(country.count + ' x Gold');
+            $('#hoverGold').css({
+                'color': 'white',
+            });
+            //Silver medals
+            $('#hoverSilver').text(country.count + ' x Silver');
+            $('#hoverSilver').css({
+                'color': 'white',
+            });
+            //Bronze medals
+            $('#hoverBronze').text(country.count + ' x Bronze');
+            $('#hoverBronze').css({
                 'color': 'white',
             });
         });
@@ -391,11 +407,16 @@ function drawSummerMap() {
             dot.animate({
                 'height': rMap * 2,
                 'width': rMap * 2,
-            }, 100);
+                'left': xMap,
+                'top': yMap,
+            }, 200);
             $('.medalistsAtSummerGames').removeClass("hoverSummer");
             $('#hoverOriginMap').text("");
             $('#hoverCountryMap').text("");
-            $('#hoverMedalistMap').text("");
+            $('#hoverGold').text("");
+            $('#hoverSilver').text("");
+            $('#hoverBronze').text("");
+
         });
     });
 }
@@ -434,10 +455,12 @@ function drawWinterMap() {
         stage.append(dot);
 
         dot.mouseover(() => {
-            $('.medalistsAtWinterGames').addClass("hoverWinter");
-            dot.removeClass("hoverWinter");
-            $('.hoverWinter').animate({
-                'opacity': '0.2',
+            dot.addClass("hoverWinter");
+            dot.animate({
+                'height': rMap * 2.5,
+                'width': rMap * 2.5,
+                'left': xMap - (rMap * 0.25),
+                'top': yMap - (rMap * 0.25),
             }, 200);
             //Season
             $('#hoverSeasonMap').text('Olympic Winter Game');
@@ -457,10 +480,13 @@ function drawWinterMap() {
         });
 
         dot.mouseout(() => {
-            $('.hoverWinter').animate({
-                'opacity': '1',
-            }, 100);
-            $('.medalistsAtWinterGames').removeClass("hoverWinter");
+            dot.animate({
+                'height': rMap * 2,
+                'width': rMap * 2,
+                'left': xMap,
+                'top': yMap,
+            }, 200);
+            scatterPlotDot.removeClass("hover");
             $('#hoverSeasonMap').text("");
             $('#hoverCountryMap').text("");
             $('#hoverMedalistMap').text("");
@@ -528,30 +554,31 @@ function drawAgeAndHeight() {
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
-            $('.medalistGroup').addClass("hover");
-            scatterPlotDot.removeClass("hover");
-            $('.hover').animate({
-                'opacity': '0.2',
-            }, 200);
             scatterPlotDot.addClass("hover");
+            $('.hover').animate({
+                'height': rPlot * 2.5,
+                'width': rPlot * 2.5,
+                'left': xPlot - (rPlot * 0.25),
+                'top': yPlot - (rPlot * 0.25),
+            }, 200);
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
             $('#hoverGender').css({
                 'color': 'white',
             });
             //Age
-            $('#hoverAge').text(medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
-            $('#hoverAge').css({
+            $('#hoverParameterOne').text(medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
+            $('#hoverParameterOne').css({
                 'color': 'white',
             });
             //Weight
-            $('#hoverWeight').text(medalistGroup.HeightMin + " - " + medalistGroup.HeightMax + " kg");
-            $('#hoverWeight').css({
+            $('#hoverParameterTwo').text(medalistGroup.HeightMin + " - " + medalistGroup.HeightMax + "cm");
+            $('#hoverParameterTwo').css({
                 'color': 'white',
             });
             //Height
-            $('#hoverHeight').text('Height Average: ' + Math.round(medalistGroup.WeightAverage) + " cm");
-            $('#hoverHeight').css({
+            $('#hoverParameterThree').text('Weight Average: ' + Math.round(medalistGroup.WeightAverage) + " kg");
+            $('#hoverParameterThree').css({
                 'color': thirdParameterColor,
             });
             //Count
@@ -562,14 +589,18 @@ function drawAgeAndHeight() {
         });
 
         scatterPlotDot.mouseout(() => {
+            scatterPlotDot.animate({
+                'height': rPlot * 2,
+                'width': rPlot * 2,
+                'left': xPlot,
+                'top': yPlot,
+            }, 200);
             scatterPlotDot.removeClass("hover");
-            $('.hover').animate({
-                'opacity': '1',
-            }, 100);
+
             $('#hoverGender').text("");
-            $('#hoverAge').text("");
-            $('#hoverWeight').text("");
-            $('#hoverHeight').text("");
+            $('#hoverParameterOne').text("");
+            $('#hoverParameterTwo').text("");
+            $('#hoverParameterThree').text("");
             $('#hoverCount').text("");
         });
     });
@@ -600,22 +631,22 @@ function drawWeightAndAge() {
         const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 4, 1);
         const thirdParameterColor = chroma('#B28FE1').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-        const rDiagram = gmynd.circleRadius(area);
-        const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-        let yDiagram
+        const rPlot = gmynd.circleRadius(area);
+        const xPlot = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rPlot;
+        let yPlot
 
         if (medalistGroup.Sex == "F") {
-            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rPlot;
         } else {
-            yDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rPlot;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
         scatterPlotDot.css({
-            'height': rDiagram * 2,
-            'width': rDiagram * 2,
-            'left': xDiagram,
-            'top': yDiagram,
+            'height': rPlot * 2,
+            'width': rPlot * 2,
+            'left': xPlot,
+            'top': yPlot,
             'position': 'absolute',
             'background-color': thirdParameterColor,
             'border-radius': '100%',
@@ -624,10 +655,12 @@ function drawWeightAndAge() {
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
-            $('.medalistGroup').addClass("hover");
-            scatterPlotDot.removeClass("hover");
+            scatterPlotDot.addClass("hover");
             $('.hover').animate({
-                'opacity': '0.2',
+                'height': rPlot * 2.5,
+                'width': rPlot * 2.5,
+                'left': xPlot - (rPlot * 0.25),
+                'top': yPlot - (rPlot * 0.25),
             }, 200);
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
@@ -635,18 +668,18 @@ function drawWeightAndAge() {
                 'color': 'white',
             });
             //Age
-            $('#hoverAge').text(medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
-            $('#hoverAge').css({
+            $('#hoverParameterOne').text(medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
+            $('#hoverParameterOne').css({
                 'color': 'white',
             });
             //Weight
-            $('#hoverWeight').text(medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
-            $('#hoverWeight').css({
+            $('#hoverParameterTwo').text(medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
+            $('#hoverParameterTwo').css({
                 'color': 'white',
             });
             //Height
-            $('#hoverHeight').text('Height Average: ' + Math.round(medalistGroup.HeightAverage) + " cm");
-            $('#hoverHeight').css({
+            $('#hoverParameterThree').text('Height Average: ' + Math.round(medalistGroup.HeightAverage) + " cm");
+            $('#hoverParameterThree').css({
                 'color': thirdParameterColor,
             });
             //Count
@@ -657,14 +690,18 @@ function drawWeightAndAge() {
         });
 
         scatterPlotDot.mouseout(() => {
+            scatterPlotDot.animate({
+                'height': rPlot * 2,
+                'width': rPlot * 2,
+                'left': xPlot,
+                'top': yPlot,
+            }, 200);
             scatterPlotDot.removeClass("hover");
-            $('.hover').animate({
-                'opacity': '1',
-            }, 100);
+
             $('#hoverGender').text("");
-            $('#hoverAge').text("");
-            $('#hoverWeight').text("");
-            $('#hoverHeight').text("");
+            $('#hoverParameterOne').text("");
+            $('#hoverParameterTwo').text("");
+            $('#hoverParameterThree').text("");
             $('#hoverCount').text("");
         });
     });
@@ -696,22 +733,22 @@ function drawHeightAndWeight() {
         const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 4, 1);
         const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
-        const rDiagram = gmynd.circleRadius(area);
-        const xDiagram = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rDiagram;
-        let yDiagram
+        const rPlot = gmynd.circleRadius(area);
+        const xPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rPlot;
+        let yPlot
 
         if (medalistGroup.Sex == "F") {
-            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rDiagram;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rPlot;
         } else {
-            yDiagram = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rDiagram;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rPlot;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
         scatterPlotDot.css({
-            'height': rDiagram * 2,
-            'width': rDiagram * 2,
-            'left': xDiagram,
-            'top': yDiagram,
+            'height': rPlot * 2,
+            'width': rPlot * 2,
+            'left': xPlot,
+            'top': yPlot,
             'position': 'absolute',
             'background-color': thirdParameterColor,
             'border-radius': '100%',
@@ -720,10 +757,12 @@ function drawHeightAndWeight() {
         stage.append(scatterPlotDot);
 
         scatterPlotDot.mouseover(() => {
-            $('.medalistGroup').addClass("hover");
-            scatterPlotDot.removeClass("hover");
+            scatterPlotDot.addClass("hover");
             $('.hover').animate({
-                'opacity': '0.2',
+                'height': rPlot * 2.5,
+                'width': rPlot * 2.5,
+                'left': xPlot - (rPlot * 0.25),
+                'top': yPlot - (rPlot * 0.25),
             }, 200);
             //Gender
             $('#hoverGender').text(medalistGroup.Sex);
@@ -731,18 +770,18 @@ function drawHeightAndWeight() {
                 'color': 'white',
             });
             //Age
-            $('#hoverAge').text(medalistGroup.AgeMin + " - " + medalistGroup.AgeMax + " years");
-            $('#hoverAge').css({
+            $('#hoverParameterOne').text(medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
+            $('#hoverParameterOne').css({
                 'color': 'white',
             });
             //Weight
-            $('#hoverWeight').text(medalistGroup.WeightMin + " - " + medalistGroup.WeightMax + " kg");
-            $('#hoverWeight').css({
+            $('#hoverParameterTwo').text(medalistGroup.HeightMin + " - " + medalistGroup.HeightMax + " cm");
+            $('#hoverParameterTwo').css({
                 'color': 'white',
             });
             //Height
-            $('#hoverHeight').text('Height Average: ' + Math.round(medalistGroup.HeightAverage) + " cm");
-            $('#hoverHeight').css({
+            $('#hoverParameterThree').text('Age Average: ' + Math.round(medalistGroup.AgeAverage) + " years");
+            $('#hoverParameterThree').css({
                 'color': thirdParameterColor,
             });
             //Count
@@ -751,16 +790,19 @@ function drawHeightAndWeight() {
                 'color': 'white',
             });
         });
-
         scatterPlotDot.mouseout(() => {
+            scatterPlotDot.animate({
+                'height': rPlot * 2,
+                'width': rPlot * 2,
+                'left': xPlot,
+                'top': yPlot,
+            }, 200);
             scatterPlotDot.removeClass("hover");
-            $('.hover').animate({
-                'opacity': '1',
-            }, 100);
+
             $('#hoverGender').text("");
-            $('#hoverAge').text("");
-            $('#hoverWeight').text("");
-            $('#hoverHeight').text("");
+            $('#hoverParameterOne').text("");
+            $('#hoverParameterTwo').text("");
+            $('#hoverParameterThree').text("");
             $('#hoverCount').text("");
         });
     });
