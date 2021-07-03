@@ -28,44 +28,64 @@ body {
     font-family: 'Caros', sans-serif;
 }
 
-#hoverSeason {
-    height: 24px;
+#hoverTitle {
+    position: absolute;
     width: 341px;
-    margin-left: 80px;
-    margin-top: -270px;
+    height: 24px;
+    left: 56px;
+    top: 880px;
     font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverContinent {
-    height: 40px;
+    position: absolute;
     width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    height: 40px;
+    left: 56px;
+    top: 904px;
     font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverYear {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 16px;
+    left: 56px;
+    top: 968px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverCity {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 8px;
+    left: 56px;
+    top: 992px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverMedalist {
+    position: absolute;
+    width: 370px;
     height: 24px;
-    width: 341px;
-    margin-left: 80px;
-    margin-top: 8px;
+    left: 56px;
+    top: 1016px;
     font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 #hoverOriginMap {

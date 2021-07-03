@@ -6,8 +6,7 @@ let medalsSummer, medalsWinter;
 let segmentedAthletes; //for diagram
 let mostFrequentMedal;
 let mostFrequentMedalsPerCountry = {};
-
-
+let medalsPerCountry = {};
 let cumulatedCountries;
 
 let showSpiral;
@@ -31,20 +30,29 @@ showHeightAndWeight = false;
 let thirdParameter = [];
 let currentFilters = [];
 let currentData;
-let medalColor = [];
+let medalColorSummer = [];
+let medalColorWinter = [];
 
-function getColor(g = 0, s = 0, b = 0, max) {
+function getColorSummer(g = 0, s = 0, b = 0, max) {
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
-
     let color = chroma([255 - R, 255 - G, 255 - B]);
     let lab = color.lab();
     color = chroma.lab([70, lab[1], lab[2]]);
-    medalColor.push(color);
-
+    medalColorSummer.push(color);
 }
 
+function getColorWinter(g = 0, s = 0, b = 0, max) {
+    let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
+    let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
+    let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
+    let color = chroma([255 - R, 255 - G, 255 - B]);
+    let lab = color.lab();
+    color = chroma.lab([70, lab[1], lab[2]]);
+    medalColorWinter.push(color);
+
+}
 $(function() {
     stage = $('#stage');
     stageHeight = stage.height();
@@ -130,14 +138,14 @@ function prepareData() {
 
     //Functions to calculate the number of different medals
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
-    groupedMedals = gmynd.groupData(medalsSummer, ["countryName"]);
+    groupedMedalsSummer = gmynd.groupData(medalsSummer, ["countryName"]);
     medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
-    console.log("groupedMedals:");
-    console.log(groupedMedals);
+    groupedMedalsWinter = gmynd.groupData(medalsSummer, ["countryName"]);
 
+    console.log(groupedMedalsSummer);
 
-    for (let countryName in groupedMedals) {
-        let country = groupedMedals[countryName];
+    for (let countryName in groupedMedalsSummer) {
+        let country = groupedMedalsSummer[countryName];
         mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         let goldCount, silverCount, bronzeCount = 0;
         country.forEach(medalType => {
@@ -166,9 +174,40 @@ function prepareData() {
         // console.log(mostFrequentMedal);
         mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
         console.log(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
-        getColor(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        getColorSummer(goldCount, silverCount, bronzeCount, mostFrequentMedal.count)
     }
+    for (let countryName in groupedMedalsWinter) {
+        let country = groupedMedalsWinter[countryName];
+        mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
+        let goldCount, silverCount, bronzeCount = 0;
+        country.forEach(medalType => {
 
+            if (medalType.count > mostFrequentMedal.count) {
+                mostFrequentMedal = {};
+                mostFrequentMedal = Object.assign({}, medalType);
+            };
+
+            // let medals = { countryName: countryName, Medal: medalType.Medal, count: medalType.count };
+            // console.log(medals);
+            if (medalType.Medal == "Gold") {
+                goldCount = medalType.count;
+                // console.log("Gold" + goldCount)
+            }
+            if (medalType.Medal == "Silver") {
+                silverCount = medalType.count;
+                // console.log("Silver" + silverCount)
+            }
+            if (medalType.Medal == "Bronze") {
+                bronzeCount = medalType.count;
+                // console.log("Bronze" + bronzeCount)
+            }
+        });
+        console.log("-----");
+        // console.log(mostFrequentMedal);
+        mostFrequentMedalsPerCountry[countryName] = mostFrequentMedal;
+        console.log(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+        medalsPerCountry = getColorWinter(goldCount, silverCount, bronzeCount, mostFrequentMedal.count);
+    }
     // console.log("mostFrequentMedalsPerCountry:");
     // console.log(mostFrequentMedalsPerCountry);
 
@@ -245,14 +284,14 @@ function drawSpiral() {
         stage.append(spiralDot);
 
         spiralDot.mouseover(() => {
-            $('.Game').addClass("hover");
-            spiralDot.removeClass("hover");
+            spiralDot.addClass("hover");
             $('.hover').animate({
-                'opacity': '0.2',
+                'height': rSpiral * 2.5,
+                'width': rSpiral * 2.5,
             }, 200);
             //Season
-            $('#hoverSeason').text('Olympic ' + game.Season + ' Game');
-            $('#hoverSeason').css({
+            $('#hoverTitle').text('Olympic ' + game.Season + ' Game');
+            $('#hoverTitle').css({
                 'color': 'white',
             });
             //Continent
@@ -278,11 +317,12 @@ function drawSpiral() {
         });
 
         spiralDot.mouseout(() => {
-            spiralDot.removeClass("hover");
-            $('.hover').animate({
-                'opacity': '1',
+            spiralDot.animate({
+                'height': rSpiral * 2,
+                'width': rSpiral * 2,
             }, 100);
-            $('#hoverSeason').text("");
+            spiralDot.removeClass("hover");
+            $('#hoverTitle').text("");
             $('#hoverContinent').text("");
             $('#hoverYear').text("");
             $('#hoverCity').text("");
@@ -302,6 +342,7 @@ function drawSummerMap() {
     $('.age').hide();
     $('.weight').hide();
     $('.height').hide();
+    console.log(medalsPerCountry);
 
     medalistsAtSummerGames.forEach(function(country, index) {
         $('.medalistsAtSummerGames').show();
@@ -318,16 +359,16 @@ function drawSummerMap() {
             'top': yMap,
             'border-radius': '100%',
             'position': 'absolute',
-            'background-color': medalColor[index],
+            'background-color': medalColorSummer[index],
         });
         dot.data(country);
         stage.append(dot);
 
         dot.mouseover(() => {
-            $('.medalistsAtSummerGames').addClass("hoverSummer");
             dot.removeClass("hoverSummer");
-            $('.hoverSummer').animate({
-                'opacity': '0.2',
+            dot.animate({
+                'height': rMap * 2.5,
+                'width': rMap * 2.5,
             }, 200);
             //Season
             $('#hoverOriginMap').text('Medalists Country of Origin');
@@ -337,7 +378,7 @@ function drawSummerMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': medalColor[index],
+                'color': medalColorSummer[index],
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
@@ -347,8 +388,9 @@ function drawSummerMap() {
         });
 
         dot.mouseout(() => {
-            $('.hoverSummer').animate({
-                'opacity': '1',
+            dot.animate({
+                'height': rMap * 2,
+                'width': rMap * 2,
             }, 100);
             $('.medalistsAtSummerGames').removeClass("hoverSummer");
             $('#hoverOriginMap').text("");
@@ -385,7 +427,7 @@ function drawWinterMap() {
             'left': xMap,
             'top': yMap,
             'position': 'absolute',
-            'background-color': medalColor[index],
+            'background-color': medalColorWinter[index],
             'border-radius': '100%',
         });
         dot.data(country);
@@ -405,7 +447,7 @@ function drawWinterMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': medalColor[index],
+                'color': medalColorWinter[index],
             });
             //Year
             $('#hoverMedalistMap').text(country.count + ' Medalists');
@@ -459,7 +501,7 @@ function drawAgeAndHeight() {
     console.log(currentData);
 
     currentData.forEach(medalistGroup => {
-        const colorScale = gmynd.map(medalistGroup.WeightAverage, 34.5, 119.5, 5, 1);
+        const colorScale = gmynd.map(medalistGroup.WeightAverage, 34.5, 119.5, 4, 1);
         const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rPlot = gmynd.circleRadius(area);
@@ -555,8 +597,8 @@ function drawWeightAndAge() {
 
 
     currentData.forEach(medalistGroup => {
-        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 5, 1);
-        const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
+        const colorScale = gmynd.map(medalistGroup.HeightAverage, 151, 198, 4, 1);
+        const thirdParameterColor = chroma('#B28FE1').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
         const xDiagram = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rDiagram;
@@ -651,7 +693,7 @@ function drawHeightAndWeight() {
     currentData = getDataSubset();
 
     currentData.forEach(medalistGroup => {
-        const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 5, 1);
+        const colorScale = gmynd.map(medalistGroup.AgeAverage, 15, 47, 4, 1);
         const thirdParameterColor = chroma('#A93AFF').brighten(colorScale);
         const area = gmynd.map(medalistGroup.count, 1, 4971, 50, 6000);
         const rDiagram = gmynd.circleRadius(area);
