@@ -1,4 +1,4 @@
-let stage, stageHeight, stageWidth;
+let stage;
 let data, cityContinents; //for general data preparation
 let games, summerGames, winterGames, cumulatedSummerGames, cumulatedWinterGames; // for spiral
 let medalistsAtSummerGames, medalistsAtWinterGames; // for map
@@ -233,7 +233,7 @@ function drawSpiral() {
         'color': 'rgba(255, 255, 255, 0.5)',
     });
 
-    $('.diagram').css({
+    $('.plot').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
     $('.summer').hide();
@@ -384,8 +384,8 @@ function drawSummerMap() {
                 'top': yMap - (rMap * 0.25),
             }, 200);
             //Season
-            $('#hoverOriginMap').text('Medalists Country of Origin');
-            $('#hoverOriginMap').css({
+            $('#hoverTitle').text('Medalists Country of Origin');
+            $('#hoverTitle').css({
                 'color': 'white',
             });
             //Continent
@@ -470,8 +470,8 @@ function drawWinterMap() {
                 'top': yMap - (rMap * 0.25),
             }, 200);
             //Season
-            $('#hoverSeasonMap').text('Olympic Winter Game');
-            $('#hoverSeasonMap').css({
+            $('#hoverTitle').text('Olympic Winter Game');
+            $('#hoverTitle').css({
                 'color': 'white',
             });
             //Continent
@@ -826,7 +826,7 @@ function gameView() {
         'color': 'rgba(255, 255, 255, 0.5)',
     });
 
-    $('.diagram').css({
+    $('.plot').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
     console.log("gameView");
@@ -843,7 +843,7 @@ function teamView() {
         'color': "white",
     });
 
-    $('.diagram').css({
+    $('.plot').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
     $('.summer').css({
@@ -860,7 +860,7 @@ function teamView() {
         'color': 'white',
     });
 
-    $('.diagram').css({
+    $('.plot').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
     $('.summer').css({
@@ -883,7 +883,7 @@ function medalistView() {
         'color': 'rgba(255, 255, 255, 0.5)',
     });
 
-    $('.diagram').css({
+    $('.plot').css({
         'color': "white",
     });
     $('.age').css({
