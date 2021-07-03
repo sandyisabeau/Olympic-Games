@@ -149,8 +149,12 @@ body {
 
 #hoverGender {
     position: absolute;
+    width: 341px;
+    height: 24px;
     left: 64px;
     top: 868px;
+    font-family: Caros;
+    font-style: normal;
     font-weight: bold;
     font-size: 24px;
     line-height: 30px;
@@ -163,9 +167,13 @@ body {
     width: 370px;
     height: 24px;
     left: 64px;
-    top: 920px;
+    top: 910px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
@@ -175,9 +183,13 @@ body {
     width: 370px;
     height: 24px;
     left: 64px;
-    top: 944px;
+    top: 938px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
@@ -187,9 +199,13 @@ body {
     width: 370px;
     height: 24px;
     left: 64px;
-    top: 968px;
+    top: 966px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
@@ -199,9 +215,13 @@ body {
     width: 370px;
     height: 24px;
     left: 64px;
-    top: 1016px;
+    top: 1008px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
-    line-height: 22px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }

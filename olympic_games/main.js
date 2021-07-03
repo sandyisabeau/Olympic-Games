@@ -225,12 +225,19 @@ function prepareData() {
 
 function drawSpiral() {
     showSpiral = true;
+    $('.spiral').css({
+        'color': "white",
+    });
+
+    $('.map').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+
+    $('.diagram').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
     $('.summer').hide();
     $('.winter').hide();
-    $('.all').hide();
-    $('.gold').hide();
-    $('.silver').hide();
-    $('.bronze').hide();
     $('.age').hide();
     $('.weight').hide();
     $('.height').hide();
@@ -534,7 +541,7 @@ function drawAgeAndHeight() {
         const xPlot = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rPlot;
         let yPlot
 
-        if (medalistGroup.Sex == "F") {
+        if (medalistGroup.Sex == "Female") {
             yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
             yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 950) - rPlot;
@@ -635,7 +642,7 @@ function drawWeightAndAge() {
         const xPlot = gmynd.map(medalistGroup.AgeSegmentOf20, 0, 19, 200, 1720) - rPlot;
         let yPlot
 
-        if (medalistGroup.Sex == "F") {
+        if (medalistGroup.Sex == "Female") {
             yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
             yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 950) - rPlot;
@@ -708,7 +715,7 @@ function drawWeightAndAge() {
 }
 
 function drawHeightAndWeight() {
-    showHeightAndWeight = true;
+    showHeightAndHeight = true;
     $('.summer').hide();
     $('.winter').hide();
     $('.all').hide();
@@ -737,7 +744,7 @@ function drawHeightAndWeight() {
         const xPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 200, 1720) - rPlot;
         let yPlot
 
-        if (medalistGroup.Sex == "F") {
+        if (medalistGroup.Sex == "Female") {
             yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
             yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 950) - rPlot;
@@ -843,11 +850,31 @@ function teamView() {
         'color': 'white',
     });
     console.log("teamView");
+    stage.empty();
+    drawSummerMap();
+    $('.spiral').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+
+    $('.map').css({
+        'color': 'white',
+    });
+
+    $('.diagram').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+    $('.summer').css({
+        'color': 'white',
+    });
+    $('.winter').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
+    });
+    console.log("medalistView");
 }
 
 function medalistView() {
     stage.empty();
-    drawHeightAndWeight();
+    drawAgeAndHeight();
     $('.spiral').css({
         'color': 'rgba(255, 255, 255, 0.5)',
     });
@@ -860,10 +887,10 @@ function medalistView() {
         'color': "white",
     });
     $('.age').css({
-        'color': '#E67BFC',
+        'color': 'white',
     });
     $('.weight').css({
-        'color': 'white',
+        'color': '#E67BFC',
     });
 
     $('.height').css({
@@ -885,6 +912,7 @@ function summerView() {
         'color': 'rgba(255, 255, 255, 0.5)',
     });
     console.log("summerView");
+
 }
 
 function winterView() {
@@ -904,46 +932,26 @@ function winterView() {
     console.log("winterView");
 }
 
-function allMedalsView() {
+function summerView() {
     stage.empty();
-    console.log("allMedalsView");
-}
+    drawSummerMap();
+    $('.medalistsAtSummerGames').show();
+    $('.medalistsAtWinterGames').hide();
 
-function goldView() {
-    stage.empty();
-    console.log("goldView");
-}
-
-function silverView() {
-    stage.empty();
-    console.log("silverView");
-}
-
-function bronzeView() {
-    stage.empty();
-    console.log("bronzeView");
-}
-
-function ageView() {
-    stage.empty();
-    drawHeightAndWeight();
-    console.log("ageAndHeightView");
-    $('.age').css({
-        'color': '#E67BFC',
-    });
-    $('.weight').css({
+    $('.summer').css({
         'color': 'white',
     });
 
-    $('.height').css({
-        'color': 'white',
+    $('.winter').css({
+        'color': 'rgba(255, 255, 255, 0.5)',
     });
+
+    console.log("winterView");
 }
 
 function weightView() {
     stage.empty();
     drawAgeAndHeight();
-    console.log("weightAndAgeView");
     $('.age').css({
         'color': 'white',
     });
@@ -959,7 +967,6 @@ function weightView() {
 function heightView() {
     stage.empty();
     drawWeightAndAge();
-    console.log("heightAndWeight");
     $('.age').css({
         'color': 'white',
     });
@@ -969,5 +976,19 @@ function heightView() {
 
     $('.height').css({
         'color': '#E67BFC',
+    });
+}
+
+function ageView() {
+    stage.empty();
+    drawHeightAndWeight();
+    $('.age').css({
+        'color': '#E67BFC',
+    });
+    $('.weight').css({
+        'color': 'white',
+    });
+    $('.height').css({
+        'color': 'white',
     });
 }
