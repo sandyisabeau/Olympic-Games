@@ -30,10 +30,11 @@ body {
 
 #hoverTitle {
     position: absolute;
-    width: 341px;
-    height: 24px;
-    left: 56px;
-    top: 880px;
+    left: 64px;
+    top: 868px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     display: flex;
@@ -42,10 +43,11 @@ body {
 
 #hoverContinent {
     position: absolute;
-    width: 341px;
-    height: 40px;
-    left: 56px;
-    top: 916px;
+    left: 64px;
+    top: 904px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: bold;
     font-size: 24px;
     line-height: 30px;
     display: flex;
@@ -54,46 +56,50 @@ body {
 
 #hoverYear {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 968px;
+    left: 64px;
+    top: 952px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
 
 #hoverCity {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 992px;
+    left: 64px;
+    top: 980px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
 
 #hoverMedalist {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 1016px;
+    left: 64px;
+    top: 1008px;
+    font-family: Caros;
+    font-style: normal;
+    font-weight: normal;
     font-size: 18px;
     line-height: 24px;
+    /* identical to box height, or 133% */
     display: flex;
     align-items: center;
 }
 
 #hoverOriginMap {
     position: absolute;
-    width: 341px;
-    height: 24px;
-    left: 56px;
-    top: 880px;
+    left: 64px;
+    top: 868px;
     font-size: 18px;
     line-height: 22px;
     display: flex;
@@ -102,11 +108,10 @@ body {
 
 #hoverCountryMap {
     position: absolute;
-    width: 341px;
-    height: 40px;
-    left: 56px;
-    top: 916px;
+    left: 64px;
+    top: 904px;
     font-size: 24px;
+    font-weight: bold;
     line-height: 30px;
     display: flex;
     align-items: center;
@@ -114,10 +119,8 @@ body {
 
 #hoverGold {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 968px;
+    left: 64px;
+    top: 952px;
     font-size: 18px;
     line-height: 24px;
     display: flex;
@@ -126,10 +129,8 @@ body {
 
 #hoverSilver {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 992px;
+    left: 64px;
+    top: 980px;
     font-size: 18px;
     line-height: 24px;
     display: flex;
@@ -138,10 +139,8 @@ body {
 
 #hoverBronze {
     position: absolute;
-    width: 370px;
-    height: 24px;
-    left: 56px;
-    top: 1016px;
+    left: 64px;
+    top: 1008px;
     font-size: 18px;
     line-height: 24px;
     display: flex;
@@ -150,10 +149,8 @@ body {
 
 #hoverGender {
     position: absolute;
-    width: 341px;
-    height: 24px;
-    left: 56px;
-    top: 880px;
+    left: 64px;
+    top: 868px;
     font-weight: bold;
     font-size: 24px;
     line-height: 30px;
@@ -165,7 +162,7 @@ body {
     position: absolute;
     width: 370px;
     height: 24px;
-    left: 56px;
+    left: 64px;
     top: 920px;
     font-size: 18px;
     line-height: 24px;
@@ -177,7 +174,7 @@ body {
     position: absolute;
     width: 370px;
     height: 24px;
-    left: 56px;
+    left: 64px;
     top: 944px;
     font-size: 18px;
     line-height: 24px;
@@ -189,7 +186,7 @@ body {
     position: absolute;
     width: 370px;
     height: 24px;
-    left: 56px;
+    left: 64px;
     top: 968px;
     font-size: 18px;
     line-height: 24px;
@@ -201,7 +198,7 @@ body {
     position: absolute;
     width: 370px;
     height: 24px;
-    left: 56px;
+    left: 64px;
     top: 1016px;
     font-size: 18px;
     line-height: 22px;
@@ -210,105 +207,118 @@ body {
 }
 
 .spiral {
-    position: absolute;
-    left: 2.92%;
-    right: 91.67%;
-    top: 3.7%;
-    bottom: 93.33%;
+    height: 32px;
+    width: 104px;
+    left: 64px;
+    top: 48px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 30px;
+    font-style: normal;
     line-height: 37px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .map {
-    position: absolute;
-    left: 9.17%;
-    right: 85.83%;
-    top: 3.7%;
-    bottom: 93.33%;
+    height: 32px;
+    width: 96px;
+    left: 208px;
+    top: 48px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 30px;
+    font-style: normal;
     line-height: 37px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .diagram {
-    position: absolute;
-    left: 15%;
-    right: 78.33%;
-    top: 3.7%;
-    bottom: 93.33%;
+    height: 32px;
+    width: 128px;
+    left: 352px;
+    top: 48px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 30px;
+    font-style: normal;
     line-height: 37px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .summer {
-    position: absolute;
-    left: 2.92%;
-    right: 91.98%;
-    top: 8.15%;
-    bottom: 89.07%;
+    height: 30px;
+    width: 98px;
+    left: 64px;
+    top: 104px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .winter {
-    position: absolute;
-    left: 8.44%;
-    right: 87.5%;
-    top: 8.15%;
-    bottom: 89.07%;
+    height: 30px;
+    width: 78px;
+    left: 178px;
+    top: 104px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .weight {
-    position: absolute;
-    left: 2.92%;
-    right: 92.5%;
-    top: 8.15%;
-    bottom: 88.89%;
+    height: 32px;
+    width: 88px;
+    left: 64px;
+    top: 104px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .height {
-    position: absolute;
-    left: 7.92%;
-    right: 87.92%;
-    top: 8.15%;
-    bottom: 88.89%;
+    height: 32px;
+    width: 80px;
+    left: 168px;
+    top: 104px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .age {
-    position: absolute;
-    left: 12.5%;
-    right: 85%;
-    top: 8.15%;
-    bottom: 88.89%;
+    height: 32px;
+    width: 48px;
+    left: 272px;
+    top: 104px;
+    border-radius: nullpx;
     font-family: Caros;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
 }

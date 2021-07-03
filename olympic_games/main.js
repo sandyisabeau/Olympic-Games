@@ -535,9 +535,9 @@ function drawAgeAndHeight() {
         let yPlot
 
         if (medalistGroup.Sex == "F") {
-            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rPlot;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
-            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rPlot;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 950) - rPlot;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
@@ -636,9 +636,9 @@ function drawWeightAndAge() {
         let yPlot
 
         if (medalistGroup.Sex == "F") {
-            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 200) - rPlot;
+            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
-            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 610, 1000) - rPlot;
+            yPlot = gmynd.map(medalistGroup.WeightSegmentOf20, 0, 19, 590, 950) - rPlot;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
@@ -738,9 +738,9 @@ function drawHeightAndWeight() {
         let yPlot
 
         if (medalistGroup.Sex == "F") {
-            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 200) - rPlot;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 540, 150) - rPlot;
         } else {
-            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 610, 1000) - rPlot;
+            yPlot = gmynd.map(medalistGroup.HeightSegmentOf20, 0, 19, 590, 950) - rPlot;
         }
         let scatterPlotDot = $('<div></div>');
         scatterPlotDot.addClass("medalistGroup");
