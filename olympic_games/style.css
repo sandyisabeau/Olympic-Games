@@ -35,12 +35,17 @@ body {
 #hoverGold,
 #hoverSilver,
 #hoverBronze,
+#hoverGender,
 #hoverParameterOne,
 #hoverParameterTwo,
 #hoverParameterThree,
 #hoverCount {
     position: absolute;
     left: 64px;
+}
+
+#hoverTitle {
+    top: 872px;
 }
 
 #hoverContinent {
@@ -80,6 +85,7 @@ body {
 
 #hoverGender {
     top: 868px;
+    font-weight: bold;
 }
 
 #hoverParameterOne {
@@ -132,7 +138,7 @@ body {
 }
 
 .winter {
-    left: 178px;
+    left: 186px;
 }
 
 .weight {
@@ -140,9 +146,9 @@ body {
 }
 
 .height {
-    left: 168px;
+    left: 176px;
 }
 
 .age {
-    left: 272px;
+    left: 280px;
 }
