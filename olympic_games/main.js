@@ -7,7 +7,6 @@ let segmentedAthletes; // for scatter plot
 
 let mostFrequentMedal; // for color coding in relation to medals
 let mostFrequentMedalsPerCountry = {};
-let medalsPerCountry = {};
 let cumulatedCountries;
 let medalColorSummer = [];
 let medalColorWinter = [];
@@ -15,9 +14,11 @@ let medalColorWinter = [];
 let thirdParameter = []; // for segments
 let currentFilters = [];
 let currentData;
-
+let medalsPerCountry = {};
 
 function getColorSummer(g = 0, s = 0, b = 0, max) {
+    medalsPerCountry = Object.assign({}, g);
+    console.log(medalsPerCountry);
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
@@ -37,6 +38,7 @@ function getColorWinter(g = 0, s = 0, b = 0, max) {
     medalColorWinter.push(color);
 
 }
+
 $(function() {
     stage = $('#stage');
     stageHeight = stage.height();
@@ -125,8 +127,9 @@ function prepareData() {
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
     groupedMedalsSummer = gmynd.groupData(medalsSummer, ["countryName"]);
     medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
-    groupedMedalsWinter = gmynd.groupData(medalsSummer, ["countryName"]);
+    groupedMedalsWinter = gmynd.groupData(medalsWinter, ["countryName"]);
     console.log(groupedMedalsSummer);
+    console.log(groupedMedalsWinter);
 
     for (let countryName in groupedMedalsSummer) {
         let country = groupedMedalsSummer[countryName];
@@ -160,7 +163,6 @@ function prepareData() {
         mostFrequentMedal = { countryName: countryName, Medal: "", count: 0 };
         let goldCount, silverCount, bronzeCount = 0;
         country.forEach(medalType => {
-
             if (medalType.count > mostFrequentMedal.count) {
                 mostFrequentMedal = {};
                 mostFrequentMedal = Object.assign({}, medalType);
