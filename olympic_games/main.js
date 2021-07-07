@@ -11,13 +11,13 @@ let cumulatedCountries;
 let medalColorSummer = [];
 let medalColorWinter = [];
 
-let medalCountGoldSummer = [];
-let medalCountSilverSummer = [];
-let medalCountBronzeSummer = [];
+let medalCountGoldSummer = []; //for hover (map)
+let medalCountSilverSummer = []; //for hover (map)
+let medalCountBronzeSummer = []; //for hover (map)
 
-let medalCountGoldWinter = [];
-let medalCountSilverWinter = [];
-let medalCountBronzeWinter = [];
+let medalCountGoldWinter = []; //for hover (map)
+let medalCountSilverWinter = []; //for hover (map)
+let medalCountBronzeWinter = []; //for hover (map)
 
 let thirdParameter = []; // for segments
 let currentFilters = [];
@@ -29,6 +29,7 @@ function getColorSummer(g = 0, s = 0, b = 0, max) {
     medalCountGoldSummer.push(g);
     medalCountSilverSummer.push(s);
     medalCountBronzeSummer.push(b);
+
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
@@ -43,12 +44,13 @@ function getColorWinter(g = 0, s = 0, b = 0, max) {
     medalCountGoldWinter.push(g);
     medalCountSilverWinter.push(s);
     medalCountBronzeWinter.push(b);
+
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
     let color = chroma([255 - R, 255 - G, 255 - B]);
     let lab = color.lab();
-    color = chroma.lab([70, lab[1], lab[2]]);
+    color = chroma.lab([80, lab[1], lab[2]]);
     medalColorWinter.push(color);
 
 }
@@ -131,12 +133,12 @@ function prepareData() {
 
     // Functions to calculate Games (for spiral)
     games = gmynd.cumulateData(cityContinents, ["Year", "City", "continent", "Season"]);
-    console.log(games);
+    // console.log(games);
 
     //Functions to separate Winter and Summer Games (for map)
     medalistsAtSummerGames = gmynd.findAllByValue(data, "Season", "Summer");
     medalistsAtWinterGames = gmynd.findAllByValue(data, "Season", "Winter");
-    console.log(medalistsAtSummerGames);
+    // console.log(medalistsAtSummerGames);
 
     //Functions to calculate the number of different medals (for map)
     medalsSummer = gmynd.cumulateData(medalistsAtSummerGames, ["countryName", "Medal"]);
@@ -377,7 +379,7 @@ function drawSummerMap() {
                 'color': medalColorSummer[index],
             });
             //Gold medals
-            $('#hoverGold').text(medalCountGoldSummer[index] + ' x Gold'); // hier sollte nicht der country.count stehen, sondern die Anzahl der jeweiligen Medaille
+            $('#hoverGold').text(medalCountGoldSummer[index] + ' x Gold');
             $('#hoverGold').css({
                 'color': '#CBCD2B',
             });
