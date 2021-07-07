@@ -18,8 +18,6 @@ let medalsPerCountry = {};
 
 // calculating colors in relation to medals (for map)
 function getColorSummer(g = 0, s = 0, b = 0, max) {
-    medalsPerCountry = Object.assign({}, g);
-    console.log(medalsPerCountry);
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
@@ -55,6 +53,7 @@ function addToFilters(prop) {
     currentFilters.pop();
 };
 
+// calculations for third screen (hover and third parameter)
 function getDataSubset() {
     const calculations = [{
             value: thirdParameter,
@@ -477,19 +476,6 @@ function drawWinterMap() {
     });
 }
 
-function createDots() {
-    //for scatterplot
-    dot.data({
-        plotHeight: rPlot * 2,
-        plotWidth: rPlot * 2,
-        plotLeft: xPlot,
-        plotTop: yPlot,
-        plotPosition: 'absolute',
-        plotColor: thirdParameterColor,
-        plotRadius: '100%',
-    });
-}
-
 function drawAgeAndHeight() {
     $('.summer').hide();
     $('.winter').hide();
@@ -591,10 +577,8 @@ function drawWeightAndAge() {
     $('.height').show();
 
     // Diagram based on Age and Weight
-    // currentFilters = [filter1, filter2];
     currentFilters = ["AgeSegmentOf20", "WeightSegmentOf20"];
     thirdParameter = "Height";
-    // thirdParameter = third;
     currentData = getDataSubset();
     console.log(currentData);
 
