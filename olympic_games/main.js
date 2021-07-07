@@ -129,8 +129,8 @@ function prepareData() {
     groupedMedalsSummer = gmynd.groupData(medalsSummer, ["countryName"]);
     medalsWinter = gmynd.cumulateData(medalistsAtWinterGames, ["countryName", "Medal"]);
     groupedMedalsWinter = gmynd.groupData(medalsWinter, ["countryName"]);
-    console.log(groupedMedalsSummer);
-    console.log(groupedMedalsWinter);
+    // console.log(groupedMedalsSummer);
+    // console.log(groupedMedalsWinter);
 
     for (let countryName in groupedMedalsSummer) {
         let country = groupedMedalsSummer[countryName];
@@ -329,9 +329,9 @@ function drawSummerMap() {
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
-        let dot = $('<div></div>');
-        dot.addClass("medalistsAtSummerGames");
-        dot.css({
+        let mapDot = $('<div></div>');
+        mapDot.addClass("medalistsAtSummerGames");
+        mapDot.css({
             'height': rMap * 2,
             'width': rMap * 2,
             'left': xMap,
@@ -340,12 +340,12 @@ function drawSummerMap() {
             'position': 'absolute',
             'background-color': medalColorSummer[index],
         });
-        dot.data(country);
-        stage.append(dot);
+        mapDot.data(country);
+        stage.append(mapDot);
 
-        dot.mouseover(() => {
-            dot.removeClass("hoverSummer");
-            dot.animate({
+        mapDot.mouseover(() => {
+            mapDot.removeClass("hoverSummer");
+            mapDot.animate({
                 'height': rMap * 2.5,
                 'width': rMap * 2.5,
                 'left': xMap - (rMap * 0.25),
@@ -378,8 +378,8 @@ function drawSummerMap() {
             });
         });
 
-        dot.mouseout(() => {
-            dot.animate({
+        mapDot.mouseout(() => {
+            mapDot.animate({
                 'height': rMap * 2,
                 'width': rMap * 2,
                 'left': xMap,
@@ -410,9 +410,9 @@ function drawWinterMap() {
         const rMap = gmynd.circleRadius(area);
         const xMap = gmynd.map(country.longitude, -120, 160, 0, stageWidth) - rMap;
         const yMap = gmynd.map(country.latitude, -85, 105, stageHeight, 0) - rMap;
-        let dot = $('<div></div>');
-        dot.addClass("medalistsAtWinterGames");
-        dot.css({
+        let mapDot = $('<div></div>');
+        mapDot.addClass("medalistsAtWinterGames");
+        mapDot.css({
             'height': rMap * 2,
             'width': rMap * 2,
             'left': xMap,
@@ -421,11 +421,11 @@ function drawWinterMap() {
             'background-color': medalColorWinter[index],
             'border-radius': '100%',
         });
-        dot.data(country);
-        stage.append(dot);
-        dot.mouseover(() => {
-            dot.removeClass("hoverWinter");
-            dot.animate({
+        mapDot.data(country);
+        stage.append(mapDot);
+        mapDot.mouseover(() => {
+            mapDot.removeClass("hoverWinter");
+            mapDot.animate({
                 'height': rMap * 2.5,
                 'width': rMap * 2.5,
                 'left': xMap - (rMap * 0.25),
@@ -458,8 +458,8 @@ function drawWinterMap() {
             });
         });
 
-        dot.mouseout(() => {
-            dot.animate({
+        mapDot.mouseout(() => {
+            mapDot.animate({
                 'height': rMap * 2,
                 'width': rMap * 2,
                 'left': xMap,
