@@ -11,6 +11,14 @@ let cumulatedCountries;
 let medalColorSummer = [];
 let medalColorWinter = [];
 
+let medalCountGoldSummer = [];
+let medalCountSilverSummer = [];
+let medalCountBronzeSummer = [];
+
+let medalCountGoldWinter = [];
+let medalCountSilverWinter = [];
+let medalCountBronzeWinter = [];
+
 let thirdParameter = []; // for segments
 let currentFilters = [];
 let currentData;
@@ -18,6 +26,9 @@ let medalsPerCountry = {};
 
 // calculating colors in relation to medals (for map)
 function getColorSummer(g = 0, s = 0, b = 0, max) {
+    medalCountGoldSummer.push(g);
+    medalCountSilverSummer.push(s);
+    medalCountBronzeSummer.push(b);
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
@@ -29,6 +40,9 @@ function getColorSummer(g = 0, s = 0, b = 0, max) {
 
 // calculating colors in relation to medals (for map)
 function getColorWinter(g = 0, s = 0, b = 0, max) {
+    medalCountGoldWinter.push(g);
+    medalCountSilverWinter.push(s);
+    medalCountBronzeWinter.push(b);
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
     let B = gmynd.map((g / max) * 255, 0, 255, 0, 255);
@@ -186,6 +200,7 @@ function prepareData() {
     }
     // console.log("mostFrequentMedalsPerCountry:");
     // console.log(mostFrequentMedalsPerCountry);
+    console.log(medalCountGoldSummer);
 
 
     // Function to see number of medalists (for map)
@@ -362,17 +377,17 @@ function drawSummerMap() {
                 'color': medalColorSummer[index],
             });
             //Gold medals
-            $('#hoverGold').text(country.count + ' x Gold');
+            $('#hoverGold').text(medalCountGoldSummer[index] + ' x Gold'); // hier sollte nicht der country.count stehen, sondern die Anzahl der jeweiligen Medaille
             $('#hoverGold').css({
                 'color': '#CBCD2B',
             });
             //Silver medals
-            $('#hoverSilver').text(country.count + ' x Silver');
+            $('#hoverSilver').text(medalCountSilverSummer[index] + ' x Silver');
             $('#hoverSilver').css({
                 'color': '#26DFDE',
             });
             //Bronze medals
-            $('#hoverBronze').text(country.count + ' x Bronze');
+            $('#hoverBronze').text(medalCountBronzeSummer[index] + ' x Bronze');
             $('#hoverBronze').css({
                 'color': '#FD7FFD',
             });
@@ -439,22 +454,22 @@ function drawWinterMap() {
             //Continent
             $('#hoverCountryMap').text(country.countryName);
             $('#hoverCountryMap').css({
-                'color': medalColorSummer[index],
+                'color': medalColorWinter[index],
             });
             //Gold medals
-            $('#hoverGold').text(country.count + ' x Gold');
+            $('#hoverGold').text(medalCountGoldWinter[index] + ' x Gold');
             $('#hoverGold').css({
                 'color': '#CBCD2B',
             });
             //Silver medals
-            $('#hoverSilver').text(country.count + ' x Silver');
+            $('#hoverSilver').text(medalCountSilverWinter[index] + ' x Silver');
             $('#hoverSilver').css({
                 'color': '#26DFDE',
             });
             //Bronze medals
-            $('#hoverBronze').text(country.count + ' x Bronze');
+            $('#hoverBronze').text(medalCountBronzeWinter[index] + ' x Bronze');
             $('#hoverBronze').css({
-                'color': 'white',
+                'color': '#FD7FFD',
             });
         });
 
