@@ -16,6 +16,7 @@ let currentFilters = [];
 let currentData;
 let medalsPerCountry = {};
 
+// calculating colors in relation to medals (for map)
 function getColorSummer(g = 0, s = 0, b = 0, max) {
     medalsPerCountry = Object.assign({}, g);
     console.log(medalsPerCountry);
@@ -28,6 +29,7 @@ function getColorSummer(g = 0, s = 0, b = 0, max) {
     medalColorSummer.push(color);
 }
 
+// calculating colors in relation to medals (for map)
 function getColorWinter(g = 0, s = 0, b = 0, max) {
     let R = gmynd.map((s / max) * 255, 0, 255, 0, 255);
     let G = gmynd.map((b / max) * 255, 0, 255, 0, 255);
@@ -489,7 +491,6 @@ function createDots() {
 }
 
 function drawAgeAndHeight() {
-
     $('.summer').hide();
     $('.winter').hide();
     $('.age').show();
